@@ -16,595 +16,152 @@
     --card-bg: rgba(255,255,255,0.72);
     --border: rgba(107,143,113,0.18);
   }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Noto Sans KR',sans-serif; background:var(--warm-white); color:var(--ink); min-height:100vh; overflow-x:hidden; }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: 'Noto Sans KR', sans-serif;
-    background: var(--warm-white);
-    color: var(--ink);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* === PASSWORD GATE === */
+  /* PASSWORD */
   #pw-gate {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position:fixed; inset:0; z-index:9999;
+    display:flex; align-items:center; justify-content:center;
     background:
-      radial-gradient(ellipse 70% 60% at 30% 70%, rgba(107,143,113,0.2) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 50% at 70% 20%, rgba(139,123,168,0.15) 0%, transparent 55%),
+      radial-gradient(ellipse 70% 60% at 30% 70%,rgba(107,143,113,0.2) 0%,transparent 60%),
+      radial-gradient(ellipse 60% 50% at 70% 20%,rgba(139,123,168,0.15) 0%,transparent 55%),
       var(--warm-white);
-    transition: opacity 0.6s ease, visibility 0.6s ease;
+    transition:opacity .6s,visibility .6s;
   }
+  #pw-gate.hidden { opacity:0; visibility:hidden; pointer-events:none; }
+  .pw-box { text-align:center; padding:48px 40px; background:rgba(255,255,255,.85); border:1px solid var(--border); border-radius:24px; backdrop-filter:blur(16px); box-shadow:0 24px 64px rgba(0,0,0,.07); width:100%; max-width:360px; animation:fadeUp .7s ease both; }
+  .pw-emoji { font-size:36px; margin-bottom:16px; }
+  .pw-title { font-family:'Playfair Display',serif; font-size:26px; font-weight:700; margin-bottom:6px; }
+  .pw-sub { font-size:13px; color:#999; margin-bottom:28px; }
+  .pw-input-wrap { position:relative; margin-bottom:14px; }
+  #pw-input { width:100%; padding:14px 48px 14px 18px; border:1.5px solid var(--border); border-radius:12px; font-size:20px; letter-spacing:8px; text-align:center; background:var(--warm-white); color:var(--ink); outline:none; transition:border-color .2s; }
+  #pw-input:focus { border-color:var(--sage); }
+  #pw-input.error { border-color:#e05555; animation:shake .4s ease; }
+  #pw-toggle { position:absolute; right:14px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:18px; color:#bbb; }
+  #pw-btn { width:100%; padding:14px; background:var(--sage); color:#fff; border:none; border-radius:12px; font-size:14px; font-family:'Noto Sans KR',sans-serif; font-weight:500; letter-spacing:1px; cursor:pointer; transition:background .2s,transform .1s; }
+  #pw-btn:hover { background:#5a7d60; }
+  #pw-btn:active { transform:scale(.98); }
+  .pw-error-msg { margin-top:12px; font-size:12px; color:#e05555; height:16px; }
+
+  /* HERO */
+  .hero { position:relative; min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:60px 24px; background: radial-gradient(ellipse 80% 60% at 20% 80%,rgba(107,143,113,0.18) 0%,transparent 60%), radial-gradient(ellipse 60% 50% at 80% 20%,rgba(139,123,168,0.14) 0%,transparent 55%), var(--warm-white); overflow:hidden; }
+  .hero::before { content:''; position:absolute; inset:0; background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%236b8f71' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); pointer-events:none; }
+  .hero-tag { font-size:11px; font-weight:500; letter-spacing:3px; text-transform:uppercase; color:var(--sage); border:1px solid var(--sage); padding:6px 18px; border-radius:100px; margin-bottom:32px; animation:fadeUp .8s ease both; }
+  .hero h1 { font-family:'Playfair Display',serif; font-size:clamp(44px,8vw,88px); font-weight:700; line-height:1.05; letter-spacing:-1px; margin-bottom:16px; animation:fadeUp .9s ease .1s both; }
+  .hero h1 em { font-style:italic; color:var(--sage); }
+  .hero-sub { font-size:15px; color:#666; letter-spacing:.5px; margin-bottom:48px; animation:fadeUp .9s ease .2s both; line-height:1.8; }
+  .hero-meta { display:flex; gap:16px; flex-wrap:wrap; justify-content:center; animation:fadeUp .9s ease .3s both; }
+  .meta-chip { display:flex; align-items:center; gap:8px; background:var(--card-bg); border:1px solid var(--border); border-radius:12px; padding:12px 20px; backdrop-filter:blur(8px); font-size:13px; font-weight:500; }
+  .scroll-hint { position:absolute; bottom:32px; left:50%; transform:translateX(-50%); font-size:11px; color:#aaa; letter-spacing:2px; display:flex; flex-direction:column; align-items:center; gap:8px; animation:fadeUp 1s ease .6s both; }
+  .scroll-line { width:1px; height:40px; background:linear-gradient(to bottom,var(--sage),transparent); animation:scrollDown 1.8s ease infinite; }
+
+  /* SECTION */
+  .section { max-width:900px; margin:0 auto; padding:80px 24px; }
+  .section-title { font-family:'Playfair Display',serif; font-size:13px; letter-spacing:4px; text-transform:uppercase; color:var(--sage); margin-bottom:40px; display:flex; align-items:center; gap:16px; }
+  .section-title::after { content:''; flex:1; height:1px; background:var(--border); }
+
+  /* DAY CARDS */
+  .day-list { display:flex; flex-direction:column; gap:20px; }
+  .day-card { background:var(--card-bg); border:1px solid var(--border); border-radius:20px; overflow:hidden; backdrop-filter:blur(10px); transition:transform .3s,box-shadow .3s; }
+  .day-card:hover { transform:translateY(-3px); box-shadow:0 16px 48px rgba(0,0,0,.08); }
+  .day-header { display:flex; align-items:center; gap:20px; padding:24px 28px; cursor:pointer; user-select:none; }
+  .day-num { font-family:'Playfair Display',serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#fff; background:var(--sage); padding:6px 14px; border-radius:100px; flex-shrink:0; }
+  .day-num.d2{background:var(--lavender);} .day-num.d3{background:#c77a4a;} .day-num.d4{background:#4a7fc7;} .day-num.d5{background:var(--gold);color:var(--ink);}
+  .day-info { flex:1; }
+  .day-date { font-size:12px; color:#999; letter-spacing:1px; margin-bottom:4px; }
+  .day-title { font-family:'Noto Serif KR',serif; font-size:18px; font-weight:600; }
+  .day-toggle { font-size:18px; color:#bbb; transition:transform .3s; }
+  .day-card.open .day-toggle { transform:rotate(180deg); }
+  .day-body { display:none; padding:0 28px 28px; border-top:1px solid var(--border); }
+  .day-card.open .day-body { display:block; }
+
+  /* SCHEDULE */
+  .schedule-list { list-style:none; padding:20px 0 0; display:flex; flex-direction:column; }
+  .schedule-item { display:grid; grid-template-columns:72px 1fr; position:relative; }
+  .schedule-item:not(:last-child)::after { content:''; position:absolute; left:34px; top:32px; bottom:-4px; width:1px; background:var(--border); }
+  .sched-time { font-size:11px; font-weight:500; color:var(--sage); padding-top:6px; text-align:right; letter-spacing:.5px; }
+  .sched-dot { position:absolute; left:29px; top:8px; width:10px; height:10px; border-radius:50%; background:var(--sage); border:2px solid var(--warm-white); }
+  .sched-content { padding:2px 0 22px 20px; }
+  .sched-place { font-weight:600; font-size:15px; margin-bottom:6px; color:var(--ink); }
+  .sched-detail { font-size:12.5px; color:#555; line-height:1.85; margin-bottom:8px; }
+  .sched-info { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:9px; }
+  .info-chip { font-size:11px; color:#666; background:var(--mist); padding:3px 10px; border-radius:20px; }
+  .info-chip.red { background:rgba(220,80,80,.1); color:#c04040; }
+  .info-chip.green { background:rgba(80,160,80,.1); color:#2d6b2d; }
+  .info-chip.blue { background:rgba(70,120,200,.1); color:#2a5d99; }
+  .sched-bottom { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .sched-tag { display:inline-block; font-size:10px; font-weight:500; letter-spacing:1px; padding:3px 9px; border-radius:4px; }
+  .tag-food{background:rgba(201,168,76,.15);color:#a07020;} .tag-sight{background:rgba(107,143,113,.15);color:#3d6b43;} .tag-shop{background:rgba(139,123,168,.15);color:#6b5d8a;} .tag-onsen{background:rgba(74,127,199,.15);color:#2a5d99;} .tag-nature{background:rgba(100,160,100,.15);color:#2d6b2d;} .tag-move{background:rgba(100,100,100,.1);color:#555;}
+
+  /* MAP BTN */
+  .map-btn { display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:500; color:#4285F4; background:rgba(66,133,244,.08); border:1px solid rgba(66,133,244,.25); border-radius:20px; padding:4px 12px; text-decoration:none; transition:background .2s,transform .1s; }
+  .map-btn:hover { background:rgba(66,133,244,.18); transform:translateY(-1px); }
+
+  /* HOTEL */
+  .hotel-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:16px; }
+  .hotel-card { background:var(--card-bg); border:1px solid var(--border); border-radius:16px; padding:22px; backdrop-filter:blur(8px); transition:transform .3s,box-shadow .3s; }
+  .hotel-card:hover { transform:translateY(-3px); box-shadow:0 12px 32px rgba(0,0,0,.07); }
+  .hotel-nights { font-size:10px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:var(--sage); margin-bottom:8px; }
+  .hotel-name { font-family:'Noto Serif KR',serif; font-size:15px; font-weight:600; margin-bottom:4px; line-height:1.4; }
+  .hotel-rating { font-size:12px; color:var(--gold); margin-bottom:8px; }
+  .hotel-detail { font-size:12px; color:#666; line-height:1.7; margin-bottom:12px; }
+  .hotel-tags { display:flex; flex-wrap:wrap; gap:4px; margin-bottom:12px; }
+  .hotel-tag { font-size:10px; padding:3px 8px; border-radius:4px; background:var(--mist); color:#666; }
+
+  /* BUDGET */
+  .budget-table { width:100%; border-collapse:collapse; font-size:13px; }
+  .budget-table th { text-align:left; padding:10px 14px; background:var(--mist); color:var(--sage); font-weight:500; letter-spacing:1px; font-size:11px; text-transform:uppercase; }
+  .budget-table td { padding:12px 14px; border-bottom:1px solid var(--border); color:#444; }
+  .budget-table tr:last-child td { border-bottom:none; font-weight:600; color:var(--ink); background:var(--mist); }
+  .budget-table .amt { text-align:right; }
+
+  /* TIPS */
+  .tips-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; }
+  .tip-card { background:var(--card-bg); border:1px solid var(--border); border-radius:14px; padding:20px; backdrop-filter:blur(8px); }
+  .tip-icon { font-size:24px; margin-bottom:10px; }
+  .tip-label { font-size:11px; font-weight:500; letter-spacing:1.5px; text-transform:uppercase; color:var(--sage); margin-bottom:6px; }
+  .tip-text { font-size:13px; color:#555; line-height:1.7; }
+
+  .divider { height:1px; background:var(--border); max-width:900px; margin:0 auto; }
+  footer { text-align:center; padding:48px 24px; border-top:1px solid var(--border); font-size:12px; color:#bbb; letter-spacing:1px; }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes scrollDown { 0%,100%{opacity:1} 50%{opacity:.3} }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-5px)} 80%{transform:translateX(5px)} }
+  .fade-in { opacity:0; transform:translateY(20px); transition:opacity .7s,transform .7s; }
+  .fade-in.visible { opacity:1; transform:translateY(0); }
 
-  #pw-gate.hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
-
-  .pw-box {
-    text-align: center;
-    padding: 48px 40px;
-    background: rgba(255,255,255,0.8);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    backdrop-filter: blur(16px);
-    box-shadow: 0 24px 64px rgba(0,0,0,0.07);
-    width: 100%;
-    max-width: 360px;
-    animation: fadeUp 0.7s ease both;
-  }
-
-  .pw-emoji { font-size: 36px; margin-bottom: 16px; }
-
-  .pw-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 26px;
-    font-weight: 700;
-    color: var(--ink);
-    margin-bottom: 6px;
-  }
-
-  .pw-sub {
-    font-size: 13px;
-    color: #999;
-    margin-bottom: 28px;
-    letter-spacing: 0.5px;
-  }
-
-  .pw-input-wrap {
-    position: relative;
-    margin-bottom: 14px;
-  }
-
-  #pw-input {
-    width: 100%;
-    padding: 14px 48px 14px 18px;
-    border: 1.5px solid var(--border);
-    border-radius: 12px;
-    font-size: 18px;
-    font-family: 'Noto Sans KR', sans-serif;
-    letter-spacing: 6px;
-    text-align: center;
-    background: var(--warm-white);
-    color: var(--ink);
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  #pw-input:focus { border-color: var(--sage); }
-  #pw-input.error { border-color: #e05555; animation: shake 0.4s ease; }
-
-  #pw-toggle {
-    position: absolute;
-    right: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
-    color: #bbb;
-    padding: 0;
-  }
-
-  #pw-btn {
-    width: 100%;
-    padding: 14px;
-    background: var(--sage);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 14px;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 500;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
-  }
-
-  #pw-btn:hover { background: #5a7d60; }
-  #pw-btn:active { transform: scale(0.98); }
-
-  .pw-error-msg {
-    margin-top: 12px;
-    font-size: 12px;
-    color: #e05555;
-    height: 16px;
-    transition: opacity 0.2s;
-  }
-
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    20% { transform: translateX(-8px); }
-    40% { transform: translateX(8px); }
-    60% { transform: translateX(-5px); }
-    80% { transform: translateX(5px); }
-  }
-
-  /* === HERO === */
-  .hero {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 60px 24px;
-    background:
-      radial-gradient(ellipse 80% 60% at 20% 80%, rgba(107,143,113,0.18) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(139,123,168,0.14) 0%, transparent 55%),
-      radial-gradient(ellipse 50% 40% at 50% 50%, rgba(201,168,76,0.07) 0%, transparent 60%),
-      var(--warm-white);
-    overflow: hidden;
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236b8f71' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    pointer-events: none;
-  }
-
-  .hero-tag {
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--sage);
-    border: 1px solid var(--sage);
-    padding: 6px 18px;
-    border-radius: 100px;
-    margin-bottom: 32px;
-    animation: fadeUp 0.8s ease both;
-  }
-
-  .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(44px, 8vw, 88px);
-    font-weight: 700;
-    line-height: 1.05;
-    letter-spacing: -1px;
-    color: var(--ink);
-    margin-bottom: 16px;
-    animation: fadeUp 0.9s ease 0.1s both;
-  }
-
-  .hero h1 em {
-    font-style: italic;
-    color: var(--sage);
-  }
-
-  .hero-sub {
-    font-size: 15px;
-    color: #666;
-    letter-spacing: 0.5px;
-    margin-bottom: 48px;
-    animation: fadeUp 0.9s ease 0.2s both;
-    line-height: 1.8;
-  }
-
-  .hero-meta {
-    display: flex;
-    gap: 32px;
-    flex-wrap: wrap;
-    justify-content: center;
-    animation: fadeUp 0.9s ease 0.3s both;
-  }
-
-  .meta-chip {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 12px 20px;
-    backdrop-filter: blur(8px);
-    font-size: 13px;
-    font-weight: 500;
-  }
-
-  .meta-chip .icon { font-size: 18px; }
-
-  .scroll-hint {
-    position: absolute;
-    bottom: 32px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 11px;
-    color: #aaa;
-    letter-spacing: 2px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    animation: fadeUp 1s ease 0.6s both;
-  }
-
-  .scroll-line {
-    width: 1px;
-    height: 40px;
-    background: linear-gradient(to bottom, var(--sage), transparent);
-    animation: scrollDown 1.8s ease infinite;
-  }
-
-  /* === SECTION === */
-  .section {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 0 24px 80px;
-  }
-
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 13px;
-    font-weight: 400;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--sage);
-    margin-bottom: 40px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .section-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  /* === DAY CARDS === */
-  .day-list { display: flex; flex-direction: column; gap: 20px; }
-
-  .day-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    overflow: hidden;
-    backdrop-filter: blur(10px);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .day-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 16px 48px rgba(0,0,0,0.08);
-  }
-
-  .day-header {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 24px 28px;
-    cursor: pointer;
-    user-select: none;
-  }
-
-  .day-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: white;
-    background: var(--sage);
-    padding: 6px 14px;
-    border-radius: 100px;
-    flex-shrink: 0;
-  }
-
-  .day-num.day2 { background: var(--lavender); }
-  .day-num.day3 { background: #c77a4a; }
-  .day-num.day4 { background: #4a7fc7; }
-  .day-num.day5 { background: var(--gold); color: var(--ink); }
-
-  .day-info { flex: 1; }
-
-  .day-date {
-    font-size: 12px;
-    color: #999;
-    letter-spacing: 1px;
-    margin-bottom: 4px;
-  }
-
-  .day-title {
-    font-family: 'Noto Serif KR', serif;
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--ink);
-  }
-
-  .day-toggle {
-    font-size: 18px;
-    color: #bbb;
-    transition: transform 0.3s ease;
-  }
-
-  .day-card.open .day-toggle { transform: rotate(180deg); }
-
-  .day-body {
-    display: none;
-    padding: 0 28px 28px;
-    border-top: 1px solid var(--border);
-  }
-
-  .day-card.open .day-body { display: block; }
-
-  .schedule-list {
-    list-style: none;
-    padding: 20px 0 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .schedule-item {
-    display: grid;
-    grid-template-columns: 72px 1fr;
-    gap: 0 16px;
-    position: relative;
-  }
-
-  .schedule-item:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    left: 34px;
-    top: 32px;
-    bottom: -4px;
-    width: 1px;
-    background: var(--border);
-  }
-
-  .sched-time {
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--sage);
-    padding-top: 6px;
-    text-align: right;
-    letter-spacing: 0.5px;
-  }
-
-  .sched-dot {
-    position: absolute;
-    left: 29px;
-    top: 8px;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--sage);
-    border: 2px solid var(--warm-white);
-  }
-
-  .sched-content {
-    padding: 2px 0 20px 20px;
-  }
-
-  .sched-place {
-    font-weight: 500;
-    font-size: 15px;
-    margin-bottom: 3px;
-    color: var(--ink);
-  }
-
-  .sched-desc {
-    font-size: 12px;
-    color: #888;
-    line-height: 1.7;
-  }
-
-  .sched-tag {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    padding: 2px 8px;
-    border-radius: 4px;
-    margin-top: 4px;
-  }
-
-  .tag-food { background: rgba(201,168,76,0.15); color: #a07020; }
-  .tag-sight { background: rgba(107,143,113,0.15); color: #3d6b43; }
-  .tag-shop { background: rgba(139,123,168,0.15); color: #6b5d8a; }
-  .tag-onsen { background: rgba(74,127,199,0.15); color: #2a5d99; }
-  .tag-nature { background: rgba(100,160,100,0.15); color: #2d6b2d; }
-
-  /* === HOTEL CARDS === */
-  .hotel-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 16px;
-  }
-
-  .hotel-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 22px;
-    backdrop-filter: blur(8px);
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-
-  .hotel-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.07);
-  }
-
-  .hotel-nights {
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--sage);
-    margin-bottom: 8px;
-  }
-
-  .hotel-name {
-    font-family: 'Noto Serif KR', serif;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--ink);
-    margin-bottom: 6px;
-    line-height: 1.4;
-  }
-
-  .hotel-rating {
-    font-size: 12px;
-    color: var(--gold);
-    margin-bottom: 8px;
-  }
-
-  .hotel-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    margin-top: 10px;
-  }
-
-  .hotel-tag {
-    font-size: 10px;
-    padding: 3px 8px;
-    border-radius: 4px;
-    background: var(--mist);
-    color: #666;
-  }
-
-  /* === TIPS === */
-  .tips-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 14px;
-  }
-
-  .tip-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 20px;
-    backdrop-filter: blur(8px);
-  }
-
-  .tip-icon { font-size: 24px; margin-bottom: 10px; }
-  .tip-label {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--sage);
-    margin-bottom: 6px;
-  }
-  .tip-text { font-size: 13px; color: #555; line-height: 1.7; }
-
-  /* === FOOTER === */
-  footer {
-    text-align: center;
-    padding: 48px 24px;
-    border-top: 1px solid var(--border);
-    font-size: 12px;
-    color: #bbb;
-    letter-spacing: 1px;
-  }
-
-  /* === ANIMATIONS === */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes scrollDown {
-    0%, 100% { opacity: 1; transform: scaleY(1); transform-origin: top; }
-    50% { opacity: 0.3; transform: scaleY(0.5); transform-origin: top; }
-  }
-
-  .fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-  /* === DIVIDER === */
-  .divider {
-    height: 1px;
-    background: var(--border);
-    margin: 0 0 80px;
-  }
-
-  /* mobile */
-  @media (max-width: 600px) {
-    .hero-meta { gap: 12px; }
-    .meta-chip { font-size: 12px; padding: 10px 14px; }
-    .day-header { padding: 20px; }
-    .day-body { padding: 0 20px 20px; }
-  }
+  @media(max-width:600px){ .day-header{padding:18px 20px;} .day-body{padding:0 20px 20px;} .hero-meta{gap:10px;} .meta-chip{font-size:12px;padding:10px 14px;} }
 </style>
 </head>
 <body>
 
-<!-- PASSWORD GATE -->
 <div id="pw-gate">
   <div class="pw-box">
     <div class="pw-emoji">🔐</div>
     <div class="pw-title">삿포로 여행 플랜</div>
     <div class="pw-sub">비밀번호를 입력해주세요</div>
     <div class="pw-input-wrap">
-      <input type="password" id="pw-input" placeholder="••••••" maxlength="20"
-        onkeydown="if(event.key==='Enter') checkPw()">
-      <button id="pw-toggle" onclick="togglePwVisibility()" title="보기/숨기기">👁</button>
+      <input type="password" id="pw-input" placeholder="••••••" maxlength="20" onkeydown="if(event.key==='Enter')checkPw()">
+      <button id="pw-toggle" onclick="togglePw()">👁</button>
     </div>
     <button id="pw-btn" onclick="checkPw()">입장하기</button>
     <div class="pw-error-msg" id="pw-error"></div>
   </div>
 </div>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-tag">✈ Travel Plan · 2025 Summer</div>
   <h1>삿포로<br><em>4박 5일</em></h1>
-  <p class="hero-sub">
-    8월 2일(일) — 8월 6일(목) &nbsp;·&nbsp; 성인 2명<br>
-    라벤더 절정 시즌의 홋카이도
-  </p>
+  <p class="hero-sub">8월 2일(일) — 8월 6일(목) &nbsp;·&nbsp; 성인 2명<br>라벤더 절정 시즌의 홋카이도</p>
   <div class="hero-meta">
-    <div class="meta-chip"><span class="icon">🛫</span> 김해 출발 · 11:00 AM</div>
-    <div class="meta-chip"><span class="icon">🌸</span> 라벤더 + 해바라기 절정</div>
-    <div class="meta-chip"><span class="icon">♨️</span> 온천 포함</div>
-    <div class="meta-chip"><span class="icon">👥</span> 성인 2명</div>
+    <div class="meta-chip">🛫 김해 출발 11:00</div>
+    <div class="meta-chip">💜 라벤더 절정 시즌</div>
+    <div class="meta-chip">♨️ 온천 1박 포함</div>
+    <div class="meta-chip">👥 성인 2명</div>
   </div>
-  <div class="scroll-hint">
-    <div class="scroll-line"></div>
-    SCROLL
-  </div>
+  <div class="scroll-hint"><div class="scroll-line"></div>SCROLL</div>
 </section>
 
 <!-- ITINERARY -->
@@ -616,282 +173,415 @@
     <div class="day-card open">
       <div class="day-header" onclick="toggleDay(this)">
         <span class="day-num">DAY 1</span>
-        <div class="day-info">
-          <div class="day-date">8월 2일 일요일</div>
-          <div class="day-title">삿포로 입성 &amp; 시내 탐방</div>
-        </div>
+        <div class="day-info"><div class="day-date">8월 2일 일요일</div><div class="day-title">삿포로 입성 &amp; 시내 탐방</div></div>
         <span class="day-toggle">▼</span>
       </div>
-      <div class="day-body">
-        <ul class="schedule-list">
-          <li class="schedule-item">
-            <span class="sched-time">11:00</span>
-            <div class="sched-dot"></div>
-            <div class="sched-content">
-              <div class="sched-place">✈ 김해공항 출발</div>
-              <div class="sched-desc">신치토세 공항 약 14:00~14:30 도착 (비행 약 2시간)</div>
+      <div class="day-body"><ul class="schedule-list">
+
+        <li class="schedule-item">
+          <span class="sched-time">11:00</span><div class="sched-dot"></div>
+          <div class="sched-content">
+            <div class="sched-place">✈ 김해국제공항 출발</div>
+            <div class="sched-detail">신치토세(新千歳) 공항 약 14:00~14:30 도착. 비행 약 2시간, 입국심사+수하물 약 30분 예상.</div>
+            <div class="sched-info"><span class="info-chip blue">✈ 비행 약 2시간</span><span class="info-chip">입국 후 JR로 삿포로 이동</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-move">이동</span>
+              <a class="map-btn" href="https://maps.app.goo.gl/KCK9Rm7QXBMwY6Kq6" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>신치토세 공항
+              </a>
             </div>
-          </li>
-          <li class="schedule-item">
-            <span class="sched-time">15:00</span>
-            <div class="sched-dot"></div>
-            <div class="sched-content">
-              <div class="sched-place">🏙 오도리 공원 &amp; TV타워</div>
-              <div class="sched-desc">삿포로 도심 첫 인상. TV타워 전망대(1,000엔)에서 바둑판 도시 전경 감상</div>
-              <span class="sched-tag tag-sight">관광</span>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">14:30</span><div class="sched-dot"></div>
+          <div class="sched-content">
+            <div class="sched-place">🚃 신치토세 → 삿포로역 JR 이동</div>
+            <div class="sched-detail">JR 쾌속 에어포트 탑승. 약 37분. 삿포로역 도착 후 호텔 체크인. Suica로 탑승 가능.</div>
+            <div class="sched-info"><span class="info-chip blue">약 37분</span><span class="info-chip">💴 1,150엔</span><span class="info-chip green">✅ Suica 사용 가능</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-move">이동</span></div>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">16:00</span><div class="sched-dot"></div>
+          <div class="sched-content">
+            <div class="sched-place">🏙 오도리 공원 &amp; 삿포로 TV타워</div>
+            <div class="sched-detail">동서 1.5km의 도심 녹지 공원. 8월은 삿포로 맥주 가든 시즌! TV타워 전망대(90m)에서 바둑판 도시 한눈에 조망.</div>
+            <div class="sched-info"><span class="info-chip">🕐 TV타워 9:00~22:00</span><span class="info-chip">💴 전망대 1,000엔</span><span class="info-chip green">🌳 공원 무료</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-sight">관광</span>
+              <a class="map-btn" href="https://maps.google.com/?cid=16286171258450747441" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>TV타워 지도
+              </a>
+              <a class="map-btn" href="https://maps.google.com/?cid=14429024907484773390" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>오도리 공원
+              </a>
             </div>
-          </li>
-          <li class="schedule-item">
-            <span class="sched-time">16:30</span>
-            <div class="sched-dot"></div>
-            <div class="sched-content">
-              <div class="sched-place">🛍 다누키코지 쇼핑 아케이드</div>
-              <div class="sched-desc">지붕 있는 실내 상점가. 기념품·약국·음식점 집결지</div>
-              <span class="sched-tag tag-shop">쇼핑</span>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">17:30</span><div class="sched-dot"></div>
+          <div class="sched-content">
+            <div class="sched-place">🛍 다누키코지 쇼핑 아케이드</div>
+            <div class="sched-detail">1~7丁目 약 900m 지붕 덮인 상점가. 기념품·약국·돈키호테·음식점 집결. 비 와도 OK. 면세 쇼핑 가능.</div>
+            <div class="sched-info"><span class="info-chip">🕐 대부분 ~21:00</span><span class="info-chip green">✅ 면세 가능</span><span class="info-chip">☂ 비와도 OK</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-shop">쇼핑</span>
+              <a class="map-btn" href="https://maps.google.com/?cid=4470248669125351329" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+              </a>
             </div>
-          </li>
-          <li class="schedule-item">
-            <span class="sched-time">18:30</span>
-            <div class="sched-dot"></div>
-            <div class="sched-content">
-              <div class="sched-place">🍜 삿포로 라멘 하루카</div>
-              <div class="sched-desc">원조 라멘 요코초. 평점 4.8 ⭐ 치즈 미소라멘 필수! 17시 일찍 줄 서기 권장</div>
-              <span class="sched-tag tag-food">맛집</span>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">18:30</span><div class="sched-dot"></div>
+          <div class="sched-content">
+            <div class="sched-place">🍜 삿포로 라멘 하루카 (はるか)</div>
+            <div class="sched-detail">원조 삿포로 라멘 요코초 내 ⭐4.8 최고 인기 가게. 치즈 미소라멘·가라미소라멘 필수. 좌석 9석 소규모 — 17시 오픈 직후 방문하거나 줄 서기 각오.</div>
+            <div class="sched-info"><span class="info-chip">🕐 11:00~15:00, 17:00~23:00</span><span class="info-chip">💴 1,200~1,500엔/그릇</span><span class="info-chip red">⚠ 현금 only · 줄 필수</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-food">맛집 ⭐4.8</span>
+              <a class="map-btn" href="https://maps.google.com/?cid=18191763978182280290" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+              </a>
             </div>
-          </li>
-          <li class="schedule-item">
-            <span class="sched-time">20:00</span>
-            <div class="sched-dot"></div>
-            <div class="sched-content">
-              <div class="sched-place">🌃 스스키노 야경</div>
-              <div class="sched-desc">홋카이도 최대 번화가. 야식 &amp; 야경 산책</div>
-              <span class="sched-tag tag-sight">야경</span>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">20:00</span><div class="sched-dot"></div>
+          <div class="sched-content">
+            <div class="sched-place">🌃 스스키노 야경 산책</div>
+            <div class="sched-detail">홋카이도 최대 번화가. 닛카 위스키 광고판이 상징. 해산물 이자카야·징기스칸 구이 등 야식으로 저녁 마무리. 숙소(SAPPORO STREAM HOTEL) 도보 5분 거리.</div>
+            <div class="sched-info"><span class="info-chip">🍺 징기스칸·해산물 이자카야 즐비</span><span class="info-chip blue">🏨 숙소 도보 5분</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-sight">야경</span>
+              <a class="map-btn" href="https://maps.google.com/?q=susukino+sapporo" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+              </a>
             </div>
-          </li>
-        </ul>
-      </div>
+          </div>
+        </li>
+
+      </ul></div>
     </div>
 
     <!-- DAY 2 -->
     <div class="day-card">
       <div class="day-header" onclick="toggleDay(this)">
-        <span class="day-num day2">DAY 2</span>
-        <div class="day-info">
-          <div class="day-date">8월 3일 월요일</div>
-          <div class="day-title">오타루 당일치기</div>
-        </div>
+        <span class="day-num d2">DAY 2</span>
+        <div class="day-info"><div class="day-date">8월 3일 월요일</div><div class="day-title">오타루 당일치기</div></div>
         <span class="day-toggle">▼</span>
       </div>
-      <div class="day-body">
-        <ul class="schedule-list">
-          <li class="schedule-item">
-            <span class="sched-time">09:00</span>
-            <div class="sched-dot" style="background:var(--lavender)"></div>
-            <div class="sched-content">
-              <div class="sched-place">🚃 JR 삿포로 → 오타루</div>
-              <div class="sched-desc">쾌속 약 35분, 1,340엔. 오전 일찍 출발 권장</div>
+      <div class="day-body"><ul class="schedule-list">
+
+        <li class="schedule-item">
+          <span class="sched-time">08:50</span><div class="sched-dot" style="background:var(--lavender)"></div>
+          <div class="sched-content">
+            <div class="sched-place">🚃 삿포로역 → 오타루역</div>
+            <div class="sched-detail">JR 쾌속 에어포트 또는 니세코 라이너. 약 32~40분. 오전 일찍 출발해야 운하 인파 전에 여유롭게 산책 가능.</div>
+            <div class="sched-info"><span class="info-chip blue">약 35분</span><span class="info-chip">💴 750엔</span><span class="info-chip green">✅ Suica 사용 가능</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-move">이동</span></div>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">10:00</span><div class="sched-dot" style="background:var(--lavender)"></div>
+          <div class="sched-content">
+            <div class="sched-place">🚢 오타루 운하 산책</div>
+            <div class="sched-detail">1914년 건설된 옛 창고 개조 낭만적 운하. 약 1.3km 산책 코스. 오전 방문 시 인파 적고 사진 좋음. 중앙교 위가 대표 포토스팟.</div>
+            <div class="sched-info"><span class="info-chip green">✅ 무료 · 24시간</span><span class="info-chip">📸 포토스팟: 중앙교 위</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-sight">관광</span>
+              <a class="map-btn" href="https://maps.google.com/?cid=355229862189438753" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+              </a>
             </div>
-          </li>
-          <li class="schedule-item">
-            <span class="sched-time">10:00</span>
-            <div class="sched-dot" style="background:var(--lavender)"></div>
-            <div class="sched-content">
-              <div class="sched-place">🚢 오타루 운하 산책</div>
-              <div class="sched-desc">옛 창고를 개조한 운하변 산책. 오전에 방문하면 인파 적고 사진 찍기 좋음</div>
-              <span class="sched-tag tag-sight">관광</span>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">11:00</span><div class="sched-dot" style="background:var(--lavender)"></div>
+          <div class="sched-content">
+            <div class="sched-place">⛵ 오타루 운하 크루즈</div>
+            <div class="sched-detail">운하 + 항구 바다 구간 약 40분 유람선. 한국어 오디오 가이드 제공. 출발 15분 전 티켓 구매 필요. 날씨 좋은 날 적극 추천.</div>
+            <div class="sched-info"><span class="info-chip">🕐 9:30~20:00</span><span class="info-chip">💴 1,800엔/인</span><span class="info-chip blue">🎧 한국어 오디오</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-sight">체험</span>
+              <a class="map-btn" href="https://maps.google.com/?cid=4643701814904872968" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+              </a>
             </div>
-          </li>
-          <li class="schedule-item">
-            <span class="sched-time">11:30</span>
-            <div class="sched-dot" style="background:var(--lavender)"></div>
-            <div class="sched-content">
-              <div class="sched-place">⛵ 오타루 운하 크루즈</div>
-              <div class="sched-desc">1,800엔/인. 운하와 바다를 돌아보는 유람선. 출발 15분 전 도착 필수</div>
-              <span class="sched-tag tag-sight">체험</span>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">12:30</span><div class="sched-dot" style="background:var(--lavender)"></div>
+          <div class="sched-content">
+            <div class="sched-place">🦞 오타루 해산물 점심</div>
+            <div class="sched-detail">오타루는 홋카이도 최대 어항 도시. 성게(うに)·연어알(いくら)·게(カニ) 덮밥이 명물. 사카이마치 거리 또는 운하 근처 스시집 추천.</div>
+            <div class="sched-info"><span class="info-chip">💴 1,500~3,000엔 내외</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-food">맛집</span>
+              <a class="map-btn" href="https://maps.google.com/?q=otaru+sakaimachi+street" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>사카이마치 거리
+              </a>
             </div>
-          </li>
-          <li class="schedule-item">
-            <span class="sched-time">13:00</span>
-            <div class="sched-dot" style="background:var(--lavender)"></div>
-            <div class="sched-content">
-              <div class="sched-place">🦞 오타루 해산물 점심</div>
-              <div class="sched-desc">운하 근처에서 해산물 덮밥 or 스시. 오타루는 해산물이 본진!</div>
-              <span class="sched-tag tag-food">맛집</span>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">14:00</span><div class="sched-dot" style="background:var(--lavender)"></div>
+          <div class="sched-content">
+            <div class="sched-place">🍫 시로이 코이비토 파크</div>
+            <div class="sched-detail">홋카이도 최대 히트 과자 공장 테마파크. 초콜릿 제조 체험·유럽풍 정원·박물관. 라벤더 소프트아이스크림 필수. 공항보다 여기서 구매가 저렴!</div>
+            <div class="sched-info"><span class="info-chip">🕐 10:00~18:00</span><span class="info-chip">💴 입장 800엔</span><span class="info-chip blue">🍪 쿠키 체험 별도</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-shop">쇼핑·체험</span>
+              <a class="map-btn" href="https://maps.google.com/?cid=13987684257188413841" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+              </a>
             </div>
-          </li>
-          <li class="schedule-item">
-            <span class="sched-time">14:30</span>
-            <div class="sched-dot" style="background:var(--lavender)"></div>
-            <div class="sched-content">
-              <div class="sched-place">🍫 시로이 코이비토 파크</div>
-              <div class="sched-desc">홋카이도 명과 '시로이 코이비토' 공장 테마파크. 입장 800엔. 라벤더 아이스크림 필수</div>
-              <span class="sched-tag tag-shop">쇼핑·체험</span>
-            </div>
-          </li>
-        </ul>
-      </div>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">17:00</span><div class="sched-dot" style="background:var(--lavender)"></div>
+          <div class="sched-content">
+            <div class="sched-place">🚃 오타루 → 삿포로 복귀</div>
+            <div class="sched-detail">JR 약 35분. 삿포로 복귀 후 저녁 식사 or 스스키노 야식.</div>
+            <div class="sched-info"><span class="info-chip blue">약 35분</span><span class="info-chip">💴 750엔</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-move">이동</span></div>
+          </div>
+        </li>
+
+      </ul></div>
     </div>
 
     <!-- DAY 3 -->
     <div class="day-card">
       <div class="day-header" onclick="toggleDay(this)">
-        <span class="day-num day3">DAY 3</span>
-        <div class="day-info">
-          <div class="day-date">8월 4일 화요일</div>
-          <div class="day-title">후라노 · 비에이 — 라벤더 &amp; 블루폰드</div>
-        </div>
+        <span class="day-num d3">DAY 3</span>
+        <div class="day-info"><div class="day-date">8월 4일 화요일</div><div class="day-title">후라노 · 비에이 — 라벤더 &amp; 블루폰드</div></div>
         <span class="day-toggle">▼</span>
       </div>
-      <div class="day-body">
-        <ul class="schedule-list">
-          <li class="schedule-item">
-            <span class="sched-time">07:30</span>
-            <div class="sched-dot" style="background:#c77a4a"></div>
-            <div class="sched-content">
-              <div class="sched-place">🚗 렌터카로 후라노 출발</div>
-              <div class="sched-desc">삿포로 → 후라노 약 2시간. 렌터카 필수 구간 (대중교통 불편)</div>
+      <div class="day-body"><ul class="schedule-list">
+
+        <li class="schedule-item">
+          <span class="sched-time">07:00</span><div class="sched-dot" style="background:#c77a4a"></div>
+          <div class="sched-content">
+            <div class="sched-place">🚗 렌터카 출발 (삿포로)</div>
+            <div class="sched-detail">삿포로역 근처 렌터카 픽업 후 후라노 방향 출발. 도오 자동차도 경유 약 2시간. 후라노·비에이는 렌터카 필수 구간.</div>
+            <div class="sched-info"><span class="info-chip blue">삿포로→후라노 약 2시간</span><span class="info-chip red">⚠ 렌터카 필수</span><span class="info-chip">⛽ 고속도로비 왕복 약 3,000엔</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-move">이동</span></div>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">09:30</span><div class="sched-dot" style="background:#c77a4a"></div>
+          <div class="sched-content">
+            <div class="sched-place">💜 팜 도미타 (ファーム富田)</div>
+            <div class="sched-detail">홋카이도 라벤더 성지. 7가지 색 꽃밭이 구릉을 물들임. 8월 초 = 라벤더+해바라기 동시 개화 절정! 라벤더 소프트아이스크림과 라벤더 향수 기념품 강추.</div>
+            <div class="sched-info"><span class="info-chip green">✅ 입장 무료</span><span class="info-chip">🕐 9:00~17:00</span><span class="info-chip">💜 8월 초 절정 시즌</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-nature">자연</span>
+              <a class="map-btn" href="https://maps.google.com/?cid=13217448091170401682" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+              </a>
             </div>
-          </li>
-          <li class="schedule-item">
-            <span class="sched-time">09:30</span>
-            <div class="sched-dot" style="background:#c77a4a"></div>
-            <div class="sched-content">
-              <div class="sched-place">💜 팜 도미타 (Farm Tomita)</div>
-              <div class="sched-desc">홋카이도 라벤더 성지. 입장 무료. 8월 초는 라벤더+해바라기 동시 절정! 라벤더 소프트아이스크림 필수</div>
-              <span class="sched-tag tag-nature">자연</span>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">11:00</span><div class="sched-dot" style="background:#c77a4a"></div>
+          <div class="sched-content">
+            <div class="sched-place">🌿 나카후라노 호쿠세이야마 라벤더밭</div>
+            <div class="sched-detail">팜 도미타보다 한적하고 언덕 위 파노라마 뷰가 압권. 체어리프트로 정상까지 편하게 이동. 전망 포토스팟에서 360도 뷰 감상.</div>
+            <div class="sched-info"><span class="info-chip green">✅ 입장 무료</span><span class="info-chip">💴 리프트 700엔</span><span class="info-chip">📸 360도 파노라마</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-nature">자연</span>
+              <a class="map-btn" href="https://maps.google.com/?cid=3549743686506611381" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+              </a>
             </div>
-          </li>
-          <li class="schedule-item">
-            <span class="sched-time">11:30</span>
-            <div class="sched-dot" style="background:#c77a4a"></div>
-            <div class="sched-content">
-              <div class="sched-place">🌿 나카후라노 호쿠세이야마 라벤더밭</div>
-              <div class="sched-desc">리프트(700엔) 타고 언덕 위 파노라마뷰. 팜 도미타보다 한적해서 여유롭게 즐길 수 있음</div>
-              <span class="sched-tag tag-nature">자연</span>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">13:00</span><div class="sched-dot" style="background:#c77a4a"></div>
+          <div class="sched-content">
+            <div class="sched-place">🍛 후라노 시내 점심</div>
+            <div class="sched-detail">후라노산 채소 듬뿍 오므라이스 or 스프카레가 명물. 후라노 와인·치즈도 꼭 맛볼 것.</div>
+            <div class="sched-info"><span class="info-chip">💴 1,000~1,500엔 내외</span><span class="info-chip">🧀 후라노 치즈 공방 근처</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-food">맛집</span>
+              <a class="map-btn" href="https://maps.google.com/?q=furano+city+hokkaido" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>후라노 시내
+              </a>
             </div>
-          </li>
-          <li class="schedule-item">
-            <span class="sched-time">13:00</span>
-            <div class="sched-dot" style="background:#c77a4a"></div>
-            <div class="sched-content">
-              <div class="sched-place">🍛 후라노 시내 점심</div>
-              <div class="sched-desc">후라노 오므라이스 or 스프카레. 신선한 홋카이도 채소 사용</div>
-              <span class="sched-tag tag-food">맛집</span>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">15:00</span><div class="sched-dot" style="background:#c77a4a"></div>
+          <div class="sched-content">
+            <div class="sched-place">💙 시로가네 블루폰드 (白金青い池)</div>
+            <div class="sched-detail">Apple 맥OS 배경화면으로 유명해진 신비로운 터키색 연못. 화산 분화 방지 공사로 우연히 생성. 파란 소프트아이스크림 꼭 먹을 것!</div>
+            <div class="sched-info"><span class="info-chip">🕐 8:00~21:00</span><span class="info-chip">💴 주차 200엔 (입장 무료)</span><span class="info-chip blue">🍦 파란 소프트아이스크림</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-nature">자연</span>
+              <a class="map-btn" href="https://maps.google.com/?cid=345959270472972190" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+              </a>
             </div>
-          </li>
-          <li class="schedule-item">
-            <span class="sched-time">14:30</span>
-            <div class="sched-dot" style="background:#c77a4a"></div>
-            <div class="sched-content">
-              <div class="sched-place">💙 시로가네 블루폰드 (青い池)</div>
-              <div class="sched-desc">비에이의 신비로운 터키색 연못. 입장 200엔. 파란 소프트아이스크림도 인기. 8:00~21:00</div>
-              <span class="sched-tag tag-nature">자연</span>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">17:30</span><div class="sched-dot" style="background:#c77a4a"></div>
+          <div class="sched-content">
+            <div class="sched-place">🏨 료칸 산스이 체크인 (후라노)</div>
+            <div class="sched-detail">후라노 시내 중심. 주인 부부의 세심한 환대로 리뷰 극찬. 온천 포함. 내일 아침 노보리베쓰 이동을 위해 현지 1박 강력 추천.</div>
+            <div class="sched-info"><span class="info-chip">💴 1~1.5만엔/인</span><span class="info-chip green">♨️ 온천 포함</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-onsen">숙소</span>
+              <a class="map-btn" href="https://maps.google.com/?q=ryokan+sansui+furano+hokkaido" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+              </a>
             </div>
-          </li>
-        </ul>
-      </div>
+          </div>
+        </li>
+
+      </ul></div>
     </div>
 
     <!-- DAY 4 -->
     <div class="day-card">
       <div class="day-header" onclick="toggleDay(this)">
-        <span class="day-num day4">DAY 4</span>
-        <div class="day-info">
-          <div class="day-date">8월 5일 수요일</div>
-          <div class="day-title">노보리베쓰 온천 — 지옥계곡 &amp; 료칸</div>
-        </div>
+        <span class="day-num d4">DAY 4</span>
+        <div class="day-info"><div class="day-date">8월 5일 수요일</div><div class="day-title">노보리베쓰 온천 — 지옥계곡 &amp; 료칸</div></div>
         <span class="day-toggle">▼</span>
       </div>
-      <div class="day-body">
-        <ul class="schedule-list">
-          <li class="schedule-item">
-            <span class="sched-time">오전</span>
-            <div class="sched-dot" style="background:#4a7fc7"></div>
-            <div class="sched-content">
-              <div class="sched-place">🚃 삿포로 → 노보리베쓰</div>
-              <div class="sched-desc">JR 특급 약 1시간. 오전 출발 후 지고쿠다니 먼저 방문</div>
+      <div class="day-body"><ul class="schedule-list">
+
+        <li class="schedule-item">
+          <span class="sched-time">08:00</span><div class="sched-dot" style="background:#4a7fc7"></div>
+          <div class="sched-content">
+            <div class="sched-place">🚗 후라노 → 노보리베쓰 이동</div>
+            <div class="sched-detail">렌터카로 약 2시간 30분. 노보리베쓰역 근처 반납 후 온센 버스로 이동. 또는 JR로 환승 가능.</div>
+            <div class="sched-info"><span class="info-chip blue">약 2시간 30분</span><span class="info-chip">🚌 역→온센 버스 약 15분, 340엔</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-move">이동</span></div>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">11:30</span><div class="sched-dot" style="background:#4a7fc7"></div>
+          <div class="sched-content">
+            <div class="sched-place">🍱 노보리베쓰 온센마치 점심</div>
+            <div class="sched-detail">온센 마을 식당가에서 홋카이도 해산물 정식 or 라멘. 료칸 체크인 전 마을 산책과 함께.</div>
+            <div class="sched-info"><span class="info-chip">💴 1,000~2,000엔 내외</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-food">맛집</span></div>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">13:00</span><div class="sched-dot" style="background:#4a7fc7"></div>
+          <div class="sched-content">
+            <div class="sched-place">🌋 지고쿠다니 (地獄谷 · 지옥계곡)</div>
+            <div class="sched-detail">직경 450m 거대 화산 분화구. 유황 연기 쉼 없이 피어오르는 이색 지형. 나무 데크 산책로 30~60분. 유황 냄새 강하니 참고.</div>
+            <div class="sched-info"><span class="info-chip green">✅ 무료 · 24시간</span><span class="info-chip red">⚠ 유황 냄새 강함</span><span class="info-chip">🚶 데크 산책로 약 1km</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-nature">자연</span>
+              <a class="map-btn" href="https://maps.google.com/?cid=14390601882475151052" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+              </a>
             </div>
-          </li>
-          <li class="schedule-item">
-            <span class="sched-time">13:00</span>
-            <div class="sched-dot" style="background:#4a7fc7"></div>
-            <div class="sched-content">
-              <div class="sched-place">🌋 지고쿠다니 (地獄谷 · 지옥계곡)</div>
-              <div class="sched-desc">유황 연기 피어오르는 화산 지형. 입장 무료. 나무 데크 산책로 30~60분 코스</div>
-              <span class="sched-tag tag-nature">자연</span>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">15:00</span><div class="sched-dot" style="background:#4a7fc7"></div>
+          <div class="sched-content">
+            <div class="sched-place">♨️ 노보리베쓰 온센쿄 타키노야 체크인</div>
+            <div class="sched-detail">구글 ⭐4.6 노보리베쓰 최고급 료칸. "창틀까지 닦여있다"는 리뷰가 있을 만큼 청결. 다종 유황 온천탕·넓은 노천탕. 신발 맡기는 서비스부터 차별화.</div>
+            <div class="sched-info"><span class="info-chip">💴 1인 2~3만엔 (2식 포함)</span><span class="info-chip green">♨️ 유황 온천·노천탕</span><span class="info-chip blue">🍱 가이세키 2식 포함</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-onsen">온천 료칸</span>
+              <a class="map-btn" href="https://maps.google.com/?cid=12342889879031163398" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+              </a>
             </div>
-          </li>
-          <li class="schedule-item">
-            <span class="sched-time">15:00</span>
-            <div class="sched-dot" style="background:#4a7fc7"></div>
-            <div class="sched-content">
-              <div class="sched-place">♨️ 타키노야 료칸 체크인</div>
-              <div class="sched-desc">노보리베쓰 최고급 온천 료칸 ⭐4.6. 가이세키 저녁 + 유황 온천 삼매경. 1인 2~3만엔대</div>
-              <span class="sched-tag tag-onsen">온천</span>
-            </div>
-          </li>
-          <li class="schedule-item">
-            <span class="sched-time">저녁</span>
-            <div class="sched-dot" style="background:#4a7fc7"></div>
-            <div class="sched-content">
-              <div class="sched-place">🍱 가이세키 코스 저녁 식사</div>
-              <div class="sched-desc">제철 홋카이도 식재료로 구성된 정통 가이세키. 식사 후 온천 즐기기</div>
-              <span class="sched-tag tag-food">맛집</span>
-            </div>
-          </li>
-        </ul>
-      </div>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">18:00</span><div class="sched-dot" style="background:#4a7fc7"></div>
+          <div class="sched-content">
+            <div class="sched-place">🍱 가이세키 코스 저녁 식사</div>
+            <div class="sched-detail">홋카이도 제철 재료 10여 가지 코스. 게·성게·전복·와규 사용. 식사 전후로 여러 온천탕 순환 추천. 야간 노천탕이 하이라이트.</div>
+            <div class="sched-info"><span class="info-chip green">✅ 숙박 요금 포함</span><span class="info-chip">🛁 야간 노천탕 추천</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-food">가이세키</span></div>
+          </div>
+        </li>
+
+      </ul></div>
     </div>
 
     <!-- DAY 5 -->
     <div class="day-card">
       <div class="day-header" onclick="toggleDay(this)">
-        <span class="day-num day5">DAY 5</span>
-        <div class="day-info">
-          <div class="day-date">8월 6일 목요일</div>
-          <div class="day-title">삿포로 복귀 &amp; 귀국</div>
-        </div>
+        <span class="day-num d5">DAY 5</span>
+        <div class="day-info"><div class="day-date">8월 6일 목요일</div><div class="day-title">삿포로 복귀 &amp; 귀국</div></div>
         <span class="day-toggle">▼</span>
       </div>
-      <div class="day-body">
-        <ul class="schedule-list">
-          <li class="schedule-item">
-            <span class="sched-time">10:00</span>
-            <div class="sched-dot" style="background:var(--gold)"></div>
-            <div class="sched-content">
-              <div class="sched-place">🍺 삿포로 맥주 박물관</div>
-              <div class="sched-desc">무료 견학 + 3종 시음 세트(~1,000엔). 공항 이동 전 마지막 관광</div>
-              <span class="sched-tag tag-sight">관광</span>
+      <div class="day-body"><ul class="schedule-list">
+
+        <li class="schedule-item">
+          <span class="sched-time">09:00</span><div class="sched-dot" style="background:var(--gold)"></div>
+          <div class="sched-content">
+            <div class="sched-place">🚃 노보리베쓰 → 삿포로 이동</div>
+            <div class="sched-detail">JR 특급 스즈란 or 北斗 탑승. 약 1시간 10분. 삿포로 도착 후 남은 관광 및 쇼핑.</div>
+            <div class="sched-info"><span class="info-chip blue">약 1시간 10분</span><span class="info-chip">💴 약 2,860엔 (자유석)</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-move">이동</span></div>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">10:30</span><div class="sched-dot" style="background:var(--gold)"></div>
+          <div class="sched-content">
+            <div class="sched-place">🍺 삿포로 맥주 박물관</div>
+            <div class="sched-detail">1876년 창업 삿포로 맥주 역사 전시. 레트로 빨간 벽돌 건물. 무료 자유 견학 후 3종 시음 세트 필수. 기념 쇼핑도 다양.</div>
+            <div class="sched-info"><span class="info-chip green">✅ 견학 무료</span><span class="info-chip">🕐 11:00~18:00 (월요일 휴관)</span><span class="info-chip">💴 시음 세트 ~1,000엔</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-sight">관광</span>
+              <a class="map-btn" href="https://maps.google.com/?cid=1396334665551701963" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+              </a>
             </div>
-          </li>
-          <li class="schedule-item">
-            <span class="sched-time">12:00</span>
-            <div class="sched-dot" style="background:var(--gold)"></div>
-            <div class="sched-content">
-              <div class="sched-place">🐟 AOAO SAPPORO 수족관</div>
-              <div class="sched-desc">도심 moyuk 4층의 아트적 수족관. 10:00~22:00. 쇼핑 겸 방문</div>
-              <span class="sched-tag tag-sight">관광</span>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">12:00</span><div class="sched-dot" style="background:var(--gold)"></div>
+          <div class="sched-content">
+            <div class="sched-place">🛍 마지막 쇼핑 &amp; 점심</div>
+            <div class="sched-detail">다누키코지 or 삿포로역 지하상가 아피아·에스타에서 귀국 전 기념품 마무리. 공항보다 여기가 저렴!</div>
+            <div class="sched-info"><span class="info-chip">🍫 시로이 코이비토 (공항보다 저렴)</span><span class="info-chip">🍫 로이스 초콜릿</span><span class="info-chip">🍺 삿포로 맥주 기념캔</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-shop">쇼핑</span>
+              <a class="map-btn" href="https://maps.google.com/?cid=4470248669125351329" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>다누키코지
+              </a>
             </div>
-          </li>
-          <li class="schedule-item">
-            <span class="sched-time">14:00</span>
-            <div class="sched-dot" style="background:var(--gold)"></div>
-            <div class="sched-content">
-              <div class="sched-place">🛍 마지막 쇼핑</div>
-              <div class="sched-desc">타누키코지 or 삿포로역 지하상가. 시로이 코이비토, 로이스 초콜릿, 삿포로 맥주 기념품</div>
-              <span class="sched-tag tag-shop">쇼핑</span>
-            </div>
-          </li>
-          <li class="schedule-item">
-            <span class="sched-time">15:00</span>
-            <div class="sched-dot" style="background:var(--gold)"></div>
-            <div class="sched-content">
-              <div class="sched-place">✈ 신치토세 공항 출발</div>
-              <div class="sched-desc">김해 약 17:00 도착 예정</div>
-            </div>
-          </li>
-        </ul>
-      </div>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">13:00</span><div class="sched-dot" style="background:var(--gold)"></div>
+          <div class="sched-content">
+            <div class="sched-place">🚃 삿포로역 → 신치토세 공항</div>
+            <div class="sched-detail">JR 쾌속 에어포트 약 37분. 출발 2시간 전 공항 도착 권장.</div>
+            <div class="sched-info"><span class="info-chip blue">약 37분</span><span class="info-chip">💴 1,150엔</span><span class="info-chip red">⚠ 출발 2시간 전 도착 권장</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-move">이동</span></div>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">15:00</span><div class="sched-dot" style="background:var(--gold)"></div>
+          <div class="sched-content">
+            <div class="sched-place">✈ 신치토세 공항 출발</div>
+            <div class="sched-detail">김해국제공항 약 17:00 도착 예정.</div>
+            <div class="sched-info"><span class="info-chip blue">✈ 비행 약 2시간</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-move">귀국</span></div>
+          </div>
+        </li>
+
+      </ul></div>
     </div>
 
   </div>
@@ -904,39 +594,61 @@
   <div class="section-title">숙소 ACCOMMODATION</div>
   <div class="hotel-grid">
     <div class="hotel-card">
-      <div class="hotel-nights">8/2~3 · 2박</div>
+      <div class="hotel-nights">8/2~3 · 2박 — 삿포로</div>
       <div class="hotel-name">SAPPORO STREAM HOTEL</div>
-      <div class="hotel-rating">⭐ 4.5 · 스스키노역 직결</div>
-      <div class="hotel-tags">
-        <span class="hotel-tag">2023 신축</span>
-        <span class="hotel-tag">청결 최상</span>
-        <span class="hotel-tag">지하철 직결</span>
-        <span class="hotel-tag">트윈 ~3만엔</span>
-      </div>
+      <div class="hotel-rating">⭐ 4.5 · 2023년 신축</div>
+      <div class="hotel-detail">스스키노역 지하철 직결. 2023년 오픈으로 객실·복도 모두 새 것 수준. 라멘 요코초 도보 5분.</div>
+      <div class="hotel-tags"><span class="hotel-tag">신축 청결</span><span class="hotel-tag">지하철 직결</span><span class="hotel-tag">트윈 ~3만엔/박</span></div>
+      <a class="map-btn" href="https://maps.google.com/?q=Sapporo+Stream+Hotel" target="_blank">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+      </a>
     </div>
     <div class="hotel-card">
-      <div class="hotel-nights">8/4 · 1박</div>
-      <div class="hotel-name">료칸 산스이<br><small style="font-weight:400;font-size:12px;">후라노 시내</small></div>
+      <div class="hotel-nights">8/4 · 1박 — 후라노</div>
+      <div class="hotel-name">료칸 산스이 (旅館 山水)</div>
       <div class="hotel-rating">⭐ 4.5 · 온천 포함</div>
-      <div class="hotel-tags">
-        <span class="hotel-tag">청결 극찬</span>
-        <span class="hotel-tag">온센 있음</span>
-        <span class="hotel-tag">주인 친절</span>
-        <span class="hotel-tag">~1.5만엔/인</span>
-      </div>
+      <div class="hotel-detail">후라노 시내 중심. 주인 부부의 세심한 서비스로 리뷰 극찬. 온천 있음. DAY 5 이동 거점.</div>
+      <div class="hotel-tags"><span class="hotel-tag">청결 극찬</span><span class="hotel-tag">온센 포함</span><span class="hotel-tag">~1.5만엔/인</span></div>
+      <a class="map-btn" href="https://maps.google.com/?q=ryokan+sansui+furano" target="_blank">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+      </a>
     </div>
     <div class="hotel-card">
-      <div class="hotel-nights">8/5 · 1박</div>
+      <div class="hotel-nights">8/5 · 1박 — 노보리베쓰</div>
       <div class="hotel-name">노보리베쓰 온센쿄 타키노야</div>
-      <div class="hotel-rating">⭐ 4.6 · 구글 최고점</div>
-      <div class="hotel-tags">
-        <span class="hotel-tag">청결 최고급</span>
-        <span class="hotel-tag">유황 온천</span>
-        <span class="hotel-tag">가이세키 포함</span>
-        <span class="hotel-tag">2~3만엔/인</span>
-      </div>
+      <div class="hotel-rating">⭐ 4.6 · 구글 지역 최고점</div>
+      <div class="hotel-detail">노보리베쓰 최고급 료칸. 유황 온천·노천탕. 가이세키 2식 포함. 지옥계곡 도보 10분.</div>
+      <div class="hotel-tags"><span class="hotel-tag">청결 최고급</span><span class="hotel-tag">유황 온천</span><span class="hotel-tag">가이세키 2식</span><span class="hotel-tag">2~3만엔/인</span></div>
+      <a class="map-btn" href="https://maps.google.com/?cid=12342889879031163398" target="_blank">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+      </a>
     </div>
   </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- BUDGET -->
+<div class="section fade-in">
+  <div class="section-title">예상 예산 BUDGET</div>
+  <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:16px;overflow:hidden;backdrop-filter:blur(8px);">
+    <table class="budget-table">
+      <thead><tr><th>항목</th><th class="amt">1인</th><th class="amt">2인 합계</th></tr></thead>
+      <tbody>
+        <tr><td>✈ 항공권 (왕복)</td><td class="amt">15~25만원</td><td class="amt">30~50만원</td></tr>
+        <tr><td>🏨 삿포로 STREAM HOTEL 2박</td><td class="amt">약 3만엔</td><td class="amt">약 6만엔</td></tr>
+        <tr><td>🏡 후라노 료칸 산스이 1박</td><td class="amt">약 1.5만엔</td><td class="amt">약 3만엔</td></tr>
+        <tr><td>♨️ 노보리베쓰 타키노야 1박</td><td class="amt">약 2.5만엔</td><td class="amt">약 5만엔</td></tr>
+        <tr><td>🍜 식비 (4박5일)</td><td class="amt">약 2만엔</td><td class="amt">약 4만엔</td></tr>
+        <tr><td>🚃 교통비 (JR·버스)</td><td class="amt">약 1만엔</td><td class="amt">약 2만엔</td></tr>
+        <tr><td>🚗 렌터카 1일 (2인 공동)</td><td class="amt">—</td><td class="amt">약 1만엔</td></tr>
+        <tr><td>🎟 입장료·체험</td><td class="amt">약 5천엔</td><td class="amt">약 1만엔</td></tr>
+        <tr><td colspan="3" style="padding:4px;"></td></tr>
+        <tr><td><strong>합계 (숙박·식비·교통)</strong></td><td class="amt"><strong>약 13만엔~</strong></td><td class="amt"><strong>약 22만엔~</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:11px;color:#aaa;margin-top:10px;text-align:right;">※ 항공권·쇼핑비 별도. 환율·시즌에 따라 변동 가능.</p>
 </div>
 
 <div class="divider"></div>
@@ -945,48 +657,20 @@
 <div class="section fade-in">
   <div class="section-title">여행 팁 TIPS</div>
   <div class="tips-grid">
-    <div class="tip-card">
-      <div class="tip-icon">🚃</div>
-      <div class="tip-label">교통</div>
-      <div class="tip-text">IC카드(Suica) 발급 추천. 후라노·비에이는 렌터카 필수</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">💴</div>
-      <div class="tip-label">환전</div>
-      <div class="tip-text">공항 or 7-Eleven ATM 엔화 출금. 현금 위주 준비</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">🌤</div>
-      <div class="tip-label">날씨</div>
-      <div class="tip-text">8월 삿포로 낮 25°C 내외, 저녁 선선. 얇은 가디건 필수</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">🎁</div>
-      <div class="tip-label">쇼핑 추천</div>
-      <div class="tip-text">시로이 코이비토 · 로이스 초콜릿 · 삿포로 맥주 기념품</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">💰</div>
-      <div class="tip-label">예산 (2인)</div>
-      <div class="tip-text">숙박 제외 1일 2~4만엔 내외. 노보리베쓰 료칸이 최대 지출</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">♨️</div>
-      <div class="tip-label">온천 주의</div>
-      <div class="tip-text">타투가 있으면 일부 시설 입장 불가. 노보리베쓰 타키노야는 OK</div>
-    </div>
+    <div class="tip-card"><div class="tip-icon">🚃</div><div class="tip-label">교통 카드</div><div class="tip-text">공항 도착 즉시 Suica 발급. JR·지하철·버스·편의점 모두 사용 가능. 후라노·비에이만 렌터카 필수.</div></div>
+    <div class="tip-card"><div class="tip-icon">💴</div><div class="tip-label">환전</div><div class="tip-text">신치토세 공항 또는 7-Eleven ATM 엔화 인출 추천. 료칸은 현금 결제만인 곳 많으니 현금 넉넉히.</div></div>
+    <div class="tip-card"><div class="tip-icon">🌤</div><div class="tip-label">날씨</div><div class="tip-text">8월 삿포로 낮 23~27°C, 저녁 18°C 내외. 얇은 가디건 필수. 비 대비 접이식 우산 챙기기.</div></div>
+    <div class="tip-card"><div class="tip-icon">🎁</div><div class="tip-label">쇼핑 추천</div><div class="tip-text">시로이 코이비토 · 로이스 초콜릿 · 삿포로 맥주 기념캔 · 라벤더 향수&비누 (팜 도미타)</div></div>
+    <div class="tip-card"><div class="tip-icon">♨️</div><div class="tip-label">온천 주의</div><div class="tip-text">타투 있으면 시설마다 입장 가능 여부 다름. 수건·유카타는 료칸 제공. 귀중품은 프런트 보관.</div></div>
+    <div class="tip-card"><div class="tip-icon">📱</div><div class="tip-label">유심·데이터</div><div class="tip-text">출발 전 일본 유심 or 포켓와이파이 예약 필수. 렌터카 네비에 Google Maps 필요하므로 데이터 꼭.</div></div>
   </div>
 </div>
 
-<footer>
-  ✈ SAPPORO 4N5D TRAVEL PLAN &nbsp;·&nbsp; 2025.08.02 – 08.06 &nbsp;·&nbsp; Made with Claude
-</footer>
+<footer>✈ SAPPORO 4N5D TRAVEL PLAN &nbsp;·&nbsp; 2025.08.02 – 08.06 &nbsp;·&nbsp; Made with Claude</footer>
 
 <script>
-  // Password gate
   const CORRECT = '787911';
   const SESSION_KEY = 'sapporo_auth';
-
   function checkPw() {
     const input = document.getElementById('pw-input');
     const errorEl = document.getElementById('pw-error');
@@ -1001,39 +685,17 @@
       setTimeout(() => input.classList.remove('error'), 500);
     }
   }
-
-  function togglePwVisibility() {
+  function togglePw() {
     const input = document.getElementById('pw-input');
     const btn = document.getElementById('pw-toggle');
-    if (input.type === 'password') {
-      input.type = 'text';
-      btn.textContent = '🙈';
-    } else {
-      input.type = 'password';
-      btn.textContent = '👁';
-    }
+    input.type = input.type === 'password' ? 'text' : 'password';
+    btn.textContent = input.type === 'password' ? '👁' : '🙈';
   }
-
-  // 세션 내 인증 유지
-  if (sessionStorage.getItem(SESSION_KEY) === '1') {
-    document.getElementById('pw-gate').classList.add('hidden');
-  }
-
-  function toggleDay(header) {
-    const card = header.closest('.day-card');
-    card.classList.toggle('open');
-  }
-
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-
+  if (sessionStorage.getItem(SESSION_KEY) === '1') document.getElementById('pw-gate').classList.add('hidden');
+  function toggleDay(header) { header.closest('.day-card').classList.toggle('open'); }
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.08 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
 </body>
