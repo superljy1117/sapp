@@ -123,6 +123,26 @@
   .tip-label { font-size:11px; font-weight:500; letter-spacing:1.5px; text-transform:uppercase; color:var(--sage); margin-bottom:6px; }
   .tip-text { font-size:13px; color:#555; line-height:1.7; }
 
+  /* REVIEW & ALTERNATIVE */
+  .sched-review {
+    margin-top:10px; padding:10px 14px;
+    background:rgba(255,248,220,.6); border-left:3px solid var(--gold);
+    border-radius:0 8px 8px 0; font-size:12px; color:#665500; line-height:1.7;
+  }
+  .sched-review strong { color:#a07020; display:block; font-size:11px; letter-spacing:.5px; margin-bottom:3px; text-transform:uppercase; }
+  .sched-alt {
+    margin-top:8px; padding:10px 14px;
+    background:rgba(240,240,255,.7); border-left:3px solid var(--lavender);
+    border-radius:0 8px 8px 0; font-size:12px; color:#444; line-height:1.7;
+  }
+  .sched-alt strong { color:var(--lavender); display:block; font-size:11px; letter-spacing:.5px; margin-bottom:3px; text-transform:uppercase; }
+  .warn-box {
+    margin-top:8px; padding:10px 14px;
+    background:rgba(255,230,230,.6); border-left:3px solid #e05555;
+    border-radius:0 8px 8px 0; font-size:12px; color:#882222; line-height:1.7;
+  }
+  .warn-box strong { color:#c03030; display:block; font-size:11px; letter-spacing:.5px; margin-bottom:3px; text-transform:uppercase; }
+
   .divider { height:1px; background:var(--border); max-width:900px; margin:0 auto; }
   footer { text-align:center; padding:48px 24px; border-top:1px solid var(--border); font-size:12px; color:#bbb; letter-spacing:1px; }
 
@@ -239,6 +259,9 @@
             <div class="sched-place">🍜 삿포로 라멘 하루카 (はるか)</div>
             <div class="sched-detail">원조 삿포로 라멘 요코초 내 ⭐4.8 최고 인기 가게. 치즈 미소라멘·가라미소라멘 필수. 좌석 9석 소규모 — 17시 오픈 직후 방문하거나 줄 서기 각오.</div>
             <div class="sched-info"><span class="info-chip">🕐 11:00~15:00, 17:00~23:00</span><span class="info-chip">💴 1,200~1,500엔/그릇</span><span class="info-chip red">⚠ 현금 only · 줄 필수</span></div>
+            <div class="sched-review"><strong>💬 실제 후기</strong>"치즈 라멘이 느끼함과 국물이 조화로워 정말 맛있었다. 사장님도 친절. 줄 서서 기다린 보람 있었다." — 구글 리뷰<br>"가족과 함께 갔는데 사장님이 어린 아이도 잘 챙겨주셨다. 양도 충분하고 맛도 훌륭." — 구글 리뷰</div>
+            <div class="warn-box"><strong>⚠ 주의 — 엇갈린 후기 있음</strong>일부 한국인 여행자 "1시간 20분 대기 후 기대 이하. 냉동 재료 의심"이라는 혹평도 존재. 구글 리뷰 관리 의혹 제기됨. <b>방문 전 타베로그(tabelog.com) 교차 검증 추천!</b></div>
+            <div class="sched-alt"><strong>🔄 차선책</strong>같은 라멘 요코초 내 <b>기후우(気風U)</b> — 진한 미소·간장 4종, 현지인 평가 우수. 또는 <b>삿포로 라멘 키후(Kifu)</b> — 스스키노 내, 예약 가능, 대기 없이 입장 가능한 경우 많음.</div>
             <div class="sched-bottom"><span class="sched-tag tag-food">맛집 ⭐4.8</span>
               <a class="map-btn" href="https://maps.google.com/?cid=18191763978182280290" target="_blank">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
@@ -302,7 +325,9 @@
           <div class="sched-content">
             <div class="sched-place">⛵ 오타루 운하 크루즈</div>
             <div class="sched-detail">운하 + 항구 바다 구간 약 40분 유람선. 한국어 오디오 가이드 제공. 출발 15분 전 티켓 구매 필요. 날씨 좋은 날 적극 추천.</div>
-            <div class="sched-info"><span class="info-chip">🕐 9:30~20:00</span><span class="info-chip">💴 1,800엔/인</span><span class="info-chip blue">🎧 한국어 오디오</span></div>
+            <div class="sched-info"><span class="info-chip">🕐 9:30~20:00</span><span class="info-chip">💴 1,800엔/인</span><span class="info-chip blue">🎧 한국어 오디오</span><span class="info-chip red">⚠ 성수기 전화 예약 필수 (7/20~9/30)</span></div>
+            <div class="sched-review"><strong>💬 실제 후기</strong>"한국어 오디오 가이드까지 있어 너무 좋았다. 도보로는 볼 수 없는 바다 쪽 코스까지 돌아봐서 색다른 경험이었다." — 네이버 여행 후기<br>"배 1척에 약 40명 탑승, 회전이 빠르니 줄 서도 금방 탑승 가능. 나이트 크루즈는 가스등 불빛이 환상적이었다." — Trip.com</div>
+            <div class="sched-alt"><strong>🔄 차선책 — 악천후·운휴 시</strong><b>기타이치 글래스 3호점</b>에서 분위기 좋은 카페 즐기기. 또는 <b>오타루 오르골당</b> 방문 (오타루 사카이마치 거리 대표 관광지, 무료 입장). 비 오는 날에도 실내 관광 충분.</div>
             <div class="sched-bottom"><span class="sched-tag tag-sight">체험</span>
               <a class="map-btn" href="https://maps.google.com/?cid=4643701814904872968" target="_blank">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
@@ -356,27 +381,67 @@
     <div class="day-card">
       <div class="day-header" onclick="toggleDay(this)">
         <span class="day-num d3">DAY 3</span>
-        <div class="day-info"><div class="day-date">8월 4일 화요일</div><div class="day-title">후라노 · 비에이 — 라벤더 &amp; 블루폰드</div></div>
+        <div class="day-info"><div class="day-date">8월 4일 화요일</div><div class="day-title">후라노 · 비에이 — 한국어 버스투어 🚌</div></div>
         <span class="day-toggle">▼</span>
       </div>
       <div class="day-body"><ul class="schedule-list">
 
         <li class="schedule-item">
-          <span class="sched-time">07:00</span><div class="sched-dot" style="background:#c77a4a"></div>
+          <span class="sched-time">07:30</span><div class="sched-dot" style="background:#c77a4a"></div>
           <div class="sched-content">
-            <div class="sched-place">🚗 렌터카 출발 (삿포로)</div>
-            <div class="sched-detail">삿포로역 근처 렌터카 픽업 후 후라노 방향 출발. 도오 자동차도 경유 약 2시간. 후라노·비에이는 렌터카 필수 구간.</div>
-            <div class="sched-info"><span class="info-chip blue">삿포로→후라노 약 2시간</span><span class="info-chip red">⚠ 렌터카 필수</span><span class="info-chip">⛽ 고속도로비 왕복 약 3,000엔</span></div>
-            <div class="sched-bottom"><span class="sched-tag tag-move">이동</span></div>
+            <div class="sched-place">🚌 엔데이트립 버스투어 집합 (오도리역)</div>
+            <div class="sched-detail">오도리역 31번 출구 앞 "Ndaytrip" 피켓 가이드 집합. 07:50 출발. 한국인 가이드가 패치워크 로드·블루폰드·흰수염 폭포·사계채의 언덕·팜 도미타 등 핵심 코스를 하루에 완주.</div>
+            <div class="sched-info">
+              <span class="info-chip green">🇰🇷 한국인 가이드</span>
+              <span class="info-chip">💴 약 6~8만원/인</span>
+              <span class="info-chip blue">🕐 07:50 출발 → 18:00 복귀</span>
+              <span class="info-chip red">⚠ 출발 전날 마감 — 미리 예약 필수!</span>
+            </div>
+            <div class="sched-review"><strong>💬 실제 후기 ⭐4.9</strong>"날이 흐리긴 했지만 삿포로 가면 비에이 투어 꼭 이용하는 걸 추천! 가이드·코스·가성비 모두 5점." — 마이리얼트립<br>"운전 안 해도 되니 생맥도 한잔! 가이드 꿀팁 덕에 인생 오므카레도 먹었다. 지루할 틈이 1도 없다." — 라쿠투어 후기</div>
+            <div class="sched-alt"><strong>🔄 예약 플랫폼</strong>
+              <b>마이리얼트립</b>(엔데이트립) · <b>클룩</b>(유투어버스·인디고투어) · <b>KKday</b> · <b>와그</b> 모두 동일 코스, 가격·가이드 비교 후 선택.<br>
+              📌 인디고투어 집합: 삿포로역 북광장 07:40 / 엔데이트립: 오도리역 31번 출구 07:30
+            </div>
+            <div class="sched-bottom">
+              <span class="sched-tag tag-move">투어버스</span>
+              <a class="map-btn" href="https://maps.google.com/?q=Odori+Station+Exit+31+Sapporo" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>집합장소
+              </a>
+            </div>
           </div>
         </li>
 
         <li class="schedule-item">
-          <span class="sched-time">09:30</span><div class="sched-dot" style="background:#c77a4a"></div>
+          <span class="sched-time">오전</span><div class="sched-dot" style="background:#c77a4a"></div>
+          <div class="sched-content">
+            <div class="sched-place">🌾 패치워크 로드 · 사계채의 언덕</div>
+            <div class="sched-detail">비에이 구릉을 수놓는 형형색색 밭의 파노라마. 사계채의 언덕에서 해바라기·해바라기·살비아·백일홍이 한꺼번에 만개. 버스에서 내려 자유 산책.</div>
+            <div class="sched-info"><span class="info-chip green">✅ 입장 무료</span><span class="info-chip">📸 인생샷 스팟 1순위</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-nature">자연</span>
+              <a class="map-btn" href="https://maps.google.com/?q=Shikisai+no+Oka+Biei" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+              </a>
+            </div>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">점심</span><div class="sched-dot" style="background:#c77a4a"></div>
+          <div class="sched-content">
+            <div class="sched-place">🍛 비에이역 준페이 or 후라노 자유중식</div>
+            <div class="sched-detail">투어에 따라 비에이역 인기 식당 '준페이' 연계 or 후라노 시내 자유 중식. 후라노 오므카레(오므라이스+카레)·옥수수 생식이 명물.</div>
+            <div class="sched-info"><span class="info-chip">💴 자유 중식 1,000~1,500엔 내외</span><span class="info-chip blue">🌽 생옥수수 꼭 드세요!</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-food">맛집</span></div>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">오후</span><div class="sched-dot" style="background:#c77a4a"></div>
           <div class="sched-content">
             <div class="sched-place">💜 팜 도미타 (ファーム富田)</div>
-            <div class="sched-detail">홋카이도 라벤더 성지. 7가지 색 꽃밭이 구릉을 물들임. 8월 초 = 라벤더+해바라기 동시 개화 절정! 라벤더 소프트아이스크림과 라벤더 향수 기념품 강추.</div>
-            <div class="sched-info"><span class="info-chip green">✅ 입장 무료</span><span class="info-chip">🕐 9:00~17:00</span><span class="info-chip">💜 8월 초 절정 시즌</span></div>
+            <div class="sched-detail">홋카이도 라벤더 성지. 13개 꽃밭. 8월 초는 해바라기·코스모스 만개 시즌. 라벤더 소프트아이스크림 & 라벤더 향수·비누 기념품 강추.</div>
+            <div class="sched-info"><span class="info-chip green">✅ 입장 무료</span><span class="info-chip red">⚠ 8월엔 라벤더 대부분 수확 완료</span></div>
+            <div class="warn-box"><strong>⚠ 8월 라벤더 개화 주의</strong>라벤더 피크는 7월 초~중순. 8월 4일 방문 시 이미 수확·시든 상태일 가능성 높음. 방문 전 <b>farm-tomita.co.jp</b>에서 개화 상태 확인!</div>
             <div class="sched-bottom"><span class="sched-tag tag-nature">자연</span>
               <a class="map-btn" href="https://maps.google.com/?cid=13217448091170401682" target="_blank">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
@@ -386,58 +451,27 @@
         </li>
 
         <li class="schedule-item">
-          <span class="sched-time">11:00</span><div class="sched-dot" style="background:#c77a4a"></div>
+          <span class="sched-time">오후</span><div class="sched-dot" style="background:#c77a4a"></div>
           <div class="sched-content">
-            <div class="sched-place">🌿 나카후라노 호쿠세이야마 라벤더밭</div>
-            <div class="sched-detail">팜 도미타보다 한적하고 언덕 위 파노라마 뷰가 압권. 체어리프트로 정상까지 편하게 이동. 전망 포토스팟에서 360도 뷰 감상.</div>
-            <div class="sched-info"><span class="info-chip green">✅ 입장 무료</span><span class="info-chip">💴 리프트 700엔</span><span class="info-chip">📸 360도 파노라마</span></div>
-            <div class="sched-bottom"><span class="sched-tag tag-nature">자연</span>
-              <a class="map-btn" href="https://maps.google.com/?cid=3549743686506611381" target="_blank">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
-              </a>
-            </div>
-          </div>
-        </li>
-
-        <li class="schedule-item">
-          <span class="sched-time">13:00</span><div class="sched-dot" style="background:#c77a4a"></div>
-          <div class="sched-content">
-            <div class="sched-place">🍛 후라노 시내 점심</div>
-            <div class="sched-detail">후라노산 채소 듬뿍 오므라이스 or 스프카레가 명물. 후라노 와인·치즈도 꼭 맛볼 것.</div>
-            <div class="sched-info"><span class="info-chip">💴 1,000~1,500엔 내외</span><span class="info-chip">🧀 후라노 치즈 공방 근처</span></div>
-            <div class="sched-bottom"><span class="sched-tag tag-food">맛집</span>
-              <a class="map-btn" href="https://maps.google.com/?q=furano+city+hokkaido" target="_blank">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>후라노 시내
-              </a>
-            </div>
-          </div>
-        </li>
-
-        <li class="schedule-item">
-          <span class="sched-time">15:00</span><div class="sched-dot" style="background:#c77a4a"></div>
-          <div class="sched-content">
-            <div class="sched-place">💙 시로가네 블루폰드 (白金青い池)</div>
-            <div class="sched-detail">Apple 맥OS 배경화면으로 유명해진 신비로운 터키색 연못. 화산 분화 방지 공사로 우연히 생성. 파란 소프트아이스크림 꼭 먹을 것!</div>
-            <div class="sched-info"><span class="info-chip">🕐 8:00~21:00</span><span class="info-chip">💴 주차 200엔 (입장 무료)</span><span class="info-chip blue">🍦 파란 소프트아이스크림</span></div>
+            <div class="sched-place">💙 시로가네 블루폰드 · 흰수염 폭포</div>
+            <div class="sched-detail">맥OS 배경화면으로 유명한 터키색 신비 연못. 바로 옆 흰수염 폭포도 세트 방문. 파란 소프트아이스크림 필수!</div>
+            <div class="sched-info"><span class="info-chip">💴 주차 200엔 (입장 무료)</span><span class="info-chip red">⚠ 흐린 날엔 색이 탁해짐</span></div>
+            <div class="sched-review"><strong>💬 실제 후기</strong>"실물이 사진보다 훨씬 신비로웠다. 맑은 날 오전이 색이 가장 선명." — 네이버 후기</div>
             <div class="sched-bottom"><span class="sched-tag tag-nature">자연</span>
               <a class="map-btn" href="https://maps.google.com/?cid=345959270472972190" target="_blank">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>블루폰드
               </a>
             </div>
           </div>
         </li>
 
         <li class="schedule-item">
-          <span class="sched-time">17:30</span><div class="sched-dot" style="background:#c77a4a"></div>
+          <span class="sched-time">18:00</span><div class="sched-dot" style="background:#c77a4a"></div>
           <div class="sched-content">
-            <div class="sched-place">🏨 료칸 산스이 체크인 (후라노)</div>
-            <div class="sched-detail">후라노 시내 중심. 주인 부부의 세심한 환대로 리뷰 극찬. 온천 포함. 내일 아침 노보리베쓰 이동을 위해 현지 1박 강력 추천.</div>
-            <div class="sched-info"><span class="info-chip">💴 1~1.5만엔/인</span><span class="info-chip green">♨️ 온천 포함</span></div>
-            <div class="sched-bottom"><span class="sched-tag tag-onsen">숙소</span>
-              <a class="map-btn" href="https://maps.google.com/?q=ryokan+sansui+furano+hokkaido" target="_blank">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
-              </a>
-            </div>
+            <div class="sched-place">🏙 삿포로 복귀 (오도리역)</div>
+            <div class="sched-detail">투어버스로 삿포로 오도리역 복귀. 숙소 SAPPORO STREAM HOTEL 연박. 저녁은 스스키노에서 자유식.</div>
+            <div class="sched-info"><span class="info-chip green">✅ 렌터카·고속도로비 0원</span><span class="info-chip blue">🏨 삿포로 연박으로 짐 이동 없음</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-move">복귀</span></div>
           </div>
         </li>
 
@@ -448,39 +482,59 @@
     <div class="day-card">
       <div class="day-header" onclick="toggleDay(this)">
         <span class="day-num d4">DAY 4</span>
-        <div class="day-info"><div class="day-date">8월 5일 수요일</div><div class="day-title">노보리베쓰 온천 — 지옥계곡 &amp; 료칸</div></div>
+        <div class="day-info"><div class="day-date">8월 5일 수요일</div><div class="day-title">요이치 닛카 위스키 증류소 + 오타루 야경 🥃</div></div>
         <span class="day-toggle">▼</span>
       </div>
       <div class="day-body"><ul class="schedule-list">
 
         <li class="schedule-item">
-          <span class="sched-time">08:00</span><div class="sched-dot" style="background:#4a7fc7"></div>
+          <span class="sched-time">09:00</span><div class="sched-dot" style="background:#4a7fc7"></div>
           <div class="sched-content">
-            <div class="sched-place">🚗 후라노 → 노보리베쓰 이동</div>
-            <div class="sched-detail">렌터카로 약 2시간 30분. 노보리베쓰역 근처 반납 후 온센 버스로 이동. 또는 JR로 환승 가능.</div>
-            <div class="sched-info"><span class="info-chip blue">약 2시간 30분</span><span class="info-chip">🚌 역→온센 버스 약 15분, 340엔</span></div>
+            <div class="sched-place">🚃 삿포로 → 오타루 → 요이치 JR 이동</div>
+            <div class="sched-detail">삿포로역 출발 → 오타루역 환승 → 요이치역 하차. 총 약 65분 소요. 요이치역에서 증류소까지 도보 2~3분으로 매우 가까움.</div>
+            <div class="sched-info">
+              <span class="info-chip blue">🕐 삿포로→요이치 약 65분</span>
+              <span class="info-chip">💴 약 1,070엔</span>
+              <span class="info-chip green">✅ Suica 사용 가능</span>
+            </div>
             <div class="sched-bottom"><span class="sched-tag tag-move">이동</span></div>
           </div>
         </li>
 
         <li class="schedule-item">
-          <span class="sched-time">11:30</span><div class="sched-dot" style="background:#4a7fc7"></div>
+          <span class="sched-time">10:30</span><div class="sched-dot" style="background:#4a7fc7"></div>
           <div class="sched-content">
-            <div class="sched-place">🍱 노보리베쓰 온센마치 점심</div>
-            <div class="sched-detail">온센 마을 식당가에서 홋카이도 해산물 정식 or 라멘. 료칸 체크인 전 마을 산책과 함께.</div>
-            <div class="sched-info"><span class="info-chip">💴 1,000~2,000엔 내외</span></div>
-            <div class="sched-bottom"><span class="sched-tag tag-food">맛집</span></div>
+            <div class="sched-place">🥃 닛카 위스키 요이치 증류소</div>
+            <div class="sched-detail">1934년 창업 일본 위스키의 성지. 일본 문화청 중요문화재 지정. 가이드 투어(무료, 약 70분) — 발효·증류·숙성 전 과정 견학 후 위스키 3종 무료 시음. 한국어 QR 안내 제공. 투어 외에도 닛카 뮤지엄·리타스 키친·기념품샵(요이치 한정 위스키) 이용 가능.</div>
+            <div class="sched-info">
+              <span class="info-chip green">✅ 견학 무료</span>
+              <span class="info-chip">🕐 9:00~17:00</span>
+              <span class="info-chip blue">🥃 위스키 3종 무료 시음</span>
+              <span class="info-chip red">⚠ 가이드 투어는 4주 전 오전 9:15 예약 오픈 — 순삭!</span>
+            </div>
+            <div class="sched-review"><strong>💬 실제 후기</strong>"예약만 하면 무료로 증류소 견학, 위스키 3종 시음. 운 좋으면 쓰루 위스키도 구입 가능. 요이치 10년 싱글몰트는 피트 위스키 못 먹는 사람도 맛있다고." — 루리웹 후기<br>"일본어 설명이지만 한국어 안내문 미리 줘서 이해하는 데 무리 없었다. 시음 후 유료 시음 바에서 추가로 즐길 수 있어 좋았다." — 구글 리뷰</div>
+            <div class="sched-alt"><strong>🔄 가이드 투어 예약 못했을 경우</strong>자유 견학(9:00~17:00) + 닛카 뮤지엄 + 유료 시음 바로 충분히 즐길 수 있음. 한정판 위스키 쇼핑도 놓치지 말 것.</div>
+            <div class="sched-bottom"><span class="sched-tag tag-sight">위스키 체험</span>
+              <a class="map-btn" href="https://maps.google.com/?cid=5505777708048737973" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+              </a>
+            </div>
           </div>
         </li>
 
         <li class="schedule-item">
           <span class="sched-time">13:00</span><div class="sched-dot" style="background:#4a7fc7"></div>
           <div class="sched-content">
-            <div class="sched-place">🌋 지고쿠다니 (地獄谷 · 지옥계곡)</div>
-            <div class="sched-detail">직경 450m 거대 화산 분화구. 유황 연기 쉼 없이 피어오르는 이색 지형. 나무 데크 산책로 30~60분. 유황 냄새 강하니 참고.</div>
-            <div class="sched-info"><span class="info-chip green">✅ 무료 · 24시간</span><span class="info-chip red">⚠ 유황 냄새 강함</span><span class="info-chip">🚶 데크 산책로 약 1km</span></div>
-            <div class="sched-bottom"><span class="sched-tag tag-nature">자연</span>
-              <a class="map-btn" href="https://maps.google.com/?cid=14390601882475151052" target="_blank">
+            <div class="sched-place">🦔 점심 1순위 — 우니 센몬텐 요이치야 요이치 직판점</div>
+            <div class="sched-detail">요이치역 도보 15분. SNS에서 화제가 된 소금물 성게 전문점. 간판 메뉴는 <b>5종 성게 비교 덮밥</b> — 5가지 산지의 성게를 한 그릇에서 비교 시식. 요이치는 소금물 성게(무칠성게)의 발상지!</div>
+            <div class="sched-info">
+              <span class="info-chip">🕐 11:00~재료 소진 시까지</span>
+              <span class="info-chip">💴 5,000~8,000엔 내외</span>
+              <span class="info-chip red">⚠ 조기 마감 빈번 — 오전 방문 추천</span>
+            </div>
+            <div class="sched-alt"><strong>🥈 점심 2순위 — 증류소 내 리타스 키친 (Rita's Kitchen)</strong>닛카 창업자 부인 레시피 재현 레스토랑. 증류소 구내 위치로 접근 편리. 요이치산 키타지마 돼지 커틀릿(스파카츠)이 명물. 증류소 내에서 위스키 하이볼과 함께 먹는 런치 세트 추천.</div>
+            <div class="sched-bottom"><span class="sched-tag tag-food">점심 맛집</span>
+              <a class="map-btn" href="https://maps.google.com/?q=uni+senmonten+yoichiya+yoichi" target="_blank">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
               </a>
             </div>
@@ -490,12 +544,30 @@
         <li class="schedule-item">
           <span class="sched-time">15:00</span><div class="sched-dot" style="background:#4a7fc7"></div>
           <div class="sched-content">
-            <div class="sched-place">♨️ 노보리베쓰 온센쿄 타키노야 체크인</div>
-            <div class="sched-detail">구글 ⭐4.6 노보리베쓰 최고급 료칸. "창틀까지 닦여있다"는 리뷰가 있을 만큼 청결. 다종 유황 온천탕·넓은 노천탕. 신발 맡기는 서비스부터 차별화.</div>
-            <div class="sched-info"><span class="info-chip">💴 1인 2~3만엔 (2식 포함)</span><span class="info-chip green">♨️ 유황 온천·노천탕</span><span class="info-chip blue">🍱 가이세키 2식 포함</span></div>
-            <div class="sched-bottom"><span class="sched-tag tag-onsen">온천 료칸</span>
-              <a class="map-btn" href="https://maps.google.com/?cid=12342889879031163398" target="_blank">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+            <div class="sched-place">🚃 요이치 → 오타루 이동 (야경 준비)</div>
+            <div class="sched-detail">JR로 약 30분. 오타루 도착 후 운하 주변 산책하며 가스등 점등 시간까지 여유롭게 탐방. 오타루 음악상자당·사카이마치 거리 산책.</div>
+            <div class="sched-info">
+              <span class="info-chip blue">🕐 요이치→오타루 약 30분</span>
+              <span class="info-chip">💴 340엔</span>
+              <span class="info-chip">🕯 가스등 점등: 일몰 후 약 19:00~</span>
+            </div>
+            <div class="sched-bottom"><span class="sched-tag tag-move">이동</span></div>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">15:30</span><div class="sched-dot" style="background:#4a7fc7"></div>
+          <div class="sched-content">
+            <div class="sched-place">🚢 오타루 운하 야경 & 산책</div>
+            <div class="sched-detail">낮과 완전히 다른 분위기. 가스등이 운하 수면에 반사되며 황금빛 야경 연출. DAY 2에 낮에 봤던 운하를 밤에 다시 보는 것도 색다른 경험. 중앙교 포토스팟 야경 버전 사진 추천.</div>
+            <div class="sched-info">
+              <span class="info-chip green">✅ 무료</span>
+              <span class="info-chip">🕯 가스등 19:00~ 점등</span>
+              <span class="info-chip">📸 중앙교 야경 포토스팟</span>
+            </div>
+            <div class="sched-bottom"><span class="sched-tag tag-sight">야경</span>
+              <a class="map-btn" href="https://maps.google.com/?cid=355229862189438753" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>오타루 운하
               </a>
             </div>
           </div>
@@ -504,10 +576,37 @@
         <li class="schedule-item">
           <span class="sched-time">18:00</span><div class="sched-dot" style="background:#4a7fc7"></div>
           <div class="sched-content">
-            <div class="sched-place">🍱 가이세키 코스 저녁 식사</div>
-            <div class="sched-detail">홋카이도 제철 재료 10여 가지 코스. 게·성게·전복·와규 사용. 식사 전후로 여러 온천탕 순환 추천. 야간 노천탕이 하이라이트.</div>
-            <div class="sched-info"><span class="info-chip green">✅ 숙박 요금 포함</span><span class="info-chip">🛁 야간 노천탕 추천</span></div>
-            <div class="sched-bottom"><span class="sched-tag tag-food">가이세키</span></div>
+            <div class="sched-place">🍣 저녁 1순위 — 마사즈시 본점 (政寿司 本店)</div>
+            <div class="sched-detail">만화 <미스터 초밥왕>의 배경이 된 오타루 대표 스시집. 오타루역 도보 10분. 홋카이도산 성게·단새우·연어알·가리비 등 최고 신선도 재료 사용. 카운터석에서 장인이 직접 쥐어주는 오마카세 스타일 추천.</div>
+            <div class="sched-info">
+              <span class="info-chip">🕐 11:00~15:00, 17:00~21:00</span>
+              <span class="info-chip">💴 저녁 약 5,000~8,000엔/인</span>
+              <span class="info-chip red">⚠ 수요일 휴무 — DAY 4가 수요일! 예약 필수</span>
+            </div>
+            <div class="warn-box"><strong>⚠ 수요일 휴무 주의!</strong>8월 5일은 수요일로 마사즈시 본점 정기 휴무일. 반드시 사전 확인 또는 2순위로 방문할 것!</div>
+            <div class="sched-alt"><strong>🥈 저녁 2순위 — 가이요테이 코시지 (海陽亭 古志路)</strong>오타루역 도보 10분, 스시거리 인접 후타미빌딩 2F. 요이치산 키타지마 돼지 스파카츠·수프카레·홋카이도 해산물 요리 전문. 소설가들이 사랑했던 레트로 분위기. 영업 11:30~20:00 (월·화 휴무). <b>수요일 영업 가능</b> ✅</div>
+            <div class="sched-bottom"><span class="sched-tag tag-food">저녁 맛집</span>
+              <a class="map-btn" href="https://maps.google.com/?q=masazushi+honten+otaru" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>마사즈시
+              </a>
+              <a class="map-btn" href="https://maps.google.com/?q=kaiyotei+koshiji+otaru" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>가이요테이
+              </a>
+            </div>
+          </div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">20:30</span><div class="sched-dot" style="background:#4a7fc7"></div>
+          <div class="sched-content">
+            <div class="sched-place">🚃 오타루 → 삿포로 복귀</div>
+            <div class="sched-detail">JR 약 35분. 삿포로 STREAM HOTEL 연박. 오늘로 4박 연박 완성.</div>
+            <div class="sched-info">
+              <span class="info-chip blue">🕐 약 35분</span>
+              <span class="info-chip">💴 750엔</span>
+              <span class="info-chip green">🏨 삿포로 연박 4박 완성</span>
+            </div>
+            <div class="sched-bottom"><span class="sched-tag tag-move">복귀</span></div>
           </div>
         </li>
 
@@ -522,16 +621,6 @@
         <span class="day-toggle">▼</span>
       </div>
       <div class="day-body"><ul class="schedule-list">
-
-        <li class="schedule-item">
-          <span class="sched-time">09:00</span><div class="sched-dot" style="background:var(--gold)"></div>
-          <div class="sched-content">
-            <div class="sched-place">🚃 노보리베쓰 → 삿포로 이동</div>
-            <div class="sched-detail">JR 특급 스즈란 or 北斗 탑승. 약 1시간 10분. 삿포로 도착 후 남은 관광 및 쇼핑.</div>
-            <div class="sched-info"><span class="info-chip blue">약 1시간 10분</span><span class="info-chip">💴 약 2,860엔 (자유석)</span></div>
-            <div class="sched-bottom"><span class="sched-tag tag-move">이동</span></div>
-          </div>
-        </li>
 
         <li class="schedule-item">
           <span class="sched-time">10:30</span><div class="sched-dot" style="background:var(--gold)"></div>
@@ -594,35 +683,80 @@
   <div class="section-title">숙소 ACCOMMODATION</div>
   <div class="hotel-grid">
     <div class="hotel-card">
-      <div class="hotel-nights">8/2~3 · 2박 — 삿포로</div>
+      <div class="hotel-nights">8/2~5 · 4박 연박 — 삿포로</div>
       <div class="hotel-name">SAPPORO STREAM HOTEL</div>
-      <div class="hotel-rating">⭐ 4.5 · 2023년 신축</div>
-      <div class="hotel-detail">스스키노역 지하철 직결. 2023년 오픈으로 객실·복도 모두 새 것 수준. 라멘 요코초 도보 5분.</div>
-      <div class="hotel-tags"><span class="hotel-tag">신축 청결</span><span class="hotel-tag">지하철 직결</span><span class="hotel-tag">트윈 ~3만엔/박</span></div>
+      <div class="hotel-rating">⭐ 4.5 · 2023년 신축 · 스스키노역 직결</div>
+      <div class="hotel-detail">4박 내내 같은 숙소 연박. 짐 이동 제로, 체크인·체크아웃 1번씩. 삿포로·오타루·요이치·비에이 모두 여기서 출발하는 베이스캠프. 라멘 요코초 도보 5분.</div>
+      <div class="hotel-tags">
+        <span class="hotel-tag">신축 청결</span>
+        <span class="hotel-tag">지하철 직결</span>
+        <span class="hotel-tag">4박 연박 베이스캠프</span>
+        <span class="hotel-tag">트윈 ~3만엔/박</span>
+      </div>
       <a class="map-btn" href="https://maps.google.com/?q=Sapporo+Stream+Hotel" target="_blank">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
       </a>
     </div>
-    <div class="hotel-card">
-      <div class="hotel-nights">8/4 · 1박 — 후라노</div>
-      <div class="hotel-name">료칸 산스이 (旅館 山水)</div>
-      <div class="hotel-rating">⭐ 4.5 · 온천 포함</div>
-      <div class="hotel-detail">후라노 시내 중심. 주인 부부의 세심한 서비스로 리뷰 극찬. 온천 있음. DAY 5 이동 거점.</div>
-      <div class="hotel-tags"><span class="hotel-tag">청결 극찬</span><span class="hotel-tag">온센 포함</span><span class="hotel-tag">~1.5만엔/인</span></div>
-      <a class="map-btn" href="https://maps.google.com/?q=ryokan+sansui+furano" target="_blank">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- MAP ROUTES -->
+<div class="section fade-in">
+  <div class="section-title">동선 지도 MAP ROUTES</div>
+  <div style="display:flex;flex-direction:column;gap:12px;">
+
+    <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:20px;backdrop-filter:blur(8px);">
+      <div style="font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--sage);margin-bottom:8px;">DAY 1 · 8/2 일</div>
+      <div style="font-family:'Noto Serif KR',serif;font-size:15px;font-weight:600;margin-bottom:10px;">삿포로 입성 & 시내 탐방</div>
+      <div style="font-size:12px;color:#666;margin-bottom:12px;line-height:1.8;">신치토세 공항 → 삿포로역 → 오도리 공원·TV타워 → 다누키코지 → 라멘 요코초 → 스스키노</div>
+      <a href="https://www.google.com/maps/dir/New+Chitose+Airport/Sapporo+Station/Sapporo+TV+Tower/Tanukikoji+Shopping+Street/Ganso+Ramen+Yokocho+Sapporo/SAPPORO+STREAM+HOTEL" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;background:#4285F4;color:white;border-radius:10px;text-decoration:none;font-size:13px;font-weight:500;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Google Maps에서 경로 보기
       </a>
     </div>
-    <div class="hotel-card">
-      <div class="hotel-nights">8/5 · 1박 — 노보리베쓰</div>
-      <div class="hotel-name">노보리베쓰 온센쿄 타키노야</div>
-      <div class="hotel-rating">⭐ 4.6 · 구글 지역 최고점</div>
-      <div class="hotel-detail">노보리베쓰 최고급 료칸. 유황 온천·노천탕. 가이세키 2식 포함. 지옥계곡 도보 10분.</div>
-      <div class="hotel-tags"><span class="hotel-tag">청결 최고급</span><span class="hotel-tag">유황 온천</span><span class="hotel-tag">가이세키 2식</span><span class="hotel-tag">2~3만엔/인</span></div>
-      <a class="map-btn" href="https://maps.google.com/?cid=12342889879031163398" target="_blank">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+
+    <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:20px;backdrop-filter:blur(8px);">
+      <div style="font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--lavender);margin-bottom:8px;">DAY 2 · 8/3 월</div>
+      <div style="font-family:'Noto Serif KR',serif;font-size:15px;font-weight:600;margin-bottom:10px;">오타루 당일치기</div>
+      <div style="font-size:12px;color:#666;margin-bottom:12px;line-height:1.8;">삿포로역 → 오타루 운하 → 운하 크루즈 → 해산물 점심 → 시로이 코이비토 파크 → 삿포로 복귀</div>
+      <a href="https://www.google.com/maps/dir/Sapporo+Station/Otaru+Canal/Otaru+Canal+Cruise/Shiroi+Koibito+Park/Sapporo+Station" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;background:#8b7ba8;color:white;border-radius:10px;text-decoration:none;font-size:13px;font-weight:500;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Google Maps에서 경로 보기
       </a>
     </div>
+
+    <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:20px;backdrop-filter:blur(8px);">
+      <div style="font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:#c77a4a;margin-bottom:8px;">DAY 3 · 8/4 화</div>
+      <div style="font-family:'Noto Serif KR',serif;font-size:15px;font-weight:600;margin-bottom:10px;">후라노·비에이 버스투어</div>
+      <div style="font-size:12px;color:#666;margin-bottom:12px;line-height:1.8;">오도리역 출발 → 사계채의 언덕(비에이) → 호쿠세이야마 라벤더밭 → 팜 도미타(후라노) → 블루폰드(비에이) → 삿포로 복귀</div>
+      <a href="https://www.google.com/maps/dir/Odori+Station+Sapporo/Shikisai+no+Oka+Biei/Nakafurano+Hokuseiyama+Lavender+Fields/Farm+Tomita+Nakafurano/Shirogane+Blue+Pond+Biei/Sapporo+Station" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;background:#c77a4a;color:white;border-radius:10px;text-decoration:none;font-size:13px;font-weight:500;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Google Maps에서 경로 보기
+      </a>
+    </div>
+
+    <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:20px;backdrop-filter:blur(8px);">
+      <div style="font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:#4a7fc7;margin-bottom:8px;">DAY 4 · 8/5 수</div>
+      <div style="font-family:'Noto Serif KR',serif;font-size:15px;font-weight:600;margin-bottom:10px;">요이치 닛카 위스키 + 오타루 야경</div>
+      <div style="font-size:12px;color:#666;margin-bottom:12px;line-height:1.8;">삿포로역 → 요이치 증류소 → 우니 센몬텐 요이치야 → 오타루 운하 야경 → 마사즈시(저녁) → 삿포로 복귀</div>
+      <a href="https://www.google.com/maps/dir/Sapporo+Station/Nikka+Whisky+Yoichi+Distillery/Otaru+Canal/Masazushi+Honten+Otaru/Sapporo+Station" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;background:#4a7fc7;color:white;border-radius:10px;text-decoration:none;font-size:13px;font-weight:500;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Google Maps에서 경로 보기
+      </a>
+    </div>
+
+    <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:20px;backdrop-filter:blur(8px);">
+      <div style="font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">DAY 5 · 8/6 목</div>
+      <div style="font-family:'Noto Serif KR',serif;font-size:15px;font-weight:600;margin-bottom:10px;">삿포로 마지막 & 귀국</div>
+      <div style="font-size:12px;color:#666;margin-bottom:12px;line-height:1.8;">삿포로 맥주 박물관 → 다누키코지 쇼핑 → 삿포로역 → 신치토세 공항</div>
+      <a href="https://www.google.com/maps/dir/Sapporo+Beer+Museum/Tanukikoji+Shopping+Street+Sapporo/Sapporo+Station/New+Chitose+Airport" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;background:var(--gold);color:var(--ink);border-radius:10px;text-decoration:none;font-size:13px;font-weight:500;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#1a1a2e"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Google Maps에서 경로 보기
+      </a>
+    </div>
+
   </div>
 </div>
 
@@ -636,19 +770,18 @@
       <thead><tr><th>항목</th><th class="amt">1인</th><th class="amt">2인 합계</th></tr></thead>
       <tbody>
         <tr><td>✈ 항공권 (왕복)</td><td class="amt">15~25만원</td><td class="amt">30~50만원</td></tr>
-        <tr><td>🏨 삿포로 STREAM HOTEL 2박</td><td class="amt">약 3만엔</td><td class="amt">약 6만엔</td></tr>
-        <tr><td>🏡 후라노 료칸 산스이 1박</td><td class="amt">약 1.5만엔</td><td class="amt">약 3만엔</td></tr>
-        <tr><td>♨️ 노보리베쓰 타키노야 1박</td><td class="amt">약 2.5만엔</td><td class="amt">약 5만엔</td></tr>
-        <tr><td>🍜 식비 (4박5일)</td><td class="amt">약 2만엔</td><td class="amt">약 4만엔</td></tr>
-        <tr><td>🚃 교통비 (JR·버스)</td><td class="amt">약 1만엔</td><td class="amt">약 2만엔</td></tr>
-        <tr><td>🚗 렌터카 1일 (2인 공동)</td><td class="amt">—</td><td class="amt">약 1만엔</td></tr>
-        <tr><td>🎟 입장료·체험</td><td class="amt">약 5천엔</td><td class="amt">약 1만엔</td></tr>
+        <tr><td>🏨 삿포로 STREAM HOTEL 4박</td><td class="amt">약 6만엔</td><td class="amt">약 12만엔</td></tr>
+        <tr><td>🚌 비에이·후라노 버스투어</td><td class="amt">약 6~8만원</td><td class="amt">약 12~16만원</td></tr>
+        <tr><td>🍜 식비 (4박5일)</td><td class="amt">약 2.5만엔</td><td class="amt">약 5만엔</td></tr>
+        <tr><td>🚃 교통비 (JR·버스·Suica)</td><td class="amt">약 1만엔</td><td class="amt">약 2만엔</td></tr>
+        <tr><td>🎟 입장료·체험 (증류소 등)</td><td class="amt">약 5천엔</td><td class="amt">약 1만엔</td></tr>
+        <tr><td>🚗 렌터카·고속도로비</td><td class="amt">— 없음 —</td><td class="amt">절감 ✅</td></tr>
         <tr><td colspan="3" style="padding:4px;"></td></tr>
-        <tr><td><strong>합계 (숙박·식비·교통)</strong></td><td class="amt"><strong>약 13만엔~</strong></td><td class="amt"><strong>약 22만엔~</strong></td></tr>
+        <tr><td><strong>합계 (숙박·식비·교통)</strong></td><td class="amt"><strong>약 12만엔~</strong></td><td class="amt"><strong>약 22만엔~</strong></td></tr>
       </tbody>
     </table>
   </div>
-  <p style="font-size:11px;color:#aaa;margin-top:10px;text-align:right;">※ 항공권·쇼핑비 별도. 환율·시즌에 따라 변동 가능.</p>
+  <p style="font-size:11px;color:#aaa;margin-top:10px;text-align:right;">※ 항공권·쇼핑비 별도. 4박 연박·렌터카 없음으로 이동 부담 최소화.</p>
 </div>
 
 <div class="divider"></div>
@@ -657,12 +790,12 @@
 <div class="section fade-in">
   <div class="section-title">여행 팁 TIPS</div>
   <div class="tips-grid">
-    <div class="tip-card"><div class="tip-icon">🚃</div><div class="tip-label">교통 카드</div><div class="tip-text">공항 도착 즉시 Suica 발급. JR·지하철·버스·편의점 모두 사용 가능. 후라노·비에이만 렌터카 필수.</div></div>
+    <div class="tip-card"><div class="tip-icon">🚃</div><div class="tip-label">교통 카드</div><div class="tip-text">공항 도착 즉시 Suica 발급. JR·지하철·버스·편의점 모두 사용 가능. 후라노·비에이는 한국어 버스투어로 해결!</div></div>
     <div class="tip-card"><div class="tip-icon">💴</div><div class="tip-label">환전</div><div class="tip-text">신치토세 공항 또는 7-Eleven ATM 엔화 인출 추천. 료칸은 현금 결제만인 곳 많으니 현금 넉넉히.</div></div>
     <div class="tip-card"><div class="tip-icon">🌤</div><div class="tip-label">날씨</div><div class="tip-text">8월 삿포로 낮 23~27°C, 저녁 18°C 내외. 얇은 가디건 필수. 비 대비 접이식 우산 챙기기.</div></div>
     <div class="tip-card"><div class="tip-icon">🎁</div><div class="tip-label">쇼핑 추천</div><div class="tip-text">시로이 코이비토 · 로이스 초콜릿 · 삿포로 맥주 기념캔 · 라벤더 향수&비누 (팜 도미타)</div></div>
-    <div class="tip-card"><div class="tip-icon">♨️</div><div class="tip-label">온천 주의</div><div class="tip-text">타투 있으면 시설마다 입장 가능 여부 다름. 수건·유카타는 료칸 제공. 귀중품은 프런트 보관.</div></div>
-    <div class="tip-card"><div class="tip-icon">📱</div><div class="tip-label">유심·데이터</div><div class="tip-text">출발 전 일본 유심 or 포켓와이파이 예약 필수. 렌터카 네비에 Google Maps 필요하므로 데이터 꼭.</div></div>
+    <div class="tip-card"><div class="tip-icon">♨️</div><div class="tip-label">위스키 투어 예약</div><div class="tip-text">닛카 요이치 증류소 가이드 투어는 방문일 4주 전 오전 9:15 예약 오픈. 평일·주말 모두 순삭 — 날짜 정해지면 바로 예약!</div></div>
+    <div class="tip-card"><div class="tip-icon">📱</div><div class="tip-label">유심·데이터</div><div class="tip-text">출발 전 일본 유심 or eSIM 예약 필수. 렌터카 없으니 Google Maps 대중교통 검색용 데이터가 핵심.</div></div>
   </div>
 </div>
 
