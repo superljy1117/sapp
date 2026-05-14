@@ -127,6 +127,21 @@
   .info-chip.card { background:rgba(50,140,220,.12); color:#1a5fa0; font-weight:600; }
   .info-chip.both { background:rgba(80,160,80,.12); color:#1a6b1a; font-weight:600; }
 
+  /* TRANSIT & DURATION */
+  .transit-bar {
+    display:flex; align-items:center; gap:6px;
+    margin:0 0 0 20px; padding:6px 12px;
+    background:rgba(0,0,0,.04); border-radius:20px;
+    font-size:11px; color:#888; width:fit-content;
+  }
+  .transit-bar .t-icon { font-size:14px; }
+  .transit-bar .t-time { font-weight:600; color:#555; }
+  .duration-chip {
+    display:inline-flex; align-items:center; gap:4px;
+    font-size:11px; color:#777; background:rgba(107,143,113,.1);
+    border-radius:12px; padding:2px 9px; margin-bottom:6px;
+  }
+
   /* REVIEW & ALTERNATIVE */
   .sched-review {
     margin-top:10px; padding:10px 14px;
@@ -181,8 +196,8 @@
   <p class="hero-sub">8월 2일(일) — 8월 6일(목) &nbsp;·&nbsp; 성인 2명<br>라벤더 절정 시즌의 홋카이도</p>
   <div class="hero-meta">
     <div class="meta-chip">🛫 김해 출발 11:00</div>
-    <div class="meta-chip">💜 라벤더 절정 시즌</div>
-    <div class="meta-chip">♨️ 온천 1박 포함</div>
+    <div class="meta-chip">🌸 홋카이도 여름 여행</div>
+    <div class="meta-chip">🍺 삿포로 맥주축제 기간</div>
     <div class="meta-chip">👥 성인 2명</div>
   </div>
   <div class="scroll-hint"><div class="scroll-line"></div>SCROLL</div>
@@ -206,6 +221,7 @@
           <span class="sched-time">11:00</span><div class="sched-dot"></div>
           <div class="sched-content">
             <div class="sched-place">✈ 김해국제공항 출발</div>
+            <div class="duration-chip">⏱ 비행 2시간 + 입국 30분</div>
             <div class="sched-detail">신치토세(新千歳) 공항 약 14:00~14:30 도착. 비행 약 2시간, 입국심사+수하물 약 30분 예상.</div>
             <div class="sched-info"><span class="info-chip blue">✈ 비행 약 2시간</span><span class="info-chip">입국 후 JR로 삿포로 이동</span></div>
             <div class="sched-bottom"><span class="sched-tag tag-move">이동</span>
@@ -214,22 +230,26 @@
               </a>
             </div>
           </div>
+          <div class="transit-bar"><span class="t-icon">🚃</span><span>JR 쾌속 에어포트</span><span class="t-time">37분</span><span>· 1,150엔</span></div>
         </li>
 
         <li class="schedule-item">
-          <span class="sched-time">14:30</span><div class="sched-dot"></div>
+          <span class="sched-time">15:30</span><div class="sched-dot"></div>
           <div class="sched-content">
-            <div class="sched-place">🚃 신치토세 → 삿포로역 JR 이동</div>
+            <div class="sched-place">🏨 삿포로역 호텔 체크인</div>
+            <div class="duration-chip">⏱ 약 30분</div>
             <div class="sched-detail">JR 쾌속 에어포트 탑승. 약 37분. 삿포로역 도착 후 호텔 체크인. Suica로 탑승 가능.</div>
-            <div class="sched-info"><span class="info-chip blue">약 37분</span><span class="info-chip">💴 1,150엔</span><span class="info-chip green">✅ Suica 사용 가능</span></div>
-            <div class="sched-bottom"><span class="sched-tag tag-move">이동</span></div>
+            <div class="sched-info"><span class="info-chip green">✅ Suica 사용 가능</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-move">체크인</span></div>
           </div>
+          <div class="transit-bar"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">10분</span></div>
         </li>
 
         <li class="schedule-item">
           <span class="sched-time">16:00</span><div class="sched-dot"></div>
           <div class="sched-content">
             <div class="sched-place">🏙 오도리 공원 &amp; 삿포로 TV타워</div>
+            <div class="duration-chip">⏱ 약 45분 (전망대 포함)</div>
             <div class="sched-detail">동서 1.5km의 도심 녹지 공원. TV타워 전망대(90m)에서 바둑판 도시 조망. <b style="color:var(--gold)">🍺 8/2는 오도리 비어가든 기간 중!</b> TV타워 앞 4~5존이 명당.</div>
             <div class="sched-info"><span class="info-chip">🕐 TV타워 9:00~22:00</span><span class="info-chip">💴 전망대 1,000엔</span><span class="info-chip green">🌳 공원 무료</span><span class="info-chip both">💳 카드·현금 모두 가능</span></div>
             <div class="sched-bottom"><span class="sched-tag tag-sight">관광</span>
@@ -241,27 +261,15 @@
               </a>
             </div>
           </div>
+          <div class="transit-bar"><span class="t-icon">🚶</span><span>TV타워에서 도보</span><span class="t-time">1분</span><span>· 바로 옆</span></div>
         </li>
 
         <li class="schedule-item">
-          <span class="sched-time">17:30</span><div class="sched-dot"></div>
-          <div class="sched-content">
-            <div class="sched-place">🛍 다누키코지 쇼핑 아케이드</div>
-            <div class="sched-detail">1~7丁目 약 900m 지붕 덮인 상점가. 기념품·약국·돈키호테·음식점 집결. 비 와도 OK. 면세 쇼핑 가능.</div>
-            <div class="sched-info"><span class="info-chip">🕐 대부분 ~21:00</span><span class="info-chip green">✅ 면세 가능</span><span class="info-chip">☂ 비와도 OK</span><span class="info-chip both">💳 카드·현금 모두 가능</span></div>
-            <div class="sched-bottom"><span class="sched-tag tag-shop">쇼핑</span>
-              <a class="map-btn" href="https://maps.google.com/?cid=4470248669125351329" target="_blank">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
-              </a>
-            </div>
-          </div>
-        </li>
-
-        <li class="schedule-item">
-          <span class="sched-time">19:00</span><div class="sched-dot"></div>
+          <span class="sched-time">17:00</span><div class="sched-dot"></div>
           <div class="sched-content">
             <div class="sched-place">🍺 오도리 비어가든 (삿포로 맥주 축제)</div>
-            <div class="sched-detail">일본 최대 규모 맥주 축제. 오도리 공원 5~11초메에 삿포로·기린·산토리·아사히 4개 브랜드 존이 펼쳐짐. 삿포로 클래식 생맥주 + 징기스칸 구이가 정석 조합. 홋카이도 입성 첫날 밤을 이곳에서 시작!</div>
+            <div class="duration-chip">⏱ 약 2시간 30분</div>
+            <div class="sched-detail">일본 최대 규모 맥주 축제. 오도리 공원 5~11초메에 삿포로·기린·산토리·아사히 4개 브랜드 존이 펼쳐짐. 삿포로 클래식 생맥주 + 징기스칸 구이가 정석 조합. TV타워 전망대 관람 직후 바로 자리 선점!</div>
             <div class="sched-info">
               <span class="info-chip green">✅ 입장 무료</span>
               <span class="info-chip">🕐 평일 13:00~21:00</span>
@@ -269,7 +277,7 @@
               <span class="info-chip blue">📅 2026.07.23~08.18 개최</span>
               <span class="info-chip cash">💴 현금 위주 (노점·음식)</span>
             </div>
-            <div class="sched-review"><strong>💡 꿀팁</strong>TV타워 앞 4~5존이 야경 포함 최고 명당. 예약 없이 선착순 — 오후 4시 이전 자리 선점 권장. 평일 오후 1~3시 입장 시 선착순 맥주 쿠폰(500엔) 제공. 음식은 각 존 내 푸드코트에서 별도 구매.</div>
+            <div class="sched-review"><strong>💡 꿀팁</strong>TV타워 앞 4~5존이 야경 포함 최고 명당. 예약 없이 선착순 — TV타워 관람 후 바로 자리 선점하면 완벽. 평일 오후 1~3시 입장 시 선착순 맥주 쿠폰(500엔) 제공. 음식은 각 존 내 푸드코트에서 별도 구매.</div>
             <div class="sched-bottom">
               <span class="sched-tag tag-food">맥주 축제 🍺</span>
               <a class="map-btn" href="https://maps.google.com/?cid=14429024907484773390" target="_blank">
@@ -277,31 +285,51 @@
               </a>
             </div>
           </div>
+          <div class="transit-bar"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">5분</span></div>
         </li>
 
         <li class="schedule-item">
-          <span class="sched-time">20:30</span><div class="sched-dot"></div>
+          <span class="sched-time">19:30</span><div class="sched-dot"></div>
           <div class="sched-content">
-            <div class="sched-place">🍜 삿포로 라멘 하루카 (はるか) — 맥주 후 해장 라멘</div>
-            <div class="sched-detail">원조 삿포로 라멘 요코초 내 ⭐4.8 최고 인기 가게. 치즈 미소라멘·가라미소라멘 필수. 좌석 9석 소규모 — 17시 오픈 직후 방문하거나 줄 서기 각오.</div>
+            <div class="sched-place">🛍 다누키코지 쇼핑 아케이드</div>
+            <div class="duration-chip">⏱ 약 1시간 30분</div>
+            <div class="sched-detail">비어가든에서 오도리 공원 바로 옆 다누키코지로 도보 5분. 1~7丁目 약 900m 지붕 덮인 상점가. 기념품·약국·돈키호테·음식점 집결. 맥주 마신 후 산책 겸 쇼핑하기 딱 좋은 동선.</div>
+            <div class="sched-info"><span class="info-chip">🕐 대부분 ~21:00</span><span class="info-chip green">✅ 면세 가능</span><span class="info-chip">☂ 비와도 OK</span><span class="info-chip both">💳 카드·현금 모두 가능</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-shop">쇼핑</span>
+              <a class="map-btn" href="https://maps.google.com/?cid=4470248669125351329" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+              </a>
+            </div>
+          </div>
+          <div class="transit-bar"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">5분</span></div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">21:00</span><div class="sched-dot"></div>
+          <div class="sched-content">
+            <div class="sched-place">🍜 삿포로 라멘 하루카 (はるか) — 해장 라멘</div>
+            <div class="duration-chip">⏱ 약 45분 (대기 포함 최대 1시간 30분)</div>
+            <div class="sched-detail">다누키코지에서 도보 5분. 원조 삿포로 라멘 요코초 내 ⭐4.8 인기 가게. 치즈 미소라멘·가라미소라멘 필수. 23:00까지 영업이라 쇼핑 후 방문 가능. 좌석 9석 소규모라 줄 서기 각오.</div>
             <div class="sched-info"><span class="info-chip">🕐 11:00~15:00, 17:00~23:00</span><span class="info-chip">💴 1,200~1,500엔/그릇</span><span class="info-chip red">⚠ 현금 only · 줄 필수</span><span class="info-chip cash">💴 현금만 가능</span></div>
             <div class="sched-review"><strong>💬 실제 후기</strong>"치즈 라멘이 느끼함과 국물이 조화로워 정말 맛있었다. 사장님도 친절. 줄 서서 기다린 보람 있었다." — 구글 리뷰<br>"가족과 함께 갔는데 사장님이 어린 아이도 잘 챙겨주셨다. 양도 충분하고 맛도 훌륭." — 구글 리뷰</div>
             <div class="warn-box"><strong>⚠ 주의 — 엇갈린 후기 있음</strong>일부 한국인 여행자 "1시간 20분 대기 후 기대 이하. 냉동 재료 의심"이라는 혹평도 존재. 구글 리뷰 관리 의혹 제기됨. <b>방문 전 타베로그(tabelog.com) 교차 검증 추천!</b></div>
             <div class="sched-alt"><strong>🔄 차선책</strong>같은 라멘 요코초 내 <b>기후우(気風U)</b> — 진한 미소·간장 4종, 현지인 평가 우수. 또는 <b>삿포로 라멘 키후(Kifu)</b> — 스스키노 내, 예약 가능, 대기 없이 입장 가능한 경우 많음.</div>
-            <div class="sched-bottom"><span class="sched-tag tag-food">맛집 ⭐4.8</span>
+            <div class="sched-bottom"><span class="sched-tag tag-food">해장 라멘 🍜</span>
               <a class="map-btn" href="https://maps.google.com/?cid=18191763978182280290" target="_blank">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
               </a>
             </div>
           </div>
+          <div class="transit-bar"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">3분</span></div>
         </li>
 
         <li class="schedule-item">
-          <span class="sched-time">20:00</span><div class="sched-dot"></div>
+          <span class="sched-time">22:00</span><div class="sched-dot"></div>
           <div class="sched-content">
-            <div class="sched-place">🌃 스스키노 야경 산책</div>
-            <div class="sched-detail">홋카이도 최대 번화가. 닛카 위스키 광고판이 상징. 해산물 이자카야·징기스칸 구이 등 야식으로 저녁 마무리. 숙소(SAPPORO STREAM HOTEL) 도보 5분 거리.</div>
-            <div class="sched-info"><span class="info-chip">🍺 징기스칸·해산물 이자카야 즐비</span><span class="info-chip blue">🏨 숙소 도보 5분</span></div>
+            <div class="sched-place">🌃 스스키노 야경 산책 후 숙소 복귀</div>
+            <div class="duration-chip">⏱ 약 30분</div>
+            <div class="sched-detail">홋카이도 최대 번화가. 닛카 위스키 광고판이 상징. 라멘 요코초에서 도보 3분 거리. 가볍게 야경 구경 후 숙소로 복귀.</div>
+            <div class="sched-info"><span class="info-chip blue">🏨 숙소 도보 5분</span></div>
             <div class="sched-bottom"><span class="sched-tag tag-sight">야경</span>
               <a class="map-btn" href="https://maps.google.com/?q=susukino+sapporo" target="_blank">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
@@ -317,7 +345,7 @@
     <div class="day-card">
       <div class="day-header" onclick="toggleDay(this)">
         <span class="day-num d2">DAY 2</span>
-        <div class="day-info"><div class="day-date">8월 3일 월요일</div><div class="day-title">오타루 당일치기</div></div>
+        <div class="day-info"><div class="day-date">8월 3일 월요일</div><div class="day-title">오타루 집중 탐방 — 낮부터 야경까지 🚢</div></div>
         <span class="day-toggle">▼</span>
       </div>
       <div class="day-body"><ul class="schedule-list">
@@ -326,16 +354,19 @@
           <span class="sched-time">08:50</span><div class="sched-dot" style="background:var(--lavender)"></div>
           <div class="sched-content">
             <div class="sched-place">🚃 삿포로역 → 오타루역</div>
-            <div class="sched-detail">JR 쾌속 에어포트 또는 니세코 라이너. 약 32~40분. 오전 일찍 출발해야 운하 인파 전에 여유롭게 산책 가능.</div>
+            <div class="duration-chip">⏱ 약 35분</div>
+            <div class="sched-detail">JR 쾌속 에어포트 또는 니세코 라이너. 약 32~35분. 오전 일찍 출발해야 운하 인파 전에 여유롭게 산책 가능. 오타루역에서 운하까지 도보 약 10분.</div>
             <div class="sched-info"><span class="info-chip blue">약 35분</span><span class="info-chip">💴 750엔</span><span class="info-chip green">✅ Suica 사용 가능</span></div>
             <div class="sched-bottom"><span class="sched-tag tag-move">이동</span></div>
           </div>
+          <div class="transit-bar"><span class="t-icon">🚶</span><span>오타루역에서 도보</span><span class="t-time">10분</span></div>
         </li>
 
         <li class="schedule-item">
           <span class="sched-time">10:00</span><div class="sched-dot" style="background:var(--lavender)"></div>
           <div class="sched-content">
-            <div class="sched-place">🚢 오타루 운하 산책</div>
+            <div class="sched-place">🚢 오타루 운하 낮 산책</div>
+            <div class="duration-chip">⏱ 약 50분</div>
             <div class="sched-detail">1914년 건설된 옛 창고 개조 낭만적 운하. 약 1.3km 산책 코스. 오전 방문 시 인파 적고 사진 좋음. 중앙교 위가 대표 포토스팟.</div>
             <div class="sched-info"><span class="info-chip green">✅ 무료 · 24시간</span><span class="info-chip">📸 포토스팟: 중앙교 위</span><span class="info-chip green">💳 결제 불필요</span></div>
             <div class="sched-bottom"><span class="sched-tag tag-sight">관광</span>
@@ -344,59 +375,100 @@
               </a>
             </div>
           </div>
+          <div class="transit-bar"><span class="t-icon">🚶</span><span>운하 산책로에서 도보</span><span class="t-time">2분</span><span>· 크루즈 선착장</span></div>
         </li>
 
         <li class="schedule-item">
           <span class="sched-time">11:00</span><div class="sched-dot" style="background:var(--lavender)"></div>
           <div class="sched-content">
             <div class="sched-place">⛵ 오타루 운하 크루즈</div>
+            <div class="duration-chip">⏱ 약 40분</div>
             <div class="sched-detail">운하 + 항구 바다 구간 약 40분 유람선. 한국어 오디오 가이드 제공. 출발 15분 전 티켓 구매 필요. 날씨 좋은 날 적극 추천.</div>
             <div class="sched-info"><span class="info-chip">🕐 9:30~20:00</span><span class="info-chip">💴 1,800엔/인</span><span class="info-chip blue">🎧 한국어 오디오</span><span class="info-chip red">⚠ 성수기 전화 예약 필수 (7/20~9/30)</span><span class="info-chip cash">💴 현금만 가능</span></div>
-            <div class="sched-review"><strong>💬 실제 후기</strong>"한국어 오디오 가이드까지 있어 너무 좋았다. 도보로는 볼 수 없는 바다 쪽 코스까지 돌아봐서 색다른 경험이었다." — 네이버 여행 후기<br>"배 1척에 약 40명 탑승, 회전이 빠르니 줄 서도 금방 탑승 가능. 나이트 크루즈는 가스등 불빛이 환상적이었다." — Trip.com</div>
-            <div class="sched-alt"><strong>🔄 차선책 — 악천후·운휴 시</strong><b>기타이치 글래스 3호점</b>에서 분위기 좋은 카페 즐기기. 또는 <b>오타루 오르골당</b> 방문 (오타루 사카이마치 거리 대표 관광지, 무료 입장). 비 오는 날에도 실내 관광 충분.</div>
+            <div class="sched-review"><strong>💬 실제 후기</strong>"한국어 오디오 가이드까지 있어 너무 좋았다. 도보로는 볼 수 없는 바다 쪽 코스까지 돌아봐서 색다른 경험이었다." — 네이버 여행 후기<br>"나이트 크루즈는 가스등 불빛이 환상적이었다." — Trip.com</div>
+            <div class="sched-alt"><strong>🔄 차선책 — 악천후·운휴 시</strong><b>기타이치 글래스 3호점</b> 카페 or <b>오타루 오르골당</b> 실내 관광으로 대체.</div>
             <div class="sched-bottom"><span class="sched-tag tag-sight">체험</span>
               <a class="map-btn" href="https://maps.google.com/?cid=4643701814904872968" target="_blank">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
               </a>
             </div>
           </div>
+          <div class="transit-bar"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">5분</span><span>· 삼각시장 방향</span></div>
         </li>
 
         <li class="schedule-item">
           <span class="sched-time">12:30</span><div class="sched-dot" style="background:var(--lavender)"></div>
           <div class="sched-content">
-            <div class="sched-place">🦞 오타루 해산물 점심</div>
-            <div class="sched-detail">오타루는 홋카이도 최대 어항 도시. 성게(うに)·연어알(いくら)·게(カニ) 덮밥이 명물. 사카이마치 거리 또는 운하 근처 스시집 추천.</div>
-            <div class="sched-info"><span class="info-chip">💴 1,500~3,000엔 내외</span></div>
-            <div class="sched-bottom"><span class="sched-tag tag-food">맛집</span>
+            <div class="sched-place">🦞 해산물 점심 — 사카이마치·삼각시장</div>
+            <div class="duration-chip">⏱ 약 1시간 30분</div>
+            <div class="sched-detail">오타루는 홋카이도 최대 어항 도시. 성게(うに)·연어알(いくら)·게(カニ) 덮밥이 명물. 오타루역 앞 삼각시장은 신선도와 가성비 최고. 사카이마치 거리 스시집도 추천.</div>
+            <div class="sched-info"><span class="info-chip">💴 1,500~3,000엔 내외</span><span class="info-chip cash">💴 현금 위주</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-food">점심</span>
+              <a class="map-btn" href="https://maps.google.com/?q=otaru+sankaku+market" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>삼각시장
+              </a>
               <a class="map-btn" href="https://maps.google.com/?q=otaru+sakaimachi+street" target="_blank">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>사카이마치 거리
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>사카이마치
               </a>
             </div>
           </div>
+          <div class="transit-bar"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">3분</span><span>· 사카이마치 방향</span></div>
         </li>
 
         <li class="schedule-item">
           <span class="sched-time">14:00</span><div class="sched-dot" style="background:var(--lavender)"></div>
           <div class="sched-content">
-            <div class="sched-place">🍫 시로이 코이비토 파크</div>
-            <div class="sched-detail">홋카이도 최대 히트 과자 공장 테마파크. 초콜릿 제조 체험·유럽풍 정원·박물관. 라벤더 소프트아이스크림 필수. 공항보다 여기서 구매가 저렴!</div>
-            <div class="sched-info"><span class="info-chip">🕐 10:00~18:00</span><span class="info-chip">💴 입장 800엔</span><span class="info-chip blue">🍪 쿠키 체험 별도</span><span class="info-chip both">💳 카드·현금 모두 가능</span></div>
-            <div class="sched-bottom"><span class="sched-tag tag-shop">쇼핑·체험</span>
-              <a class="map-btn" href="https://maps.google.com/?cid=13987684257188413841" target="_blank">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+            <div class="sched-place">🎵 사카이마치 거리 산책 & 쇼핑</div>
+            <div class="duration-chip">⏱ 약 2시간 30분</div>
+            <div class="sched-detail">오타루 메인 관광 상점가. 오르골당(세계 최대 오르골 전시·판매), 키타이치 글래스(홋카이도 핸드메이드 유리공예), 르타오 치즈케이크 직영점 등이 밀집. 유리공예 기념품 구매 적기.</div>
+            <div class="sched-info"><span class="info-chip green">✅ 입장 무료</span><span class="info-chip">🎶 오르골당 1,500엔~</span><span class="info-chip">🍰 르타오 치즈케이크 필수</span><span class="info-chip both">💳 카드·현금 모두</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-shop">쇼핑</span>
+              <a class="map-btn" href="https://maps.google.com/?q=otaru+music+box+museum" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>오르골당
+              </a>
+              <a class="map-btn" href="https://maps.google.com/?q=kitaichi+glass+otaru" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>키타이치 글래스
               </a>
             </div>
           </div>
+          <div class="transit-bar"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">5분</span><span>· 운하 방향</span></div>
         </li>
 
         <li class="schedule-item">
-          <span class="sched-time">17:00</span><div class="sched-dot" style="background:var(--lavender)"></div>
+          <span class="sched-time">18:30</span><div class="sched-dot" style="background:var(--lavender)"></div>
+          <div class="sched-content">
+            <div class="sched-place">🍺 저녁 1순위 — 오타루 비어 창고 No.1 (小樽倉庫No.1)</div>
+            <div class="duration-chip">⏱ 약 2시간 (저녁 식사 + 야경 감상)</div>
+            <div class="sched-detail">오타루 운하 바로 옆 역사적 벽돌 창고를 개조한 양조장 레스토랑. 창가 자리에서 가스등 야경을 감상하며 갓 양조한 오타루 맥주 + 홋카이도 안주를 동시에 즐길 수 있어요. 야경 따로, 밥 따로 할 필요 없이 한 자리에서 해결!</div>
+            <div class="sched-info">
+              <span class="info-chip">🕐 11:00~22:00 (연중무휴)</span>
+              <span class="info-chip">💴 약 2,500~3,500엔/인</span>
+              <span class="info-chip">🍺 오타루 현지 양조 맥주</span>
+              <span class="info-chip green">✅ 월요일 영업</span>
+              <span class="info-chip both">💳 카드·현금 모두 가능</span>
+            </div>
+            <div class="sched-review"><strong>💬 실제 후기 ⭐4.1</strong>"바바리안 스타일 훈제 맥주가 특히 인상적. 스모키한 향과 균형 잡힌 맛. 훈제 청어 피자도 기대 이상으로 맛있었다." — 구글 리뷰<br>"장소에 들어서는 순간 분위기에 반했다! 가스등과 운하가 창문 밖에 펼쳐지는 최고의 자리." — 구글 리뷰</div>
+            <div class="sched-alt"><strong>🥈 저녁 2순위 — SUSHI &amp; GRILL 이루오나이 (IL ONAI) ⭐4.4</strong>운하에서 도보 2분. 저녁 17:30~21:00 영업. 홋카이도 소 안심 철판구이·가리비·연어뱃살 그릴 + 스시 코스. 야경보다 조용하고 우아한 분위기를 원한다면 여기. 7,000엔 코스 추천. 월요일 영업 ✅<br><em>"홋카이도 소 안심이 최고였다. 스태프도 친절하고 세심한 서비스." — 구글 리뷰</em></div>
+            <div class="sched-bottom"><span class="sched-tag tag-food">저녁 🍺</span>
+              <a class="map-btn" href="https://maps.google.com/?cid=ChIJk-FOGk3gCl8RQ9Yv9HZnul4" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>창고 No.1
+              </a>
+              <a class="map-btn" href="https://maps.google.com/?cid=ChIJK8JDpl7hCl8RHjPfIF9ZnR8" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>IL ONAI
+              </a>
+            </div>
+          </div>
+          <div class="transit-bar"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">10분</span><span>· 오타루역</span></div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">21:00</span><div class="sched-dot" style="background:var(--lavender)"></div>
           <div class="sched-content">
             <div class="sched-place">🚃 오타루 → 삿포로 복귀</div>
-            <div class="sched-detail">JR 약 35분. 삿포로 복귀 후 저녁 식사 or 스스키노 야식.</div>
-            <div class="sched-info"><span class="info-chip blue">약 35분</span><span class="info-chip">💴 750엔</span></div>
-            <div class="sched-bottom"><span class="sched-tag tag-move">이동</span></div>
+            <div class="duration-chip">⏱ 약 35분</div>
+            <div class="sched-detail">JR 약 35분. 삿포로역 도착 후 숙소 복귀.</div>
+            <div class="sched-info"><span class="info-chip blue">약 35분</span><span class="info-chip">💴 750엔</span><span class="info-chip green">✅ Suica 사용 가능</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-move">복귀</span></div>
           </div>
         </li>
 
@@ -407,7 +479,7 @@
     <div class="day-card">
       <div class="day-header" onclick="toggleDay(this)">
         <span class="day-num d3">DAY 3</span>
-        <div class="day-info"><div class="day-date">8월 4일 화요일</div><div class="day-title">후라노 · 비에이 — 한국어 버스투어 🚌</div></div>
+        <div class="day-info"><div class="day-date">8월 4일 화요일</div><div class="day-title">비에이 꽃밭 & 블루폰드 버스투어 🌸</div></div>
         <span class="day-toggle">▼</span>
       </div>
       <div class="day-body"><ul class="schedule-list">
@@ -416,6 +488,7 @@
           <span class="sched-time">07:30</span><div class="sched-dot" style="background:#c77a4a"></div>
           <div class="sched-content">
             <div class="sched-place">🚌 엔데이트립 버스투어 집합 (오도리역)</div>
+            <div class="duration-chip">⏱ 총 약 10시간 (07:50~18:00)</div>
             <div class="sched-detail">오도리역 31번 출구 앞 "Ndaytrip" 피켓 가이드 집합. 07:50 출발. 한국인 가이드가 패치워크 로드·블루폰드·흰수염 폭포·사계채의 언덕·팜 도미타 등 핵심 코스를 하루에 완주.</div>
             <div class="sched-info">
               <span class="info-chip green">🇰🇷 한국인 가이드</span>
@@ -436,13 +509,15 @@
               </a>
             </div>
           </div>
+          <div class="transit-bar"><span class="t-icon">🚌</span><span>버스 이동</span><span class="t-time">약 1시간 30분</span><span>· 삿포로→비에이</span></div>
         </li>
 
         <li class="schedule-item">
           <span class="sched-time">오전</span><div class="sched-dot" style="background:#c77a4a"></div>
           <div class="sched-content">
             <div class="sched-place">🌾 패치워크 로드 · 사계채의 언덕</div>
-            <div class="sched-detail">비에이 구릉을 수놓는 형형색색 밭의 파노라마. 사계채의 언덕에서 해바라기·해바라기·살비아·백일홍이 한꺼번에 만개. 버스에서 내려 자유 산책.</div>
+            <div class="duration-chip">⏱ 약 1시간</div>
+            <div class="sched-detail">비에이 구릉을 수놓는 형형색색 밭의 파노라마. 사계채의 언덕에서 해바라기·살비아·백일홍이 한꺼번에 만개. 버스에서 내려 자유 산책.</div>
             <div class="sched-info"><span class="info-chip green">✅ 입장 무료</span><span class="info-chip">📸 인생샷 스팟 1순위</span></div>
             <div class="sched-bottom"><span class="sched-tag tag-nature">자연</span>
               <a class="map-btn" href="https://maps.google.com/?q=Shikisai+no+Oka+Biei" target="_blank">
@@ -450,22 +525,26 @@
               </a>
             </div>
           </div>
+          <div class="transit-bar"><span class="t-icon">🚌</span><span>버스 이동</span><span class="t-time">약 30분</span><span>· 점심 장소</span></div>
         </li>
 
         <li class="schedule-item">
           <span class="sched-time">점심</span><div class="sched-dot" style="background:#c77a4a"></div>
           <div class="sched-content">
             <div class="sched-place">🍛 비에이역 준페이 or 후라노 자유중식</div>
+            <div class="duration-chip">⏱ 약 1시간</div>
             <div class="sched-detail">투어에 따라 비에이역 인기 식당 '준페이' 연계 or 후라노 시내 자유 중식. 후라노 오므카레(오므라이스+카레)·옥수수 생식이 명물.</div>
             <div class="sched-info"><span class="info-chip">💴 자유 중식 1,000~1,500엔 내외</span><span class="info-chip blue">🌽 생옥수수 꼭 드세요!</span></div>
             <div class="sched-bottom"><span class="sched-tag tag-food">맛집</span></div>
           </div>
+          <div class="transit-bar"><span class="t-icon">🚌</span><span>버스 이동</span><span class="t-time">약 20분</span><span>· 팜 도미타</span></div>
         </li>
 
         <li class="schedule-item">
           <span class="sched-time">오후</span><div class="sched-dot" style="background:#c77a4a"></div>
           <div class="sched-content">
             <div class="sched-place">💜 팜 도미타 (ファーム富田)</div>
+            <div class="duration-chip">⏱ 약 1시간</div>
             <div class="sched-detail">홋카이도 라벤더 성지. 13개 꽃밭. 8월 초는 해바라기·코스모스 만개 시즌. 라벤더 소프트아이스크림 & 라벤더 향수·비누 기념품 강추.</div>
             <div class="sched-info"><span class="info-chip green">✅ 입장 무료</span><span class="info-chip red">⚠ 8월엔 라벤더 대부분 수확 완료</span><span class="info-chip cash">💴 현금 위주 (일부 카드 가능)</span></div>
             <div class="warn-box"><strong>⚠ 8월 라벤더 개화 주의</strong>라벤더 피크는 7월 초~중순. 8월 4일 방문 시 이미 수확·시든 상태일 가능성 높음. 방문 전 <b>farm-tomita.co.jp</b>에서 개화 상태 확인!</div>
@@ -475,12 +554,14 @@
               </a>
             </div>
           </div>
+          <div class="transit-bar"><span class="t-icon">🚌</span><span>버스 이동</span><span class="t-time">약 30분</span><span>· 블루폰드</span></div>
         </li>
 
         <li class="schedule-item">
           <span class="sched-time">오후</span><div class="sched-dot" style="background:#c77a4a"></div>
           <div class="sched-content">
             <div class="sched-place">💙 시로가네 블루폰드 · 흰수염 폭포</div>
+            <div class="duration-chip">⏱ 약 45분</div>
             <div class="sched-detail">맥OS 배경화면으로 유명한 터키색 신비 연못. 바로 옆 흰수염 폭포도 세트 방문. 파란 소프트아이스크림 필수!</div>
             <div class="sched-info"><span class="info-chip">💴 주차 200엔 (입장 무료)</span><span class="info-chip red">⚠ 흐린 날엔 색이 탁해짐</span><span class="info-chip cash">💴 현금만 가능 (주차비)</span></div>
             <div class="sched-review"><strong>💬 실제 후기</strong>"실물이 사진보다 훨씬 신비로웠다. 맑은 날 오전이 색이 가장 선명." — 네이버 후기</div>
@@ -490,6 +571,7 @@
               </a>
             </div>
           </div>
+          <div class="transit-bar"><span class="t-icon">🚌</span><span>버스 귀환</span><span class="t-time">약 2시간</span><span>· 삿포로 오도리역</span></div>
         </li>
 
         <li class="schedule-item">
@@ -509,7 +591,7 @@
     <div class="day-card">
       <div class="day-header" onclick="toggleDay(this)">
         <span class="day-num d4">DAY 4</span>
-        <div class="day-info"><div class="day-date">8월 5일 수요일</div><div class="day-title">요이치 닛카 위스키 증류소 + 오타루 야경 🥃</div></div>
+        <div class="day-info"><div class="day-date">8월 5일 수요일</div><div class="day-title">홋카이도 근교 당일 투어 🗺</div></div>
         <span class="day-toggle">▼</span>
       </div>
       <div class="day-body"><ul class="schedule-list">
@@ -518,6 +600,7 @@
           <span class="sched-time">09:00</span><div class="sched-dot" style="background:#4a7fc7"></div>
           <div class="sched-content">
             <div class="sched-place">🚃 삿포로 → 오타루 → 요이치 JR 이동</div>
+            <div class="duration-chip">⏱ 약 65분</div>
             <div class="sched-detail">삿포로역 출발 → 오타루역 환승 → 요이치역 하차. 총 약 65분 소요. 요이치역에서 증류소까지 도보 2~3분으로 매우 가까움.</div>
             <div class="sched-info">
               <span class="info-chip blue">🕐 삿포로→요이치 약 65분</span>
@@ -526,12 +609,14 @@
             </div>
             <div class="sched-bottom"><span class="sched-tag tag-move">이동</span></div>
           </div>
+          <div class="transit-bar"><span class="t-icon">🚶</span><span>요이치역에서 도보</span><span class="t-time">3분</span></div>
         </li>
 
         <li class="schedule-item">
           <span class="sched-time">10:30</span><div class="sched-dot" style="background:#4a7fc7"></div>
           <div class="sched-content">
             <div class="sched-place">🥃 닛카 위스키 요이치 증류소</div>
+            <div class="duration-chip">⏱ 약 2시간 30분 (가이드 투어 70분 + 쇼핑)</div>
             <div class="sched-detail">1934년 창업 일본 위스키의 성지. 일본 문화청 중요문화재 지정. 가이드 투어(무료, 약 70분) — 발효·증류·숙성 전 과정 견학 후 위스키 3종 무료 시음. 한국어 QR 안내 제공. 투어 외에도 닛카 뮤지엄·리타스 키친·기념품샵(요이치 한정 위스키) 이용 가능.</div>
             <div class="sched-info">
               <span class="info-chip green">✅ 견학 무료</span>
@@ -548,12 +633,14 @@
               </a>
             </div>
           </div>
+          <div class="transit-bar"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">15분</span><span>· 성게 전문점</span></div>
         </li>
 
         <li class="schedule-item">
           <span class="sched-time">13:00</span><div class="sched-dot" style="background:#4a7fc7"></div>
           <div class="sched-content">
             <div class="sched-place">🦔 점심 1순위 — 우니 센몬텐 요이치야 요이치 직판점</div>
+            <div class="duration-chip">⏱ 약 1시간</div>
             <div class="sched-detail">요이치역 도보 15분. SNS에서 화제가 된 소금물 성게 전문점. 간판 메뉴는 <b>5종 성게 비교 덮밥</b> — 5가지 산지의 성게를 한 그릇에서 비교 시식. 요이치는 소금물 성게(무칠성게)의 발상지!</div>
             <div class="sched-info">
               <span class="info-chip">🕐 11:00~재료 소진 시까지</span>
@@ -568,13 +655,15 @@
               </a>
             </div>
           </div>
+          <div class="transit-bar"><span class="t-icon">🚃</span><span>JR</span><span class="t-time">30분</span><span>· 340엔 · 요이치→오타루</span></div>
         </li>
 
         <li class="schedule-item">
           <span class="sched-time">15:00</span><div class="sched-dot" style="background:#4a7fc7"></div>
           <div class="sched-content">
-            <div class="sched-place">🚃 요이치 → 오타루 이동 (야경 준비)</div>
-            <div class="sched-detail">JR로 약 30분. 오타루 도착 후 운하 주변 산책하며 가스등 점등 시간까지 여유롭게 탐방. 오타루 음악상자당·사카이마치 거리 산책.</div>
+            <div class="sched-place">🚃 요이치 → 오타루 이동</div>
+            <div class="duration-chip">⏱ 약 30분</div>
+            <div class="sched-detail">JR로 약 30분. 오타루 도착 후 운하 주변 산책하며 가스등 점등 시간까지 여유롭게 탐방.</div>
             <div class="sched-info">
               <span class="info-chip blue">🕐 요이치→오타루 약 30분</span>
               <span class="info-chip">💴 340엔</span>
@@ -582,12 +671,14 @@
             </div>
             <div class="sched-bottom"><span class="sched-tag tag-move">이동</span></div>
           </div>
+          <div class="transit-bar"><span class="t-icon">🚶</span><span>오타루역에서 도보</span><span class="t-time">10분</span><span>· 운하</span></div>
         </li>
 
         <li class="schedule-item">
           <span class="sched-time">15:30</span><div class="sched-dot" style="background:#4a7fc7"></div>
           <div class="sched-content">
             <div class="sched-place">🚢 오타루 운하 야경 & 산책</div>
+            <div class="duration-chip">⏱ 약 1시간 30분 (가스등 점등 대기 포함)</div>
             <div class="sched-detail">낮과 완전히 다른 분위기. 가스등이 운하 수면에 반사되며 황금빛 야경 연출. DAY 2에 낮에 봤던 운하를 밤에 다시 보는 것도 색다른 경험. 중앙교 포토스팟 야경 버전 사진 추천.</div>
             <div class="sched-info">
               <span class="info-chip green">✅ 무료</span>
@@ -600,6 +691,7 @@
               </a>
             </div>
           </div>
+          <div class="transit-bar"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">5분</span><span>· 저녁 식당</span></div>
         </li>
 
         <li class="schedule-item">
@@ -653,9 +745,26 @@
       <div class="day-body"><ul class="schedule-list">
 
         <li class="schedule-item">
-          <span class="sched-time">10:30</span><div class="sched-dot" style="background:var(--gold)"></div>
+          <span class="sched-time">10:00</span><div class="sched-dot" style="background:var(--gold)"></div>
+          <div class="sched-content">
+            <div class="sched-place">🍫 시로이 코이비토 파크</div>
+            <div class="duration-chip">⏱ 약 1시간 30분</div>
+            <div class="sched-detail">삿포로역 → 지하철 도자이선 미야노사와역 하차 도보 7분. 홋카이도 명과 공장 테마파크. 유럽풍 정원·초콜릿 제조 체험·박물관. 귀국 전 기념품 구매 최적 장소 — 공항보다 저렴!</div>
+            <div class="sched-info"><span class="info-chip">🕐 10:00~18:00</span><span class="info-chip">💴 입장 800엔</span><span class="info-chip blue">🚇 지하철 도자이선 미야노사와역</span><span class="info-chip both">💳 카드·현금 모두 가능</span></div>
+            <div class="sched-bottom"><span class="sched-tag tag-shop">쇼핑·체험</span>
+              <a class="map-btn" href="https://maps.google.com/?cid=13987684257188413841" target="_blank">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도 보기
+              </a>
+            </div>
+          </div>
+          <div class="transit-bar"><span class="t-icon">🚇</span><span>지하철 도자이선 복귀</span><span class="t-time">15분</span><span>· 삿포로역 방향</span></div>
+        </li>
+
+        <li class="schedule-item">
+          <span class="sched-time">11:30</span><div class="sched-dot" style="background:var(--gold)"></div>
           <div class="sched-content">
             <div class="sched-place">🍺 삿포로 맥주 박물관</div>
+            <div class="duration-chip">⏱ 약 1시간</div>
             <div class="sched-detail">1876년 창업 삿포로 맥주 역사 전시. 레트로 빨간 벽돌 건물. 무료 자유 견학 후 3종 시음 세트 필수. 기념 쇼핑도 다양.</div>
             <div class="sched-info"><span class="info-chip green">✅ 견학 무료</span><span class="info-chip">🕐 11:00~18:00 (월요일 휴관)</span><span class="info-chip">💴 시음 세트 ~1,000엔</span><span class="info-chip both">💳 카드·현금 모두 가능</span></div>
             <div class="sched-bottom"><span class="sched-tag tag-sight">관광</span>
@@ -664,12 +773,14 @@
               </a>
             </div>
           </div>
+          <div class="transit-bar"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">20분</span><span>· 또는 버스 5분</span></div>
         </li>
 
         <li class="schedule-item">
-          <span class="sched-time">12:00</span><div class="sched-dot" style="background:var(--gold)"></div>
+          <span class="sched-time">12:30</span><div class="sched-dot" style="background:var(--gold)"></div>
           <div class="sched-content">
             <div class="sched-place">🛍 마지막 쇼핑 &amp; 점심</div>
+            <div class="duration-chip">⏱ 약 1시간 30분</div>
             <div class="sched-detail">다누키코지 or 삿포로역 지하상가 아피아·에스타에서 귀국 전 기념품 마무리. 공항보다 여기가 저렴!</div>
             <div class="sched-info"><span class="info-chip">🍫 시로이 코이비토 (공항보다 저렴)</span><span class="info-chip">🍫 로이스 초콜릿</span><span class="info-chip">🍺 삿포로 맥주 기념캔</span></div>
             <div class="sched-bottom"><span class="sched-tag tag-shop">쇼핑</span>
@@ -678,13 +789,15 @@
               </a>
             </div>
           </div>
+          <div class="transit-bar"><span class="t-icon">🚃</span><span>JR 쾌속 에어포트</span><span class="t-time">37분</span><span>· 1,150엔</span></div>
         </li>
 
         <li class="schedule-item">
-          <span class="sched-time">13:00</span><div class="sched-dot" style="background:var(--gold)"></div>
+          <span class="sched-time">14:00</span><div class="sched-dot" style="background:var(--gold)"></div>
           <div class="sched-content">
             <div class="sched-place">🚃 삿포로역 → 신치토세 공항</div>
-            <div class="sched-detail">JR 쾌속 에어포트 약 37분. 출발 2시간 전 공항 도착 권장.</div>
+            <div class="duration-chip">⏱ 약 37분</div>
+            <div class="sched-detail">JR 쾌속 에어포트 약 37분. 출발 2시간 전 공항 도착 권장. 공항 면세 쇼핑(로이스 나마초콜릿 냉장팩) 마무리.</div>
             <div class="sched-info"><span class="info-chip blue">약 37분</span><span class="info-chip">💴 1,150엔</span><span class="info-chip red">⚠ 출발 2시간 전 도착 권장</span></div>
             <div class="sched-bottom"><span class="sched-tag tag-move">이동</span></div>
           </div>
