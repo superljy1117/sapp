@@ -181,6 +181,23 @@
 
   @media(max-width:600px){ .day-header{padding:18px 20px;} .day-body{padding:0 20px 20px;} .hero-meta{gap:10px;} .meta-chip{font-size:12px;padding:10px 14px;} }
 </style>
+<!-- Papago 연결 -->
+<script>
+function openPapago(text) {
+  var appUrl = 'navernlpkit://papago/translation?sourceText=' + encodeURIComponent(text) + '&source=ja&target=ko';
+  var storeUrl = 'https://papago.naver.com/?sk=ja&tk=ko&st=' + encodeURIComponent(text);
+  var a = document.createElement('a');
+  a.href = appUrl;
+  a.style.display = 'none';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  // 앱 미설치 시 웹 파파고로 fallback
+  setTimeout(function() {
+    window.open(storeUrl, '_blank');
+  }, 1500);
+}
+</script>
 </head>
 <body>
 
@@ -1247,23 +1264,25 @@
 
         <div style="border-bottom:1px solid var(--border);padding-bottom:12px;">
           <div style="font-size:11px;color:#888;margin-bottom:4px;">직원이 물어볼 때</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">何名様ですか？</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">何名様ですか？<button onclick="openPapago('何名様ですか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
           <div style="font-size:12px;color:var(--sage);margin-bottom:6px;">난메이사마데스카? — 몇 분이세요?</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 ふたりです。</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 ふたりです。
+            <button onclick="openPapago('ふたりです')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button>
+          </div>
           <div style="font-size:12px;color:#666;">후타리데스 — 두 명이에요.</div>
         </div>
 
         <div style="border-bottom:1px solid var(--border);padding-bottom:12px;">
           <div style="font-size:11px;color:#888;margin-bottom:4px;">예약 여부 물어볼 때</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">ご予約はございますか？</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">ご予約はございますか？<button onclick="openPapago('ご予約はございますか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
           <div style="font-size:12px;color:var(--sage);margin-bottom:6px;">고요야쿠와 고자이마스카? — 예약하셨나요?</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 予約しています。/ 予約していません。</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 予約しています。/ 予約していません。<button onclick="openPapago('予約しています。予約していません。')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
           <div style="font-size:12px;color:#666;">요야쿠시테이마스 / 요야쿠시테이마셍 — 예약했어요 / 안 했어요</div>
         </div>
 
         <div>
           <div style="font-size:11px;color:#888;margin-bottom:4px;">창가 자리 요청</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 窓側の席をお願いします。</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 窓側の席をお願いします。<button onclick="openPapago('窓側の席をお願いします')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
           <div style="font-size:12px;color:#666;">마도가와노 세키오 오네가이시마스 — 창가 자리 부탁드려요</div>
         </div>
 
@@ -1279,27 +1298,27 @@
 
         <div style="border-bottom:1px solid var(--border);padding-bottom:12px;">
           <div style="font-size:11px;color:#888;margin-bottom:4px;">직원이 주문 받으러 올 때</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">ご注文はお決まりですか？</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">ご注文はお決まりですか？<button onclick="openPapago('ご注文はお決まりですか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
           <div style="font-size:12px;color:var(--lavender);margin-bottom:6px;">고츄몬와 오키마리데스카? — 주문 결정하셨나요?</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 これをください。/ もう少し待ってください。</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 これをください。/ もう少し待ってください。<button onclick="openPapago('これをください。もう少し待ってください')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
           <div style="font-size:12px;color:#666;">코레오 쿠다사이 — 이거 주세요 / 모우스코시 맛테쿠다사이 — 조금만 더 기다려 주세요</div>
         </div>
 
         <div style="border-bottom:1px solid var(--border);padding-bottom:12px;">
           <div style="font-size:11px;color:#888;margin-bottom:4px;">메뉴 가리키며 주문할 때</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 これと、これをひとつずつください。</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 これと、これをひとつずつください。<button onclick="openPapago('これと、これをひとつずつください')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
           <div style="font-size:12px;color:#666;">코레토 코레오 히토츠즈츠 쿠다사이 — 이것과 이것 하나씩 주세요</div>
         </div>
 
         <div style="border-bottom:1px solid var(--border);padding-bottom:12px;">
           <div style="font-size:11px;color:#888;margin-bottom:4px;">추가 주문</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 すみません、追加注文いいですか？</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 すみません、追加注文いいですか？<button onclick="openPapago('すみません、追加注文いいですか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
           <div style="font-size:12px;color:#666;">스미마셍, 츠이카 츄몬 이이데스카? — 저기요, 추가 주문 돼요?</div>
         </div>
 
         <div>
           <div style="font-size:11px;color:#888;margin-bottom:4px;">물 요청</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 お水をください。</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 お水をください。<button onclick="openPapago('お水をください')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
           <div style="font-size:12px;color:#666;">오미즈오 쿠다사이 — 물 주세요</div>
         </div>
 
@@ -1315,27 +1334,27 @@
 
         <div style="border-bottom:1px solid var(--border);padding-bottom:12px;">
           <div style="font-size:11px;color:#888;margin-bottom:4px;">계산 요청</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 お会計をお願いします。</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 お会計をお願いします。<button onclick="openPapago('お会計をお願いします')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
           <div style="font-size:12px;color:#666;">오카이케이오 오네가이시마스 — 계산 부탁드려요</div>
         </div>
 
         <div style="border-bottom:1px solid var(--border);padding-bottom:12px;">
           <div style="font-size:11px;color:#888;margin-bottom:4px;">직원이 결제 방법 물어볼 때</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">お支払い方法はどうされますか？</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">お支払い方法はどうされますか？<button onclick="openPapago('お支払い方法はどうされますか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
           <div style="font-size:12px;color:#4a7fc7;margin-bottom:6px;">오시하라이 호호와 도우사레마스카? — 결제 방법은 어떻게 하시겠어요?</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 カードで。/ 現金で。</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 カードで。/ 現金で。<button onclick="openPapago('カードで。現金で')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
           <div style="font-size:12px;color:#666;">카도데 — 카드로요 / 겐킹데 — 현금으로요</div>
         </div>
 
         <div style="border-bottom:1px solid var(--border);padding-bottom:12px;">
           <div style="font-size:11px;color:#888;margin-bottom:4px;">면세 요청</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 免税をお願いします。パスポートはこれです。</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 免税をお願いします。パスポートはこれです。<button onclick="openPapago('免税をお願いします。パスポートはこれです')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
           <div style="font-size:12px;color:#666;">멘제이오 오네가이시마스. 파스포토와 코레데스 — 면세 부탁드려요. 여권은 이거예요.</div>
         </div>
 
         <div>
           <div style="font-size:11px;color:#888;margin-bottom:4px;">영수증 요청</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 レシートをください。</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 レシートをください。<button onclick="openPapago('レシートをください')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
           <div style="font-size:12px;color:#666;">레시토오 쿠다사이 — 영수증 주세요</div>
         </div>
 
@@ -1351,33 +1370,33 @@
 
         <div style="border-bottom:1px solid var(--border);padding-bottom:12px;">
           <div style="font-size:11px;color:#888;margin-bottom:4px;">점원이 말을 걸 때</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">何かお探しですか？</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">何かお探しですか？<button onclick="openPapago('何かお探しですか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
           <div style="font-size:12px;color:#c77a4a;margin-bottom:6px;">나니카 오사가시데스카? — 뭔가 찾고 계세요?</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 見ているだけです。</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 見ているだけです。<button onclick="openPapago('見ているだけです')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
           <div style="font-size:12px;color:#666;">미테이루다케데스 — 그냥 구경 중이에요</div>
         </div>
 
         <div style="border-bottom:1px solid var(--border);padding-bottom:12px;">
           <div style="font-size:11px;color:#888;margin-bottom:4px;">다른 사이즈·색상 요청</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 別のサイズ／色はありますか？</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 別のサイズ／色はありますか？<button onclick="openPapago('別のサイズ、色はありますか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
           <div style="font-size:12px;color:#666;">베츠노 사이즈 / 이로와 아리마스카? — 다른 사이즈 / 색상 있어요?</div>
         </div>
 
         <div style="border-bottom:1px solid var(--border);padding-bottom:12px;">
           <div style="font-size:11px;color:#888;margin-bottom:4px;">선물 포장 요청</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 プレゼント用に包んでいただけますか？</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 プレゼント用に包んでいただけますか？<button onclick="openPapago('プレゼント用に包んでいただけますか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
           <div style="font-size:12px;color:#666;">프레젠토요우니 츠츤데 이타다케마스카? — 선물 포장 해주실 수 있어요?</div>
         </div>
 
         <div style="border-bottom:1px solid var(--border);padding-bottom:12px;">
           <div style="font-size:11px;color:#888;margin-bottom:4px;">냉장 보관 필요한 상품 (로이스 등)</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 保冷袋をいただけますか？</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 保冷袋をいただけますか？<button onclick="openPapago('保冷袋をいただけますか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
           <div style="font-size:12px;color:#666;">호레이부쿠로오 이타다케마스카? — 보냉백 받을 수 있을까요?</div>
         </div>
 
         <div>
           <div style="font-size:11px;color:#888;margin-bottom:4px;">재고 문의</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 これはまだありますか？</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 これはまだありますか？<button onclick="openPapago('これはまだありますか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
           <div style="font-size:12px;color:#666;">코레와 마다 아리마스카? — 이거 아직 있어요?</div>
         </div>
 
@@ -1393,25 +1412,25 @@
 
         <div style="border-bottom:1px solid var(--border);padding-bottom:12px;">
           <div style="font-size:11px;color:#888;margin-bottom:4px;">화장실 위치</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 トイレはどこですか？</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 トイレはどこですか？<button onclick="openPapago('トイレはどこですか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
           <div style="font-size:12px;color:#666;">토이레와 도코데스카? — 화장실 어디에 있어요?</div>
         </div>
 
         <div style="border-bottom:1px solid var(--border);padding-bottom:12px;">
           <div style="font-size:11px;color:#888;margin-bottom:4px;">한국어 메뉴 있는지</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 韓国語のメニューはありますか？</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 韓国語のメニューはありますか？<button onclick="openPapago('韓国語のメニューはありますか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
           <div style="font-size:12px;color:#666;">칸코쿠고노 메뉴와 아리마스카? — 한국어 메뉴 있어요?</div>
         </div>
 
         <div style="border-bottom:1px solid var(--border);padding-bottom:12px;">
           <div style="font-size:11px;color:#888;margin-bottom:4px;">알레르기·못 먹는 음식</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 ～アレルギーがあります。</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 ～アレルギーがあります。<button onclick="openPapago('アレルギーがあります')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
           <div style="font-size:12px;color:#666;">~ 아레르기가 아리마스 — ~알레르기가 있어요 (새우: 에비 / 견과류: 낫츠류)</div>
         </div>
 
         <div>
           <div style="font-size:11px;color:#888;margin-bottom:4px;">사진 찍어도 되는지</div>
-          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 写真を撮ってもいいですか？</div>
+          <div style="font-weight:600;font-size:14px;margin-bottom:2px;">🗣 写真を撮ってもいいですか？<button onclick="openPapago('写真を撮ってもいいですか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
           <div style="font-size:12px;color:#666;">샤신오 톳테모 이이데스카? — 사진 찍어도 될까요?</div>
         </div>
 
