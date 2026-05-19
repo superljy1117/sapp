@@ -222,12 +222,12 @@ function openPapago(text) {
 
   <!-- D-DAY 카운터 -->
   <div id="dday-wrap" style="margin:18px 0 10px;display:flex;justify-content:center;">
-    <div id="dday-box" style="display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.3);border-radius:20px;padding:10px 24px;">
+    <div id="dday-box" style="display:inline-flex;align-items:center;gap:12px;background:rgba(0,0,0,0.45);backdrop-filter:blur(8px);border:1.5px solid rgba(255,255,255,0.5);border-radius:20px;padding:10px 24px;">
       <span style="font-size:22px;">✈</span>
       <div style="text-align:center;">
-        <div id="dday-label" style="font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.8);text-transform:uppercase;">출국까지</div>
-        <div id="dday-num" style="font-size:28px;font-weight:800;color:white;line-height:1.1;letter-spacing:-1px;">-</div>
-        <div id="dday-sub" style="font-size:11px;color:rgba(255,255,255,0.7);">2026년 8월 2일 출국</div>
+        <div id="dday-label" style="font-size:11px;letter-spacing:2px;color:#ffe;text-transform:uppercase;text-shadow:0 1px 3px rgba(0,0,0,0.8);">출국까지</div>
+        <div id="dday-num" style="font-size:28px;font-weight:800;color:#FFD700;line-height:1.1;letter-spacing:-1px;text-shadow:0 2px 6px rgba(0,0,0,0.8);">-</div>
+        <div id="dday-sub" style="font-size:11px;color:#ffe;text-shadow:0 1px 3px rgba(0,0,0,0.8);">2026년 8월 2일 출국</div>
       </div>
     </div>
   </div>
@@ -243,17 +243,17 @@ function openPapago(text) {
       var subEl = document.getElementById('dday-sub');
       if(diff > 0){
         numEl.textContent = 'D-' + diff;
-        numEl.style.color = 'white';
+        numEl.style.color = '#FFD700';
         labelEl.textContent = '출국까지';
         subEl.textContent = diff + '일 남았어요 🎉';
       } else if(diff === 0){
         numEl.textContent = 'D-DAY';
-        numEl.style.color = '#FFD700';
+        numEl.style.color = '#ff6b6b';
         labelEl.textContent = '오늘 출국!';
         subEl.textContent = '즐거운 여행 되세요 ✈🇯🇵';
       } else {
         numEl.textContent = 'D+' + Math.abs(diff);
-        numEl.style.color = '#a8d8a8';
+        numEl.style.color = '#90ee90';
         labelEl.textContent = '여행 중 or 귀국';
         subEl.textContent = '홋카이도를 즐기는 중 🍺';
       }
@@ -349,11 +349,11 @@ function openPapago(text) {
           <div class="sched-content">
             <div class="sched-place">🛬 신치토세공항 도착</div>
             <div class="duration-chip">⏱ 입국심사 + 수하물 약 30~40분</div>
-            <div class="sched-detail">신치토세(新千歳)공항 도착. 비짓재팬웹 QR코드로 입국 심사 빠르게 통과. 수하물 수취 후 1층 JR 발매기에서 Suica 2장 발급 (각 5,000엔 충전).</div>
+            <div class="sched-detail">신치토세(新千歳)공항 도착. 비짓재팬웹 QR코드로 입국 심사 빠르게 통과. 수하물 수취 후 1층 JR 발매기에서 현금으로 삿포로역까지 티켓 구매. Suica는 필요 시 발매기에서 발급.</div>
             <div class="sched-info">
               <span class="info-chip red">📱 비짓재팬웹 QR 준비!</span>
-              <span class="info-chip blue">🚃 Suica 2장 발급 후 JR 탑승</span>
-              <span class="info-chip">💴 Suica 각 5,000엔 충전 권장</span>
+              <span class="info-chip">💴 삿포로역까지 현금 1,150엔</span>
+              <span class="info-chip blue">🚃 Suica는 필요 시 발매기에서 발급</span>
             </div>
             <div class="sched-bottom"><span class="sched-tag tag-move">도착</span>
               <a class="map-btn" href="https://maps.google.com/?q=New+Chitose+Airport+Hokkaido" target="_blank">
@@ -371,7 +371,7 @@ function openPapago(text) {
             <div class="duration-chip">⏱ 숙소까지 도보 약 24분</div>
             <div class="sched-detail">JR 쾌속 에어포트로 약 37분. 삿포로역 도착. 숙소까지 도보 약 24분 (약 1.5km). 짐이 많으면 택시 이용 권장 (약 800엔).</div>
             <div class="sched-info">
-              <span class="info-chip green">✅ Suica로 탑승</span>
+              <span class="info-chip">💴 현금 티켓 구매 · 1,150엔</span>
               <span class="info-chip">🧳 짐 많으면 택시 약 800엔</span>
             </div>
             <div class="sched-bottom"><span class="sched-tag tag-move">이동</span>
@@ -676,7 +676,7 @@ function openPapago(text) {
             <div class="sched-place">🚃 오타루 → 삿포로 복귀</div>
             <div class="duration-chip">⏱ 약 35분</div>
             <div class="sched-detail">JR 약 35분. 삿포로역 도착 후 숙소까지 도보 약 24분. 짐 많으면 택시 이용 권장 (약 800엔).</div>
-            <div class="sched-info"><span class="info-chip blue">약 35분</span><span class="info-chip">💴 750엔</span><span class="info-chip green">✅ Suica 사용 가능</span></div>
+            <div class="sched-info"><span class="info-chip blue">약 35분</span><span class="info-chip">💴 750엔</span><span class="info-chip">💴 현금 or Suica</span></div>
             <div class="sched-bottom"><span class="sched-tag tag-move">복귀</span></div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.1907,141.0021&destination=43.0687,141.3500&travelmode=transit" target="_blank" style="text-decoration:none;cursor:pointer;"><span class="t-icon">🚃</span><span>JR 오타루→삿포로</span><span class="t-time">약 35분</span><span>· 750엔</span></a><div class="t-line"></div></div>
           </div>
@@ -1042,7 +1042,7 @@ function openPapago(text) {
             <div class="sched-detail">JR 쾌속 에어포트. Suica로 탑승. 10:07 공항 도착. 탑승 수속·보안검색·면세 쇼핑 진행.</div>
             <div class="sched-info">
               <span class="info-chip blue">약 37분 · 1,150엔</span>
-              <span class="info-chip green">✅ Suica 사용</span>
+              <span class="info-chip">💴 현금 or Suica</span>
               <span class="info-chip">10:07 공항 도착</span>
             </div>
             <div class="sched-bottom"><span class="sched-tag tag-move">이동</span>
@@ -1982,8 +1982,8 @@ function openPapago(text) {
         <span style="font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:white;">Suica 발급 & 사용법</span>
       </div>
       <div style="padding:16px 20px;display:flex;flex-direction:column;gap:8px;font-size:12px;color:#555;line-height:1.8;">
-        <div><b style="color:#4a7fc7">📍 발급 장소:</b> 신치토세 공항 도착 후 JR 개찰구 앞 발매기 — 도착 즉시 발급 권장. <b>2명이므로 2장 발급 필수</b> (1인 1장)</div>
-        <div><b style="color:#4a7fc7">💴 충전 금액:</b> 1장당 5,000엔 충전 권장 (보증금 500엔 포함). 2장 합계 약 11,000엔 준비</div>
+        <div><b style="color:#4a7fc7">📍 발급 장소:</b> 신치토세 공항 JR 발매기 or 삿포로역 발매기. 우선 현금 티켓으로 이동 후 필요 시 발급.</div>
+        <div><b style="color:#4a7fc7">💴 충전 금액:</b> 발급 시 1장당 3,000~5,000엔 충전 권장 (보증금 500엔 포함)</div>
         <div><b style="color:#4a7fc7">✅ 사용 가능:</b> JR·지하철·버스·세븐일레븐·패밀리마트·로손·드럭스토어 등 대부분</div>
         <div><b style="color:#4a7fc7">♻️ 귀국 시:</b> 공항 JR 창구에서 환급 가능 (수수료 220엔 차감)</div>
         <div style="background:rgba(74,127,199,0.08);border-radius:10px;padding:10px 12px;margin-top:4px;">
