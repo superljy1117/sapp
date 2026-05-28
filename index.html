@@ -1838,47 +1838,56 @@ function switchD3(plan) {
 // 히어로 랜덤 삿포로 사진 슬라이드쇼
 (function(){
   const photos = [
-    'https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?w=1200&q=80',
-    'https://images.unsplash.com/photo-1554797589-7241bb691973?w=1200&q=80',
-    'https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=1200&q=80',
-    'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200&q=80',
-    'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1200&q=80',
-    'https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=1200&q=80',
-    'https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=1200&q=80',
-    'https://images.unsplash.com/photo-1480796927426-f609979314bd?w=1200&q=80',
+    // 오도리공원
+    { url: 'https://source.unsplash.com/1200x800/?odori-park,sapporo', label: '오도리 공원' },
+    // 오타루 운하
+    { url: 'https://source.unsplash.com/1200x800/?otaru,canal,japan', label: '오타루 운하' },
+    // 비에이 블루폰드
+    { url: 'https://source.unsplash.com/1200x800/?biei,hokkaido,blue-pond', label: '비에이 청의호수' },
+    // 후라노 라벤더
+    { url: 'https://source.unsplash.com/1200x800/?furano,lavender,hokkaido', label: '후라노 라벤더' },
+    // 삿포로 야경
+    { url: 'https://source.unsplash.com/1200x800/?sapporo,night,japan', label: '삿포로 야경' },
+    // 홋카이도 자연
+    { url: 'https://source.unsplash.com/1200x800/?hokkaido,summer,flower', label: '홋카이도 여름' },
+    // 라멘
+    { url: 'https://source.unsplash.com/1200x800/?ramen,japanese,noodle', label: '삿포로 라멘' },
+    // 스시
+    { url: 'https://source.unsplash.com/1200x800/?sushi,japan,fresh', label: '회전스시' },
+    // 홋카이도 풍경
+    { url: 'https://source.unsplash.com/1200x800/?hokkaido,landscape,green', label: '홋카이도 풍경' },
+    // 비에이 패치워크
+    { url: 'https://source.unsplash.com/1200x800/?biei,patchwork,hill', label: '비에이 패치워크' },
   ];
   let idx = Math.floor(Math.random() * photos.length);
   const el = document.getElementById('hero-photo');
   if (!el) return;
 
-  function loadPhoto(url, cb) {
+  function showPhoto(item) {
     const img = new Image();
-    img.onload = cb;
-    img.onerror = cb;
-    img.src = url;
-  }
-
-  function showNext() {
-    const url = photos[idx % photos.length];
-    loadPhoto(url, function() {
+    img.onload = function() {
       el.style.transition = 'opacity 1.2s ease';
       el.style.opacity = '0';
       setTimeout(function() {
-        el.style.backgroundImage = 'url(' + url + ')';
+        el.style.backgroundImage = 'url(' + item.url + ')';
         el.style.opacity = '1';
-      }, 400);
-    });
-    idx = (idx + 1) % photos.length;
+      }, 500);
+    };
+    img.onerror = function() { idx = (idx + 1) % photos.length; showPhoto(photos[idx]); };
+    img.src = item.url;
   }
 
-  // 첫 사진 즉시 표시
-  loadPhoto(photos[idx], function() {
-    el.style.backgroundImage = 'url(' + photos[idx] + ')';
+  // 첫 사진
+  const first = photos[idx];
+  const firstImg = new Image();
+  firstImg.onload = function() {
+    el.style.backgroundImage = 'url(' + first.url + ')';
     el.classList.add('loaded');
     idx = (idx + 1) % photos.length;
-    // 5초마다 전환
-    setInterval(showNext, 5000);
-  });
+    setInterval(function() { showPhoto(photos[idx]); idx = (idx + 1) % photos.length; }, 5000);
+  };
+  firstImg.onerror = function() { idx = (idx + 1) % photos.length; };
+  firstImg.src = first.url;
 })();
 
 // D-day 카운터
