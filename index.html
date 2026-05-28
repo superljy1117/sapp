@@ -181,7 +181,7 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
     <div class="meta-chip">🍺 삿포로 맥주축제 기간</div>
     <div class="meta-chip">👥 성인 2명</div>
   </div>
-  <div id="updated-at" style="position:relative;z-index:3;" style="margin-top:14px;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.35);">LAST UPDATED — 2026.05.27</div>
+  <div id="updated-at" style="position:relative;z-index:3;" style="margin-top:14px;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.35);">LAST UPDATED — 2026.05.28 23:47:00</div>
   <div class="scroll-hint" style="position:relative;z-index:3;"><div class="scroll-line"></div><span>SCROLL</span></div>
 </section>
 
@@ -1838,26 +1838,26 @@ function switchD3(plan) {
 // 히어로 랜덤 삿포로 사진 슬라이드쇼
 (function(){
   const photos = [
-    // 오도리공원
-    { url: 'https://source.unsplash.com/1200x800/?odori-park,sapporo', label: '오도리 공원' },
+    // 오도리공원 (삿포로 TV타워·오도리공원)
+    { url: 'https://images.unsplash.com/photo-1584810359583-96fc3448beaa?w=1200&q=80', label: '오도리 공원' },
     // 오타루 운하
-    { url: 'https://source.unsplash.com/1200x800/?otaru,canal,japan', label: '오타루 운하' },
-    // 비에이 블루폰드
-    { url: 'https://source.unsplash.com/1200x800/?biei,hokkaido,blue-pond', label: '비에이 청의호수' },
-    // 후라노 라벤더
-    { url: 'https://source.unsplash.com/1200x800/?furano,lavender,hokkaido', label: '후라노 라벤더' },
-    // 삿포로 야경
-    { url: 'https://source.unsplash.com/1200x800/?sapporo,night,japan', label: '삿포로 야경' },
-    // 홋카이도 자연
-    { url: 'https://source.unsplash.com/1200x800/?hokkaido,summer,flower', label: '홋카이도 여름' },
-    // 라멘
-    { url: 'https://source.unsplash.com/1200x800/?ramen,japanese,noodle', label: '삿포로 라멘' },
-    // 스시
-    { url: 'https://source.unsplash.com/1200x800/?sushi,japan,fresh', label: '회전스시' },
-    // 홋카이도 풍경
-    { url: 'https://source.unsplash.com/1200x800/?hokkaido,landscape,green', label: '홋카이도 풍경' },
-    // 비에이 패치워크
-    { url: 'https://source.unsplash.com/1200x800/?biei,patchwork,hill', label: '비에이 패치워크' },
+    { url: 'https://images.unsplash.com/photo-1490761668535-35497054f7b8?w=1200&q=80', label: '오타루 운하' },
+    // 비에이 청의호수
+    { url: 'https://images.unsplash.com/photo-1542640244-7e672d6cef4e?w=1200&q=80', label: '비에이 청의호수' },
+    // 후라노 라벤더·꽃밭
+    { url: 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1200&q=80', label: '후라노 라벤더' },
+    // 홋카이도 여름 녹원
+    { url: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=1200&q=80', label: '홋카이도 여름' },
+    // 삿포로 야경·도심
+    { url: 'https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?w=1200&q=80', label: '삿포로 야경' },
+    // 삿포로 라멘
+    { url: 'https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=1200&q=80', label: '삿포로 라멘' },
+    // 회전스시
+    { url: 'https://images.unsplash.com/photo-1617196034183-421b4040ed20?w=1200&q=80', label: '회전스시' },
+    // 비에이 패치워크 언덕
+    { url: 'https://images.unsplash.com/photo-1465101162946-4377e57745c3?w=1200&q=80', label: '비에이 언덕' },
+    // 홋카이도 자연 풍경
+    { url: 'https://images.unsplash.com/photo-1504198453319-5ce911bafcde?w=1200&q=80', label: '홋카이도 자연' },
   ];
   let idx = Math.floor(Math.random() * photos.length);
   const el = document.getElementById('hero-photo');
