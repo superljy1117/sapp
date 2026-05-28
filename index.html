@@ -1835,24 +1835,50 @@ function switchD3(plan) {
   tabB.style.borderColor = isA ? 'var(--sage)' : '#4a7fc7';
 }
 
-// 히어로 랜덤 삿포로 사진
+// 히어로 랜덤 삿포로 사진 슬라이드쇼
 (function(){
   const photos = [
-    'https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?w=1200&q=80', // 삿포로 시내
-    'https://images.unsplash.com/photo-1554797589-7241bb691973?w=1200&q=80', // 홋카이도 설경
-    'https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=1200&q=80', // 삿포로 야경
-    'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200&q=80', // 일본 여름
-    'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1200&q=80', // 홋카이도 꽃밭
-    'https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=1200&q=80', // 일본 거리
-    'https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=1200&q=80', // 일본 자연
-    'https://images.unsplash.com/photo-1480796927426-f609979314bd?w=1200&q=80', // 삿포로 타워
+    'https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?w=1200&q=80',
+    'https://images.unsplash.com/photo-1554797589-7241bb691973?w=1200&q=80',
+    'https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=1200&q=80',
+    'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200&q=80',
+    'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1200&q=80',
+    'https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=1200&q=80',
+    'https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=1200&q=80',
+    'https://images.unsplash.com/photo-1480796927426-f609979314bd?w=1200&q=80',
   ];
-  const url = photos[Math.floor(Math.random() * photos.length)];
+  let idx = Math.floor(Math.random() * photos.length);
   const el = document.getElementById('hero-photo');
   if (!el) return;
-  const img = new Image();
-  img.onload = function() { el.style.backgroundImage = 'url(' + url + ')'; el.classList.add('loaded'); };
-  img.src = url;
+
+  function loadPhoto(url, cb) {
+    const img = new Image();
+    img.onload = cb;
+    img.onerror = cb;
+    img.src = url;
+  }
+
+  function showNext() {
+    const url = photos[idx % photos.length];
+    loadPhoto(url, function() {
+      el.style.transition = 'opacity 1.2s ease';
+      el.style.opacity = '0';
+      setTimeout(function() {
+        el.style.backgroundImage = 'url(' + url + ')';
+        el.style.opacity = '1';
+      }, 400);
+    });
+    idx = (idx + 1) % photos.length;
+  }
+
+  // 첫 사진 즉시 표시
+  loadPhoto(photos[idx], function() {
+    el.style.backgroundImage = 'url(' + photos[idx] + ')';
+    el.classList.add('loaded');
+    idx = (idx + 1) % photos.length;
+    // 5초마다 전환
+    setInterval(showNext, 5000);
+  });
 })();
 
 // D-day 카운터
