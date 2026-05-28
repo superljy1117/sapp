@@ -1837,17 +1837,19 @@ function switchD3(plan) {
 
 // 히어로 랜덤 삿포로 사진 슬라이드쇼
 (function(){
-  const photos = [
-    { url: 'https://images.unsplash.com/photo-1480796927426-f609979314bd?w=1200&q=80', label: '삿포로 야경' },
-    { url: 'https://images.unsplash.com/photo-1490761668535-35497054f7b8?w=1200&q=80', label: '오타루 운하' },
-    { url: 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1200&q=80', label: '홋카이도 꽃밭' },
-    { url: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=1200&q=80', label: '홋카이도 여름' },
-    { url: 'https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=1200&q=80', label: '삿포로 거리' },
-    { url: 'https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?w=1200&q=80', label: '삿포로 도심' },
-    { url: 'https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=1200&q=80', label: '삿포로 라멘' },
-    { url: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200&q=80', label: '일본 여름' },
-    { url: 'https://images.unsplash.com/photo-1504198453319-5ce911bafcde?w=1200&q=80', label: '홋카이도 자연' },
-    { url: 'https://images.unsplash.com/photo-1465101162946-4377e57745c3?w=1200&q=80', label: '홋카이도 풍경' },
+    const photos = [
+    { url: 'https://raw.githubusercontent.com/superljy1117/sapp/main/images-7.jpeg', label: '수프카레' },
+    { url: 'https://raw.githubusercontent.com/superljy1117/sapp/main/images-4.jpeg', label: '삿포로역 야경' },
+    { url: 'https://raw.githubusercontent.com/superljy1117/sapp/main/images-6.jpeg', label: '삿포로 라멘' },
+    { url: 'https://raw.githubusercontent.com/superljy1117/sapp/main/jingisukan2.jpg', label: '징기스칸' },
+    { url: 'https://raw.githubusercontent.com/superljy1117/sapp/main/images-2.jpeg', label: '회전스시' },
+    { url: 'https://raw.githubusercontent.com/superljy1117/sapp/main/images-5.jpeg', label: '라멘 하루카' },
+    { url: 'https://raw.githubusercontent.com/superljy1117/sapp/main/Hokkaido_Prefectural_Office02s5s4272.jpg', label: '홋카이도청' },
+    { url: 'https://raw.githubusercontent.com/superljy1117/sapp/main/images-1.jpeg', label: '토리톤' },
+    { url: 'https://raw.githubusercontent.com/superljy1117/sapp/main/images.jpeg', label: '스스키노 야경' },
+    { url: 'https://raw.githubusercontent.com/superljy1117/sapp/main/images-3.jpeg', label: '비에이 청의호수' },
+    { url: 'https://raw.githubusercontent.com/superljy1117/sapp/main/june-4-2023-tanukikoji-shopping-arcade-one-of-the-oldest-shopping-streets-in-sapporo-hokkaido-japan-started-in-1873-it-stretches-900-meters-fro-2RAXHBM.jpg', label: '다누키코지' },
+    { url: 'https://raw.githubusercontent.com/superljy1117/sapp/main/20250805_094416_d0266c95_w1920.webp', label: '유우히' },
   ];
   let idx = Math.floor(Math.random() * photos.length);
   const el = document.getElementById('hero-photo');
