@@ -69,8 +69,28 @@ body{font-family:'Noto Sans KR',sans-serif;background:#f0f2f0;color:var(--ink);m
 .day-body{display:none;padding:0 20px 20px}
 .day-card.open .day-body{display:block}
 .day-card.open .day-toggle{transform:rotate(180deg)}
+
+/* 완료 체크 버튼 */
+.check-btn{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--border);background:transparent;cursor:pointer;font-size:11px;color:#ccc;transition:all .2s;flex-shrink:0;margin-left:6px;vertical-align:middle;}
+.check-btn.done{background:var(--sage);border-color:var(--sage);color:white;}
+.sched-place-row{display:flex;align-items:center;gap:4px;}
+/* 날씨 뱃지 */
+.weather-badge{font-size:11px;padding:2px 8px;border-radius:8px;background:rgba(74,127,199,0.1);color:#4a7fc7;margin-left:8px;white-space:nowrap;}
 .d3-tabs{display:none;padding:12px 20px 0}
 .day-card.open .d3-tabs{display:flex;gap:8px}
+
+/* 메모·지출 기록 */
+.memo-box{margin-top:10px;border-top:1px dashed var(--border);padding-top:10px;}
+.memo-box summary{font-size:11px;color:#aaa;cursor:pointer;user-select:none;letter-spacing:0.5px;}
+.memo-box summary:hover{color:var(--sage);}
+.memo-fields{display:flex;flex-direction:column;gap:6px;margin-top:8px;}
+.memo-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+.memo-label{font-size:10px;color:#aaa;min-width:36px;}
+.memo-select{font-size:11px;padding:4px 6px;border:1px solid var(--border);border-radius:6px;background:var(--card-bg);color:var(--ink);flex:1;min-width:60px;}
+.memo-input{font-size:11px;padding:4px 8px;border:1px solid var(--border);border-radius:6px;background:var(--card-bg);color:var(--ink);flex:1;}
+.memo-input::placeholder{color:#bbb;}
+.memo-amount{font-size:11px;padding:4px 8px;border:1px solid var(--border);border-radius:6px;background:var(--card-bg);color:var(--ink);width:90px;text-align:right;}
+.memo-saved{font-size:10px;color:var(--sage);margin-top:4px;opacity:0;transition:opacity .3s;}
 
 /* 일정 리스트 */
 .schedule-list{list-style:none;position:relative}
@@ -119,8 +139,11 @@ body{font-family:'Noto Sans KR',sans-serif;background:#f0f2f0;color:var(--ink);m
 /* 예산 */
 .budget-table{width:100%;border-collapse:collapse;font-size:13px}
 .budget-table th{text-align:left;padding:10px 16px;background:var(--mist);color:#888;font-weight:500;font-size:11px;letter-spacing:1px}
-.budget-table td{padding:12px 16px;border-bottom:1px solid var(--border)}
-.budget-table .amt{text-align:right;font-weight:600}
+.budget-table td{padding:10px 16px;border-bottom:1px solid var(--border)}
+.budget-table .amt{text-align:right;font-weight:600;white-space:nowrap}
+.budget-input{width:90px;text-align:right;font-size:12px;padding:3px 6px;border:1px solid var(--border);border-radius:6px;background:rgba(107,143,113,0.06);color:var(--sage);font-weight:600;outline:none;}
+.budget-input:focus{border-color:var(--sage);}
+.budget-input::placeholder{color:#ccc;font-weight:400;}
 
 /* 팁 */
 .tips-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -181,7 +204,7 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
     <div class="meta-chip">🍺 삿포로 맥주축제 기간</div>
     <div class="meta-chip">👥 성인 2명</div>
   </div>
-  <div id="updated-at" style="position:relative;z-index:3;" style="margin-top:14px;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.35);">LAST UPDATED — 2026.05.30 09:42:55</div>
+  <div id="updated-at" style="position:relative;z-index:3;" style="margin-top:14px;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.35);">LAST UPDATED — 2026.05.30 09:59:17</div>
   <div class="scroll-hint" style="position:relative;z-index:3;"><div class="scroll-line"></div><span>SCROLL</span></div>
 </section>
 
@@ -201,7 +224,7 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
       <li class="schedule-item">
         <span class="sched-time">06:30</span><div class="sched-dot"></div>
         <div class="sched-content">
-          <div class="sched-place">🍽 김해공항 Sky Hub Lounge</div>
+          <div class="sched-place-row"><div class="sched-place">🍽 김해공항 Sky Hub Lounge</div><button class="check-btn" id="c001" onclick="toggleCheck('c001')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 06:30~07:30 · Gate 9 앞 면세구역 2층</div>
           <div class="sched-detail">비빔밥·육개장·떡볶이·생맥주 무제한 뷔페. 06:30 오픈과 동시 입장 권장.</div>
           <div class="sched-info">
@@ -211,13 +234,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <span class="info-chip red">⚠ 탑승 공지 없음 — 시간 직접 확인!</span>
           </div>
           <div class="sched-bottom"><span class="sched-tag tag-food">라운지 식사 🍽</span></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m001" onchange="saveMemo('m001')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m001" onchange="saveMemo('m001')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m001" type="number" placeholder="¥금액" oninput="saveMemo('m001')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m001" type="text" placeholder="간단 메모..." oninput="saveMemo('m001')">
+              </div>
+              <div class="memo-saved" id="saved-m001">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">07:30</span><div class="sched-dot"></div>
         <div class="sched-content">
-          <div class="sched-place">🛍 김해공항 면세점 구경</div>
+          <div class="sched-place-row"><div class="sched-place">🛍 김해공항 면세점 구경</div><button class="check-btn" id="c002" onclick="toggleCheck('c002')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 07:30~08:30</div>
           <div class="sched-detail">라운지 식사 후 면세 쇼핑. 08:30엔 반드시 탑승 게이트 이동.</div>
           <div class="sched-info">
@@ -226,13 +276,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <span class="info-chip red">⚠ 08:30 게이트 이동 필수</span>
           </div>
           <div class="sched-bottom"><span class="sched-tag tag-shop">면세 쇼핑 🛍</span></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m002" onchange="saveMemo('m002')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m002" onchange="saveMemo('m002')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m002" type="number" placeholder="¥금액" oninput="saveMemo('m002')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m002" type="text" placeholder="간단 메모..." oninput="saveMemo('m002')">
+              </div>
+              <div class="memo-saved" id="saved-m002">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">09:05</span><div class="sched-dot"></div>
         <div class="sched-content">
-          <div class="sched-place">✈ 김해국제공항 출발</div>
+          <div class="sched-place-row"><div class="sched-place">✈ 김해국제공항 출발</div><button class="check-btn" id="c003" onclick="toggleCheck('c003')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 비행 약 2시간 35분</div>
           <div class="sched-detail">에어부산 BX 182 · 좌석 37F (창가). 탑승 수속 07:00까지 완료 권장.</div>
           <div class="sched-info">
@@ -243,13 +320,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
           </div>
           <div class="sched-bottom"><span class="sched-tag tag-move">출발</span></div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=Gimhae+International+Airport&destination=New+Chitose+Airport+Hokkaido&travelmode=transit" target="_blank"><span class="t-icon">✈</span><span>비행</span><span class="t-time">약 2시간 35분</span><span>· 김해→신치토세</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m003" onchange="saveMemo('m003')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m003" onchange="saveMemo('m003')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m003" type="number" placeholder="¥금액" oninput="saveMemo('m003')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m003" type="text" placeholder="간단 메모..." oninput="saveMemo('m003')">
+              </div>
+              <div class="memo-saved" id="saved-m003">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">11:40</span><div class="sched-dot"></div>
         <div class="sched-content">
-          <div class="sched-place">🛬 신치토세공항 도착</div>
+          <div class="sched-place-row"><div class="sched-place">🛬 신치토세공항 도착</div><button class="check-btn" id="c004" onclick="toggleCheck('c004')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 입국심사 + 수하물 약 40분</div>
           <div class="sched-detail">비짓재팬웹 QR코드로 입국심사 빠르게 통과. 1층 JR 발매기에서 현금으로 삿포로역 티켓 구매. Suica는 필요 시 발급.</div>
           <div style="background:rgba(74,127,199,0.08);border-radius:10px;padding:10px 14px;margin:8px 0;font-size:12px;border:1px solid rgba(74,127,199,0.2);">
@@ -271,13 +375,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
           </div>
           <div class="sched-bottom"><span class="sched-tag tag-move">도착</span></div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=New+Chitose+Airport+Hokkaido&destination=43.0687,141.3500&travelmode=transit" target="_blank"><span class="t-icon">🚃</span><span>JR 쾌속 에어포트</span><span class="t-time">약 37분</span><span>· 1,150엔</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m004" onchange="saveMemo('m004')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m004" onchange="saveMemo('m004')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m004" type="number" placeholder="¥금액" oninput="saveMemo('m004')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m004" type="text" placeholder="간단 메모..." oninput="saveMemo('m004')">
+              </div>
+              <div class="memo-saved" id="saved-m004">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">13:00</span><div class="sched-dot"></div>
         <div class="sched-content">
-          <div class="sched-place">🚃 삿포로역 도착</div>
+          <div class="sched-place-row"><div class="sched-place">🚃 삿포로역 도착</div><button class="check-btn" id="c005" onclick="toggleCheck('c005')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 폴타운 지하상가 경유 → 숙소</div>
           <div class="sched-detail">삿포로역 도착. 폴타운 지하통로로 볼앤체인 urnis/C 경유 후 숙소 이동 (짐 들고 가는 길에 자연스럽게 구경).</div>
           <div class="sched-bottom"><span class="sched-tag tag-move">이동</span>
@@ -286,13 +417,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             </a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0687,141.3500&destination=43.0651145,141.3518039&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>지하 폴타운</span><span class="t-time">약 5분</span><span>· 볼앤체인 경유</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m005" onchange="saveMemo('m005')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m005" onchange="saveMemo('m005')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m005" type="number" placeholder="¥금액" oninput="saveMemo('m005')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m005" type="text" placeholder="간단 메모..." oninput="saveMemo('m005')">
+              </div>
+              <div class="memo-saved" id="saved-m005">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">13:05</span><div class="sched-dot"></div>
         <div class="sched-content">
-          <div class="sched-place">👜 폴타운 urnis/C — 볼앤체인</div>
+          <div class="sched-place-row"><div class="sched-place">👜 폴타운 urnis/C — 볼앤체인</div><button class="check-btn" id="c006" onclick="toggleCheck('c006')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 잠깐 구경 약 15분</div>
           <div class="sched-detail">삿포로역→오도리역 지하통로 폴타운 내 urnis/C 매장. 닥터마틴 바로 맞은편. 짐 들고 이동 중 자연스럽게 들를 수 있음. DAY 4 스텔라플레이스 볼앤체인과 비교 후 구매 결정.</div>
           <div class="sched-info">
@@ -302,13 +460,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
           </div>
           <div class="sched-bottom"><span class="sched-tag tag-shop">쇼핑 👜</span></div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0651145,141.3518039&destination=43.0552826,141.3525147&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 20분</span><span>· 폴타운→숙소</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m006" onchange="saveMemo('m006')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m006" onchange="saveMemo('m006')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m006" type="number" placeholder="¥금액" oninput="saveMemo('m006')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m006" type="text" placeholder="간단 메모..." oninput="saveMemo('m006')">
+              </div>
+              <div class="memo-saved" id="saved-m006">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">15:00</span><div class="sched-dot"></div>
         <div class="sched-content">
-          <div class="sched-place">🏨 SAPPORO STREAM HOTEL 체크인</div>
+          <div class="sched-place-row"><div class="sched-place">🏨 SAPPORO STREAM HOTEL 체크인</div><button class="check-btn" id="c007" onclick="toggleCheck('c007')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 15분</div>
           <div class="sched-detail">체크인 완료. 짐 놓고 오도리 공원으로 출발.</div>
           <div class="sched-info"><span class="info-chip green">🏨 체크인 15:00~</span><span class="info-chip blue">🧳 짐 보관</span></div>
@@ -316,13 +501,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <a class="map-btn" href="https://maps.google.com/?q=Sapporo+Stream+Hotel" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>숙소 지도</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0552826,141.3525147&destination=43.0611047,141.3564246&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 12분</span><span>· 숙소→오도리공원</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m007" onchange="saveMemo('m007')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m007" onchange="saveMemo('m007')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m007" type="number" placeholder="¥금액" oninput="saveMemo('m007')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m007" type="text" placeholder="간단 메모..." oninput="saveMemo('m007')">
+              </div>
+              <div class="memo-saved" id="saved-m007">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">15:20</span><div class="sched-dot"></div>
         <div class="sched-content">
-          <div class="sched-place">🏙 오도리 공원 &amp; 삿포로 TV타워</div>
+          <div class="sched-place-row"><div class="sched-place">🏙 오도리 공원 &amp; 삿포로 TV타워</div><button class="check-btn" id="c008" onclick="toggleCheck('c008')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 1시간</div>
           <div class="sched-detail">1.5km 직선 녹지 공원. 8월 비어가든 기간 운영 중. TV타워 전망대(800엔)에서 공원 전경.</div>
           <div class="sched-info"><span class="info-chip">🌿 입장 무료</span><span class="info-chip">🗼 TV타워 800엔</span></div>
@@ -330,13 +542,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <a class="map-btn" href="https://maps.google.com/?q=Odori+Park+Sapporo" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0611047,141.3564246&destination=43.0572386,141.352677&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 9분</span><span>· 다누키코지</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m008" onchange="saveMemo('m008')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m008" onchange="saveMemo('m008')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m008" type="number" placeholder="¥금액" oninput="saveMemo('m008')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m008" type="text" placeholder="간단 메모..." oninput="saveMemo('m008')">
+              </div>
+              <div class="memo-saved" id="saved-m008">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">16:30</span><div class="sched-dot"></div>
         <div class="sched-content">
-          <div class="sched-place">🛍 다누키코지 쇼핑 & 🦁 메가돈키호테 타누키코지 본점</div>
+          <div class="sched-place-row"><div class="sched-place">🛍 다누키코지 쇼핑 & 🦁 메가돈키호테 타누키코지 본점</div><button class="check-btn" id="c009" onclick="toggleCheck('c009')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 1시간 30분</div>
           <div class="sched-detail">1~7초메 지붕 있는 아케이드 상가 구경 후 다누키코지 5초메에 위치한 메가돈키호테 본점 방문. 의약품·화장품·과자·삿포로 한정 기념품 쇼핑.</div>
           <div class="sched-info">
@@ -387,13 +626,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <a class="map-btn" href="https://maps.google.com/?q=Mega+Don+Quijote+Tanukikoji+Sapporo" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0572386,141.352677&destination=43.0562189,141.3550301&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 5분</span><span>· 유우히</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m009" onchange="saveMemo('m009')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m009" onchange="saveMemo('m009')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m009" type="number" placeholder="¥금액" oninput="saveMemo('m009')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m009" type="text" placeholder="간단 메모..." oninput="saveMemo('m009')">
+              </div>
+              <div class="memo-saved" id="saved-m009">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">17:00</span><div class="sched-dot"></div>
         <div class="sched-content">
-          <div class="sched-place">🐑 극상 소금숙성 징기스칸 유우히 스스키노점</div>
+          <div class="sched-place-row"><div class="sched-place">🐑 극상 소금숙성 징기스칸 유우히 스스키노점</div><button class="check-btn" id="c010" onclick="toggleCheck('c010')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 1시간 30분</div>
           <div class="sched-detail">스스키노역 도보 2분. 소금 숙성 램 징기스칸 전문점. 스스키노 메인 거리가 내려다보이는 개방적인 분위기. 단품 주문 가능. 핫페퍼 온라인 예약 권장.</div>
           <div class="sched-info">
@@ -417,26 +683,80 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <a class="map-btn" href="https://www.hotpepper.jp/strJ001222863/yoyaku/" target="_blank" style="background:#e8193c;color:white;border-color:#e8193c;">📋 핫페퍼 예약</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0562189,141.3550301&destination=43.0611047,141.3564246&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 12분</span><span>· 오도리공원</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m010" onchange="saveMemo('m010')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m010" onchange="saveMemo('m010')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m010" type="number" placeholder="¥금액" oninput="saveMemo('m010')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m010" type="text" placeholder="간단 메모..." oninput="saveMemo('m010')">
+              </div>
+              <div class="memo-saved" id="saved-m010">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">18:30</span><div class="sched-dot"></div>
         <div class="sched-content">
-          <div class="sched-place">🌿 오도리공원 산책</div>
+          <div class="sched-place-row"><div class="sched-place">🌿 오도리공원 산책</div><button class="check-btn" id="c011" onclick="toggleCheck('c011')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 20분</div>
           <div class="sched-detail">1.5km 직선 녹지 공원을 여유롭게 산책. 저녁 빛이 내려앉은 공원 분위기 감상 후 비어가든 구역으로 이동.</div>
           <div class="sched-bottom"><span class="sched-tag tag-sight">산책</span>
             <a class="map-btn" href="https://maps.google.com/?q=Odori+Park+Sapporo" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0611047,141.3564246&destination=43.0611047,141.3564246&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">1분</span><span>· 비어가든</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m011" onchange="saveMemo('m011')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m011" onchange="saveMemo('m011')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m011" type="number" placeholder="¥금액" oninput="saveMemo('m011')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m011" type="text" placeholder="간단 메모..." oninput="saveMemo('m011')">
+              </div>
+              <div class="memo-saved" id="saved-m011">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">18:50</span><div class="sched-dot"></div>
         <div class="sched-content">
-          <div class="sched-place">🍺 오도리 비어가든 — 삿포로 클래식</div>
+          <div class="sched-place-row"><div class="sched-place">🍺 오도리 비어가든 — 삿포로 클래식</div><button class="check-btn" id="c012" onclick="toggleCheck('c012')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 1시간 · 7/23~8/14 운영</div>
           <div class="sched-detail">오도리공원 내 삿포로·기린·아사히·산토리 4개 구역 운영. 홋카이도 한정 삿포로 클래식 생맥주는 삿포로 구역에서만 맛볼 수 있음. 야외 석양 분위기와 함께 DAY 1의 마무리.</div>
           <div class="sched-info">
@@ -449,15 +769,69 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <a class="map-btn" href="https://maps.google.com/?q=Odori+Beer+Garden+Sapporo" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0611047,141.3564246&destination=43.0552826,141.3525147&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 15분</span><span>· 숙소</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m012" onchange="saveMemo('m012')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m012" onchange="saveMemo('m012')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m012" type="number" placeholder="¥금액" oninput="saveMemo('m012')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m012" type="text" placeholder="간단 메모..." oninput="saveMemo('m012')">
+              </div>
+              <div class="memo-saved" id="saved-m012">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">20:00</span><div class="sched-dot"></div>
         <div class="sched-content">
-          <div class="sched-place">🏨 SAPPORO STREAM HOTEL 도착</div>
+          <div class="sched-place-row"><div class="sched-place">🏨 SAPPORO STREAM HOTEL 도착</div><button class="check-btn" id="c013" onclick="toggleCheck('c013')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ DAY 1 종료</div>
           <div class="sched-bottom"><span class="sched-tag tag-move">숙소 도착</span></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m013" onchange="saveMemo('m013')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m013" onchange="saveMemo('m013')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m013" type="number" placeholder="¥금액" oninput="saveMemo('m013')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m013" type="text" placeholder="간단 메모..." oninput="saveMemo('m013')">
+              </div>
+              <div class="memo-saved" id="saved-m013">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
@@ -476,18 +850,45 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
       <li class="schedule-item">
         <span class="sched-time">09:00</span><div class="sched-dot" style="background:var(--lavender)"></div>
         <div class="sched-content">
-          <div class="sched-place">🏨 숙소 출발</div>
+          <div class="sched-place-row"><div class="sched-place">🏨 숙소 출발</div><button class="check-btn" id="c014" onclick="toggleCheck('c014')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 집합장소까지 도보 약 5분 (350m)</div>
           <div class="sched-detail">선착순 좌석 지정 — 일찍 도착할수록 좋은 자리. 09:20 집합이므로 여유있게 출발.</div>
           <div class="sched-bottom"><span class="sched-tag tag-move">출발</span></div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0552826,141.3525147&destination=1+Chome-2-1+Minami+4+Jonishi+Chuo+Ward+Sapporo+Hokkaido&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 5분</span><span>· 다이와 로이넷호텔 (350m)</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m014" onchange="saveMemo('m014')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m014" onchange="saveMemo('m014')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m014" type="number" placeholder="¥금액" oninput="saveMemo('m014')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m014" type="text" placeholder="간단 메모..." oninput="saveMemo('m014')">
+              </div>
+              <div class="memo-saved" id="saved-m014">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">09:20</span><div class="sched-dot" style="background:var(--lavender)"></div>
         <div class="sched-content">
-          <div class="sched-place">🚌 흰그림자투어 집합</div>
+          <div class="sched-place-row"><div class="sched-place">🚌 흰그림자투어 집합</div><button class="check-btn" id="c015" onclick="toggleCheck('c015')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 09:20 집합 · 09:30 출발</div>
           <div class="sched-detail">다이와 로이넷호텔 스스키노 간판 앞 집합. 선착순 좌석 지정이므로 시간보다 일찍 도착 권장.</div>
           <div style="background:rgba(139,123,168,0.08);border-radius:10px;padding:10px 14px;margin:8px 0;font-size:12px;border:1px solid rgba(139,123,168,0.2);">
@@ -508,81 +909,270 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=1+Chome-2-1+Minami+4+Jonishi+Chuo+Ward+Sapporo+Hokkaido+064-0804" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>집합장소 지도</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=1+Chome-2-1+Minami+4+Jonishi+Chuo+Ward+Sapporo&destination=43.4935,142.6142&travelmode=transit" target="_blank"><span class="t-icon">🚌</span><span>버스 이동</span><span class="t-time">약 2시간</span><span>· 비에이·후라노</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m015" onchange="saveMemo('m015')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m015" onchange="saveMemo('m015')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m015" type="number" placeholder="¥금액" oninput="saveMemo('m015')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m015" type="text" placeholder="간단 메모..." oninput="saveMemo('m015')">
+              </div>
+              <div class="memo-saved" id="saved-m015">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">오전</span><div class="sched-dot" style="background:var(--lavender)"></div>
         <div class="sched-content">
-          <div class="sched-place">💙 청의 호수 (青い池)</div>
+          <div class="sched-place-row"><div class="sched-place">💙 청의 호수 (青い池)</div><button class="check-btn" id="c016" onclick="toggleCheck('c016')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 30분</div>
           <div class="sched-detail">비에이 여행에서 빠질 수 없는 최고 핫플. 신비로운 코발트블루 연못. 새파랗고 청명한 하늘빛을 담은 듯한 빛이 인상적.</div>
           <div class="sched-bottom"><span class="sched-tag tag-sight">관광</span></div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.4935,142.6142&destination=43.4515,142.5780&travelmode=transit" target="_blank"><span class="t-icon">🚌</span><span>버스 이동</span><span class="t-time">약 10분</span><span>· 흰수염폭포</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m016" onchange="saveMemo('m016')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m016" onchange="saveMemo('m016')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m016" type="number" placeholder="¥금액" oninput="saveMemo('m016')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m016" type="text" placeholder="간단 메모..." oninput="saveMemo('m016')">
+              </div>
+              <div class="memo-saved" id="saved-m016">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">오전</span><div class="sched-dot" style="background:var(--lavender)"></div>
         <div class="sched-content">
-          <div class="sched-place">🌊 흰수염폭포 (白髭の滝)</div>
+          <div class="sched-place-row"><div class="sched-place">🌊 흰수염폭포 (白髭の滝)</div><button class="check-btn" id="c017" onclick="toggleCheck('c017')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 20분</div>
           <div class="sched-detail">사계절 얼지 않는 폭포로 유명. 물줄기가 할아버지의 하얀 수염같아 붙여진 이름.</div>
           <div class="sched-bottom"><span class="sched-tag tag-sight">관광</span></div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.4515,142.5780&destination=43.5291,142.4651&travelmode=transit" target="_blank"><span class="t-icon">🚌</span><span>버스 이동</span><span class="t-time">약 30분</span><span>· 비에이 언덕</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m017" onchange="saveMemo('m017')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m017" onchange="saveMemo('m017')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m017" type="number" placeholder="¥금액" oninput="saveMemo('m017')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m017" type="text" placeholder="간단 메모..." oninput="saveMemo('m017')">
+              </div>
+              <div class="memo-saved" id="saved-m017">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">오전</span><div class="sched-dot" style="background:var(--lavender)"></div>
         <div class="sched-content">
-          <div class="sched-place">🌾 비에이 풍경이 보이는 언덕</div>
+          <div class="sched-place-row"><div class="sched-place">🌾 비에이 풍경이 보이는 언덕</div><button class="check-btn" id="c018" onclick="toggleCheck('c018')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 20분</div>
           <div class="sched-detail">비에이 대표 패치워크 풍경. 360도 파노라마로 펼쳐지는 비에이 풍경.</div>
           <div class="sched-bottom"><span class="sched-tag tag-sight">관광</span></div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.5291,142.4651&destination=43.4112,142.4212&travelmode=transit" target="_blank"><span class="t-icon">🚌</span><span>버스 이동</span><span class="t-time">약 30분</span><span>· 준페이식당</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m018" onchange="saveMemo('m018')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m018" onchange="saveMemo('m018')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m018" type="number" placeholder="¥금액" oninput="saveMemo('m018')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m018" type="text" placeholder="간단 메모..." oninput="saveMemo('m018')">
+              </div>
+              <div class="memo-saved" id="saved-m018">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">점심</span><div class="sched-dot" style="background:var(--lavender)"></div>
         <div class="sched-content">
-          <div class="sched-place">🍛 준페이 식당 (준페이식당 내 식사)</div>
+          <div class="sched-place-row"><div class="sched-place">🍛 준페이 식당 (준페이식당 내 식사)</div><button class="check-btn" id="c019" onclick="toggleCheck('c019')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 1시간 · 100% 식사 확정</div>
           <div class="sched-detail">비에이 대표 맛집. 새우튀김김덮밥만 20년 넘게 운영. 흰그림자투어 전용 식사 확정 — 대기 없이 바로 착석.</div>
           <div class="sched-info"><span class="info-chip green">✅ 투어 포함 · 식사 100% 확정</span></div>
           <div class="sched-bottom"><span class="sched-tag tag-food">점심 (투어포함)</span></div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.4112,142.4212&destination=43.4183,142.4280&travelmode=transit" target="_blank"><span class="t-icon">🚌</span><span>버스 이동</span><span class="t-time">약 20분</span><span>· 팜 도미타</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m019" onchange="saveMemo('m019')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m019" onchange="saveMemo('m019')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m019" type="number" placeholder="¥금액" oninput="saveMemo('m019')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m019" type="text" placeholder="간단 메모..." oninput="saveMemo('m019')">
+              </div>
+              <div class="memo-saved" id="saved-m019">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">오후</span><div class="sched-dot" style="background:var(--lavender)"></div>
         <div class="sched-content">
-          <div class="sched-place">🌸 팜 도미타 (ファーム富田)</div>
+          <div class="sched-place-row"><div class="sched-place">🌸 팜 도미타 (ファーム富田)</div><button class="check-btn" id="c020" onclick="toggleCheck('c020')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 40~50분</div>
           <div class="sched-detail">후라노 라벤더를 세상에 알린 상징적인 꽃밭. 45,000평 규모. ⚠ 8월은 라벤더 수확 완료 가능 — 해바라기·샐비어 등 여름꽃 개화 중.</div>
           <div class="sched-bottom"><span class="sched-tag tag-sight">관광</span></div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.4183,142.4280&destination=43.5862,142.4674&travelmode=transit" target="_blank"><span class="t-icon">🚌</span><span>버스 이동</span><span class="t-time">약 30분</span><span>· 사계채의 언덕</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m020" onchange="saveMemo('m020')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m020" onchange="saveMemo('m020')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m020" type="number" placeholder="¥금액" oninput="saveMemo('m020')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m020" type="text" placeholder="간단 메모..." oninput="saveMemo('m020')">
+              </div>
+              <div class="memo-saved" id="saved-m020">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">오후</span><div class="sched-dot" style="background:var(--lavender)"></div>
         <div class="sched-content">
-          <div class="sched-place">🌺 사계채의 언덕 (四季彩の丘)</div>
+          <div class="sched-place-row"><div class="sched-place">🌺 사계채의 언덕 (四季彩の丘)</div><button class="check-btn" id="c021" onclick="toggleCheck('c021')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 40~50분</div>
           <div class="sched-detail">매달 새로운 꽃이 시기별로 피어나는 비에이에서 가장 큰 꽃밭. 색색의 꽃들이 향연을 볼 수 있음. ⚠ 7~9월 입장료 500엔 (투어비 미포함)</div>
           <div class="sched-info"><span class="info-chip">💴 입장료 500엔 별도</span><span class="info-chip both">💳 카드·현금</span></div>
           <div class="sched-bottom"><span class="sched-tag tag-sight">관광</span></div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.5862,142.4674&destination=43.0552,141.3538&travelmode=transit" target="_blank"><span class="t-icon">🚌</span><span>버스 귀환</span><span class="t-time">약 2시간</span><span>· 오도리·스스키노</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m021" onchange="saveMemo('m021')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m021" onchange="saveMemo('m021')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m021" type="number" placeholder="¥금액" oninput="saveMemo('m021')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m021" type="text" placeholder="간단 메모..." oninput="saveMemo('m021')">
+              </div>
+              <div class="memo-saved" id="saved-m021">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">20:00</span><div class="sched-dot" style="background:var(--lavender)"></div>
         <div class="sched-content">
-          <div class="sched-place">🚌 투어 종료 — 다이와 로이넷 호텔 스스키노점 앞 하차</div>
+          <div class="sched-place-row"><div class="sched-place">🚌 투어 종료 — 다이와 로이넷 호텔 스스키노점 앞 하차</div><button class="check-btn" id="c022" onclick="toggleCheck('c022')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ ±30분 차이 가능</div>
           <div class="sched-detail">다이와 로이넷 호텔 스스키노점 앞 하차 (주오구 미나미 4조 니시 1초메). 라멘 요코초까지 도보 약 5분.</div>
           <div class="sched-info">
@@ -590,13 +1180,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
           </div>
           <div class="sched-bottom"><span class="sched-tag tag-move">투어 종료</span></div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=1+Chome-2-1+Minami+4+Jonishi+Chuo+Ward+Sapporo+Hokkaido+064-0804&destination=43.0547,141.3543&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 5분</span><span>· 라멘 하루카</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m022" onchange="saveMemo('m022')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m022" onchange="saveMemo('m022')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m022" type="number" placeholder="¥금액" oninput="saveMemo('m022')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m022" type="text" placeholder="간단 메모..." oninput="saveMemo('m022')">
+              </div>
+              <div class="memo-saved" id="saved-m022">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">20:10</span><div class="sched-dot" style="background:var(--lavender)"></div>
         <div class="sched-content">
-          <div class="sched-place">🍜 삿포로 라멘 하루카 (원조 라멘 요코초 내)</div>
+          <div class="sched-place-row"><div class="sched-place">🍜 삿포로 라멘 하루카 (원조 라멘 요코초 내)</div><button class="check-btn" id="c023" onclick="toggleCheck('c023')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 45분</div>
           <div class="sched-detail">미나미 5조 니시 3초메 元祖さっぽろラーメン横丁 내. 미소치즈·辛미소라멘 인기. 워크인 웨이팅만 가능 (예약 불가).</div>
           <div class="sched-info">
@@ -608,16 +1225,70 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <a class="map-btn" href="https://maps.google.com/?q=sapporo+ramen+haruka+susukino" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0547,141.3543&destination=43.0552826,141.3525147&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 7분</span><span>· 숙소</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m023" onchange="saveMemo('m023')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m023" onchange="saveMemo('m023')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m023" type="number" placeholder="¥금액" oninput="saveMemo('m023')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m023" type="text" placeholder="간단 메모..." oninput="saveMemo('m023')">
+              </div>
+              <div class="memo-saved" id="saved-m023">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">21:00</span><div class="sched-dot" style="background:var(--lavender)"></div>
         <div class="sched-content">
-          <div class="sched-place">🏨 SAPPORO STREAM HOTEL 도착</div>
+          <div class="sched-place-row"><div class="sched-place">🏨 SAPPORO STREAM HOTEL 도착</div><button class="check-btn" id="c024" onclick="toggleCheck('c024')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ DAY 2 종료</div>
           <div class="sched-info"><span class="info-chip red">⚠ 내일 07:10 출발 — 일찍 취침!</span></div>
           <div class="sched-bottom"><span class="sched-tag tag-move">숙소 도착</span></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m024" onchange="saveMemo('m024')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m024" onchange="saveMemo('m024')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m024" type="number" placeholder="¥금액" oninput="saveMemo('m024')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m024" type="text" placeholder="간단 메모..." oninput="saveMemo('m024')">
+              </div>
+              <div class="memo-saved" id="saved-m024">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
@@ -645,7 +1316,7 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
       <li class="schedule-item">
         <span class="sched-time">07:00</span><div class="sched-dot" style="background:#c77a4a"></div>
         <div class="sched-content">
-          <div class="sched-place">🐟 니조시장 돈베이 — 카이센동 아침</div>
+          <div class="sched-place-row"><div class="sched-place">🐟 니조시장 돈베이 — 카이센동 아침</div><button class="check-btn" id="c025" onclick="toggleCheck('c025')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 1시간</div>
           <div class="sched-detail">삿포로 재래시장 내 돈베이. 8월 성게·연어알 제철. 카이센동으로 든든하게 아침 식사 후 시장 구경.</div>
           <div class="sched-info">
@@ -658,13 +1329,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <a class="map-btn" href="https://s.tabelog.com/kr/hokkaido/A0101/A010103/1071658/" target="_blank" style="background:#3c7de0;color:white;border-color:#3c7de0;">📋 타베로그 예약</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.058299,141.358446&destination=43.072904,141.338793&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 25분</span><span>· 포플러 가로수길</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m025" onchange="saveMemo('m025')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m025" onchange="saveMemo('m025')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m025" type="number" placeholder="¥금액" oninput="saveMemo('m025')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m025" type="text" placeholder="간단 메모..." oninput="saveMemo('m025')">
+              </div>
+              <div class="memo-saved" id="saved-m025">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">08:10</span><div class="sched-dot" style="background:#c77a4a"></div>
         <div class="sched-content">
-          <div class="sched-place">🌳 홋카이도대학 포플러 가로수길</div>
+          <div class="sched-place-row"><div class="sched-place">🌳 홋카이도대학 포플러 가로수길</div><button class="check-btn" id="c026" onclick="toggleCheck('c026')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 30분</div>
           <div class="sched-detail">홋카이도대학 내 약 380m 포플러 가로수길. 8월 여름 녹음 절정. 입장 무료. 이른 아침 산책하기 딱 좋은 코스.</div>
           <div class="sched-info">
@@ -675,13 +1373,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <a class="map-btn" href="https://maps.google.com/?q=43.072904,141.338793" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.072904,141.338793&destination=43.0639,141.3426&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 10분</span><span>· 식물원</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m026" onchange="saveMemo('m026')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m026" onchange="saveMemo('m026')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m026" type="number" placeholder="¥금액" oninput="saveMemo('m026')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m026" type="text" placeholder="간단 메모..." oninput="saveMemo('m026')">
+              </div>
+              <div class="memo-saved" id="saved-m026">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">09:00</span><div class="sched-dot" style="background:#c77a4a"></div>
         <div class="sched-content">
-          <div class="sched-place">🌿 홋카이도대학 식물원 산책</div>
+          <div class="sched-place-row"><div class="sched-place">🌿 홋카이도대학 식물원 산책</div><button class="check-btn" id="c027" onclick="toggleCheck('c027')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 1시간</div>
           <div class="sched-detail">1886년 개원, 약 4,000종 식물 보유. 8월 여름 녹음 절정. 오픈런 입장해 여유롭게 산책.</div>
           <div class="sched-info">
@@ -693,13 +1418,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <a class="map-btn" href="https://maps.google.com/?place_id=ChIJvV_FT58pC18RaES0vdUP7Lo" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0639,141.3426&destination=43.0643035,141.346868&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 7분</span><span>· 홋카이도청</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m027" onchange="saveMemo('m027')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m027" onchange="saveMemo('m027')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m027" type="number" placeholder="¥금액" oninput="saveMemo('m027')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m027" type="text" placeholder="간단 메모..." oninput="saveMemo('m027')">
+              </div>
+              <div class="memo-saved" id="saved-m027">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">10:10</span><div class="sched-dot" style="background:#c77a4a"></div>
         <div class="sched-content">
-          <div class="sched-place">🏛 홋카이도청 구본청사</div>
+          <div class="sched-place-row"><div class="sched-place">🏛 홋카이도청 구본청사</div><button class="check-btn" id="c028" onclick="toggleCheck('c028')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 30분</div>
           <div class="sched-detail">1888년 건립 붉은 벽돌 건물. 8월 정원 녹음 절정. 내부 홋카이도 역사 전시.</div>
           <div class="sched-info">
@@ -712,13 +1464,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <a class="map-btn" href="https://maps.google.com/?place_id=ChIJrQd1AJ8pC18Rt53mDW5dIbs" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0643035,141.346868&destination=43.0552826,141.3525147&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 15분</span><span>· 숙소</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m028" onchange="saveMemo('m028')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m028" onchange="saveMemo('m028')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m028" type="number" placeholder="¥금액" oninput="saveMemo('m028')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m028" type="text" placeholder="간단 메모..." oninput="saveMemo('m028')">
+              </div>
+              <div class="memo-saved" id="saved-m028">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">11:00</span><div class="sched-dot" style="background:#c77a4a"></div>
         <div class="sched-content">
-          <div class="sched-place">🏨 숙소 복귀 — 체크아웃 & 캐리어 보관</div>
+          <div class="sched-place-row"><div class="sched-place">🏨 숙소 복귀 — 체크아웃 & 캐리어 보관</div><button class="check-btn" id="c029" onclick="toggleCheck('c029')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 15분</div>
           <div class="sched-detail">체크아웃 후 프런트 컨시어지에 캐리어 보관. 귀중품만 챙겨서 스아게 플러스 오픈런 출발!</div>
           <div class="sched-info">
@@ -727,13 +1506,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
           </div>
           <div class="sched-bottom"><span class="sched-tag tag-move">체크아웃</span></div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0552826,141.3525147&destination=5+Chome-6-1+Minami+4+Jonishi+Chuo+Ward+Sapporo+Hokkaido+064-0804&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 5분</span><span>· 스아게 플러스</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m029" onchange="saveMemo('m029')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m029" onchange="saveMemo('m029')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m029" type="number" placeholder="¥금액" oninput="saveMemo('m029')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m029" type="text" placeholder="간단 메모..." oninput="saveMemo('m029')">
+              </div>
+              <div class="memo-saved" id="saved-m029">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">11:10</span><div class="sched-dot" style="background:#c77a4a"></div>
         <div class="sched-content">
-          <div class="sched-place">🍛 스프카레 스아게 플러스 — 오픈런 대기</div>
+          <div class="sched-place-row"><div class="sched-place">🍛 스프카레 스아게 플러스 — 오픈런 대기</div><button class="check-btn" id="c030" onclick="toggleCheck('c030')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 1시간 20분 · 11:10 대기 시작</div>
           <div class="sched-detail">미나미 4조 니시 5초메 도시마츠빌딩 2F. 오픈(11:30) 20분 전 도착해 대기. 입장 후 여유롭게 식사. 식사 종료 13:00.</div>
           <div class="sched-info">
@@ -746,6 +1552,33 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <a class="map-btn" href="https://maps.google.com/?q=5+Chome-6-1+Minami+4+Jonishi+Chuo+Ward+Sapporo+Hokkaido+064-0804" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=5+Chome-6-1+Minami+4+Jonishi+Chuo+Ward+Sapporo+Hokkaido+064-0804&destination=43.0681096,141.3518039&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 15분</span><span>· 쇼핑 1차전</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m030" onchange="saveMemo('m030')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m030" onchange="saveMemo('m030')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m030" type="number" placeholder="¥금액" oninput="saveMemo('m030')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m030" type="text" placeholder="간단 메모..." oninput="saveMemo('m030')">
+              </div>
+              <div class="memo-saved" id="saved-m030">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
@@ -774,13 +1607,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             </div>
             <a href="https://porocle.jp" target="_blank" style="display:inline-block;margin-top:8px;font-size:11px;padding:5px 12px;background:#4a7fc7;color:white;border-radius:8px;text-decoration:none;font-weight:600;">🌐 포로클 공식사이트</a>
           </div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m031" onchange="saveMemo('m031')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m031" onchange="saveMemo('m031')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m031" type="number" placeholder="¥금액" oninput="saveMemo('m031')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m031" type="text" placeholder="간단 메모..." oninput="saveMemo('m031')">
+              </div>
+              <div class="memo-saved" id="saved-m031">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">07:00</span><div class="sched-dot" style="background:#4a7fc7"></div>
         <div class="sched-content">
-          <div class="sched-place">🐟 니조시장 방문</div>
+          <div class="sched-place-row"><div class="sched-place">🐟 니조시장 방문</div><button class="check-btn" id="c031" onclick="toggleCheck('c031')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 20분</div>
           <div class="sched-detail">삿포로 재래시장. 8월 성게·연어알 제철. 아침 일찍 활기찬 시장 분위기 구경.</div>
           <div class="sched-info">
@@ -791,13 +1651,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <a class="map-btn" href="https://maps.google.com/?place_id=ChIJCb2qW4IpC18R93EsGNFraJI" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.058299,141.358446&destination=43.0574558,141.3552629&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 5분</span><span>· 코메다커피</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m032" onchange="saveMemo('m032')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m032" onchange="saveMemo('m032')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m032" type="number" placeholder="¥금액" oninput="saveMemo('m032')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m032" type="text" placeholder="간단 메모..." oninput="saveMemo('m032')">
+              </div>
+              <div class="memo-saved" id="saved-m032">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">07:30</span><div class="sched-dot" style="background:#4a7fc7"></div>
         <div class="sched-content">
-          <div class="sched-place">☕ 코메다커피 다누키코지 2초메점 — 조식세트</div>
+          <div class="sched-place-row"><div class="sched-place">☕ 코메다커피 다누키코지 2초메점 — 조식세트</div><button class="check-btn" id="c032" onclick="toggleCheck('c032')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 40분</div>
           <div class="sched-detail">모닝 음료 주문 시 토스트·삶은달걀 조식 무료 제공. 여유롭게 아침 식사 후 바로 옆 포로클 포트에서 자전거 대여.</div>
           <div class="sched-info">
@@ -809,13 +1696,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <a class="map-btn" href="https://maps.google.com/?place_id=ChIJgZiA6UcpC18RO--TKFqRTVg" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0574558,141.3552629&destination=43.0589677,141.3536966&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 2분</span><span>· 포로클 포트</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m033" onchange="saveMemo('m033')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m033" onchange="saveMemo('m033')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m033" type="number" placeholder="¥금액" oninput="saveMemo('m033')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m033" type="text" placeholder="간단 메모..." oninput="saveMemo('m033')">
+              </div>
+              <div class="memo-saved" id="saved-m033">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">08:15</span><div class="sched-dot" style="background:#4a7fc7"></div>
         <div class="sched-content">
-          <div class="sched-place">🚲 포로클 대여 — 14_다이마루 후지이 센트럴 앞</div>
+          <div class="sched-place-row"><div class="sched-place">🚲 포로클 대여 — 14_다이마루 후지이 센트럴 앞</div><button class="check-btn" id="c033" onclick="toggleCheck('c033')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 5분</div>
           <div class="sched-detail">남1조도리 다이마루 후지이 센트럴 앞 포트에서 1일권 대여. 홋카이도청까지 자전거로 약 10분.</div>
           <div class="sched-info">
@@ -827,13 +1741,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <a class="map-btn" href="https://maps.google.com/?place_id=ChIJm3Y0NoMpC18Rnqe2El2cTaw" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>포트 지도</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0589677,141.3536966&destination=43.0643035,141.346868&travelmode=bicycling" target="_blank" style="background:rgba(74,127,199,0.12);border-color:rgba(74,127,199,0.3);"><span class="t-icon">🚲</span><span>포로클</span><span class="t-time">약 10분</span><span>· 홋카이도청</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m034" onchange="saveMemo('m034')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m034" onchange="saveMemo('m034')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m034" type="number" placeholder="¥금액" oninput="saveMemo('m034')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m034" type="text" placeholder="간단 메모..." oninput="saveMemo('m034')">
+              </div>
+              <div class="memo-saved" id="saved-m034">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">08:45</span><div class="sched-dot" style="background:#4a7fc7"></div>
         <div class="sched-content">
-          <div class="sched-place">🏛 홋카이도청 구본청사</div>
+          <div class="sched-place-row"><div class="sched-place">🏛 홋카이도청 구본청사</div><button class="check-btn" id="c034" onclick="toggleCheck('c034')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 30분</div>
           <div class="sched-detail">1888년 건립 붉은 벽돌 건물. 8월 정원 녹음 절정. 내부 홋카이도 역사 전시. 구경 후 포로클 타고 식물원으로.</div>
           <div class="sched-info">
@@ -845,13 +1786,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <a class="map-btn" href="https://maps.google.com/?place_id=ChIJrQd1AJ8pC18Rt53mDW5dIbs" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0643035,141.346868&destination=43.0639,141.3426&travelmode=bicycling" target="_blank" style="background:rgba(74,127,199,0.12);border-color:rgba(74,127,199,0.3);"><span class="t-icon">🚲</span><span>포로클</span><span class="t-time">약 3분</span><span>· 식물원</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m035" onchange="saveMemo('m035')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m035" onchange="saveMemo('m035')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m035" type="number" placeholder="¥금액" oninput="saveMemo('m035')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m035" type="text" placeholder="간단 메모..." oninput="saveMemo('m035')">
+              </div>
+              <div class="memo-saved" id="saved-m035">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">09:20</span><div class="sched-dot" style="background:#4a7fc7"></div>
         <div class="sched-content">
-          <div class="sched-place">🌿 홋카이도대학 식물원 산책</div>
+          <div class="sched-place-row"><div class="sched-place">🌿 홋카이도대학 식물원 산책</div><button class="check-btn" id="c035" onclick="toggleCheck('c035')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 1시간 10분 · 10:30 종료</div>
           <div class="sched-detail">1886년 개원, 약 4,000종 식물 보유. 8월 여름 녹음 절정. 10:30 퇴장 후 포로클 타고 반납 포트로 이동.</div>
           <div class="sched-info">
@@ -868,13 +1836,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             베이지색 건물 입구 오른쪽 · 24시간 영업
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0639,141.3426&destination=43.0569013,141.3560391&travelmode=bicycling" target="_blank" style="background:rgba(74,127,199,0.12);border-color:rgba(74,127,199,0.3);"><span class="t-icon">🚲</span><span>포로클</span><span class="t-time">약 10분</span><span>· H&B 플라자 반납포트</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m036" onchange="saveMemo('m036')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m036" onchange="saveMemo('m036')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m036" type="number" placeholder="¥금액" oninput="saveMemo('m036')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m036" type="text" placeholder="간단 메모..." oninput="saveMemo('m036')">
+              </div>
+              <div class="memo-saved" id="saved-m036">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">10:40</span><div class="sched-dot" style="background:#4a7fc7"></div>
         <div class="sched-content">
-          <div class="sched-place">🚲 포로클 반납 — 55_니시2초메선 H&B 플라자빌딩 앞</div>
+          <div class="sched-place-row"><div class="sched-place">🚲 포로클 반납 — 55_니시2초메선 H&B 플라자빌딩 앞</div><button class="check-btn" id="c036" onclick="toggleCheck('c036')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 5분</div>
           <div class="sched-detail">미나미 3조 니시 2초메 1-1 H&B 플라자빌딩 앞 반납. 숙소까지 도보 약 3분.</div>
           <div class="sched-info">
@@ -885,13 +1880,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <a class="map-btn" href="https://maps.google.com/?place_id=ChIJ26XSkIMpC18RKvpkyhZeSzo" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>포트 지도</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0569013,141.3560391&destination=43.0552826,141.3525147&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 3분</span><span>· 숙소</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m037" onchange="saveMemo('m037')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m037" onchange="saveMemo('m037')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m037" type="number" placeholder="¥금액" oninput="saveMemo('m037')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m037" type="text" placeholder="간단 메모..." oninput="saveMemo('m037')">
+              </div>
+              <div class="memo-saved" id="saved-m037">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">11:00</span><div class="sched-dot" style="background:#4a7fc7"></div>
         <div class="sched-content">
-          <div class="sched-place">🏨 숙소 복귀 — 체크아웃 & 캐리어 보관</div>
+          <div class="sched-place-row"><div class="sched-place">🏨 숙소 복귀 — 체크아웃 & 캐리어 보관</div><button class="check-btn" id="c037" onclick="toggleCheck('c037')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 15분</div>
           <div class="sched-detail">체크아웃 후 프런트 컨시어지에 캐리어 보관. 귀중품만 챙겨서 스아게 플러스 오픈런 출발!</div>
           <div class="sched-info">
@@ -900,13 +1922,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
           </div>
           <div class="sched-bottom"><span class="sched-tag tag-move">체크아웃</span></div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0552826,141.3525147&destination=5+Chome-6-1+Minami+4+Jonishi+Chuo+Ward+Sapporo+Hokkaido+064-0804&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 5분</span><span>· 스아게 플러스</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m038" onchange="saveMemo('m038')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m038" onchange="saveMemo('m038')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m038" type="number" placeholder="¥금액" oninput="saveMemo('m038')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m038" type="text" placeholder="간단 메모..." oninput="saveMemo('m038')">
+              </div>
+              <div class="memo-saved" id="saved-m038">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">11:10</span><div class="sched-dot" style="background:#4a7fc7"></div>
         <div class="sched-content">
-          <div class="sched-place">🍛 스프카레 스아게 플러스 — 오픈런 대기</div>
+          <div class="sched-place-row"><div class="sched-place">🍛 스프카레 스아게 플러스 — 오픈런 대기</div><button class="check-btn" id="c038" onclick="toggleCheck('c038')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 1시간 20분 · 11:10 대기 시작</div>
           <div class="sched-detail">미나미 4조 니시 5초메 도시마츠빌딩 2F. 오픈(11:30) 20분 전 도착해 대기. 입장 후 여유롭게 식사. 식사 종료 13:00.</div>
           <div class="sched-info">
@@ -919,6 +1968,33 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <a class="map-btn" href="https://maps.google.com/?q=5+Chome-6-1+Minami+4+Jonishi+Chuo+Ward+Sapporo+Hokkaido+064-0804" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=5+Chome-6-1+Minami+4+Jonishi+Chuo+Ward+Sapporo+Hokkaido+064-0804&destination=43.0681096,141.3518039&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 15분</span><span>· 쇼핑 1차전</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m039" onchange="saveMemo('m039')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m039" onchange="saveMemo('m039')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m039" type="number" placeholder="¥금액" oninput="saveMemo('m039')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m039" type="text" placeholder="간단 메모..." oninput="saveMemo('m039')">
+              </div>
+              <div class="memo-saved" id="saved-m039">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
@@ -929,7 +2005,7 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
       <li class="schedule-item">
         <span class="sched-time">13:00</span><div class="sched-dot" style="background:#c77a4a"></div>
         <div class="sched-content">
-          <div class="sched-place">🛍 쇼핑 1차전</div>
+          <div class="sched-place-row"><div class="sched-place">🛍 쇼핑 1차전</div><button class="check-btn" id="c039" onclick="toggleCheck('c039')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 2시간 (13:00~15:00)</div>
           <div class="sched-detail">삿포로역 직결 매장 위주로 동선 효율 극대화!</div>
           <div style="background:var(--mist);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:12px;">
@@ -944,13 +2020,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
           </div>
           <div class="sched-bottom"><span class="sched-tag tag-shop">쇼핑 1차전 🛍</span></div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0638589,141.3508724&destination=43.0552826,141.3525147&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 10분</span><span>· 숙소</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m040" onchange="saveMemo('m040')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m040" onchange="saveMemo('m040')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m040" type="number" placeholder="¥금액" oninput="saveMemo('m040')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m040" type="text" placeholder="간단 메모..." oninput="saveMemo('m040')">
+              </div>
+              <div class="memo-saved" id="saved-m040">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">15:00</span><div class="sched-dot" style="background:#c77a4a"></div>
         <div class="sched-content">
-          <div class="sched-place">🏨 숙소 복귀 — 프리미엄 트윈룸 업그레이드 + 휴식</div>
+          <div class="sched-place-row"><div class="sched-place">🏨 숙소 복귀 — 프리미엄 트윈룸 업그레이드 + 휴식</div><button class="check-btn" id="c040" onclick="toggleCheck('c040')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 1시간 (15:00~16:00)</div>
           <div class="sched-detail">짐 내려두고 프런트에서 <b>프리미엄 트윈룸 업그레이드 요청.</b> 방 변경 후 잠깐 휴식. 16:00 쇼핑 2차전 출발.</div>
           <div style="background:rgba(74,127,199,0.08);border-radius:10px;padding:12px 14px;margin:8px 0;font-size:12px;border:1px solid rgba(74,127,199,0.2);">
@@ -966,13 +2069,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <span class="info-chip">⏰ 16:00 쇼핑 2차전 출발</span>
           </div>
           <div class="sched-bottom"><span class="sched-tag tag-move">숙소 휴식</span></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m041" onchange="saveMemo('m041')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m041" onchange="saveMemo('m041')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m041" type="number" placeholder="¥금액" oninput="saveMemo('m041')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m041" type="text" placeholder="간단 메모..." oninput="saveMemo('m041')">
+              </div>
+              <div class="memo-saved" id="saved-m041">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">16:00</span><div class="sched-dot" style="background:#c77a4a"></div>
         <div class="sched-content">
-          <div class="sched-place">🛍 쇼핑 2차전</div>
+          <div class="sched-place-row"><div class="sched-place">🛍 쇼핑 2차전</div><button class="check-btn" id="c041" onclick="toggleCheck('c041')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 2시간 30분 (16:00~18:30)</div>
           <div class="sched-detail">숙소 휴식 후 재출발. 모유크 삿포로 기점으로 오도리 방향 쇼핑. 장바구니·보냉가방 먼저 구매해서 이후 짐 담기 활용!</div>
           <div style="background:var(--mist);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:12px;">
@@ -986,6 +2116,33 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
           </div>
           <div class="sched-bottom"><span class="sched-tag tag-shop">쇼핑 2차전 🛍</span></div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.058722,141.35298&destination=2+Chome-7-1+Minami+3+Jonishi+Chuo+Ward+Sapporo+Hokkaido+060-0063&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 15분</span><span>· 파르코→저녁식사</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m042" onchange="saveMemo('m042')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m042" onchange="saveMemo('m042')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m042" type="number" placeholder="¥금액" oninput="saveMemo('m042')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m042" type="text" placeholder="간단 메모..." oninput="saveMemo('m042')">
+              </div>
+              <div class="memo-saved" id="saved-m042">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
@@ -993,7 +2150,7 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
       <li class="schedule-item" id="d3-dinner-a">
         <span class="sched-time">18:30</span><div class="sched-dot" style="background:#c77a4a"></div>
         <div class="sched-content">
-          <div class="sched-place">🦪 하우스다이닝 룽고카니발 <span style="font-size:10px;background:rgba(107,143,113,0.15);color:var(--sage);padding:2px 8px;border-radius:8px;margin-left:4px;">🅰 A안</span></div>
+          <div class="sched-place-row"><div class="sched-place">🦪 하우스다이닝 룽고카니발 <span style="font-size:10px;background:rgba(107,143,113,0.15);color:var(--sage);padding:2px 8px;border-radius:8px;margin-left:4px;">🅰 A안</span></div><button class="check-btn" id="c042" onclick="toggleCheck('c042')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 1시간 30분</div>
           <div class="sched-detail">홋카이도 해산물 이탈리안. 항상 만석 — 반드시 사전 예약 필수!</div>
           <div class="sched-info">
@@ -1010,6 +2167,33 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
 
 
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=2+Chome-7-1+Minami+3+Jonishi+Chuo+Ward+Sapporo+Hokkaido+060-0063&destination=43.0552826,141.3525147&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 10분</span><span>· 룽고카니발→숙소</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m043" onchange="saveMemo('m043')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m043" onchange="saveMemo('m043')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m043" type="number" placeholder="¥금액" oninput="saveMemo('m043')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m043" type="text" placeholder="간단 메모..." oninput="saveMemo('m043')">
+              </div>
+              <div class="memo-saved" id="saved-m043">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
@@ -1017,7 +2201,7 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
       <li class="schedule-item" id="d3-dinner-b" style="display:none;">
         <span class="sched-time">18:30</span><div class="sched-dot" style="background:#4a7fc7"></div>
         <div class="sched-content">
-          <div class="sched-place">🍢 나루본즈 (新なるぼんず) 스스키노 본점 <span style="font-size:10px;background:rgba(74,127,199,0.15);color:#4a7fc7;padding:2px 8px;border-radius:8px;margin-left:4px;">🅱 B안</span></div>
+          <div class="sched-place-row"><div class="sched-place">🍢 나루본즈 (新なるぼんず) 스스키노 본점 <span style="font-size:10px;background:rgba(74,127,199,0.15);color:#4a7fc7;padding:2px 8px;border-radius:8px;margin-left:4px;">🅱 B안</span></div><button class="check-btn" id="c043" onclick="toggleCheck('c043')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 1시간 30분</div>
           <div class="sched-detail">미나미 4조 니시 5초메 7-1 다이이치히데타카빌딩 1F. 숯불 야키토리 전문점. 숙소 도보 5분. 구글맵에서 예약 가능.</div>
           <div class="sched-info">
@@ -1029,23 +2213,104 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <a class="map-btn" href="https://maps.google.com/?ftid=0x5f0b29f6d476c83f:0x66f667fcff764840" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도·예약</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0553,141.3485&destination=43.0552826,141.3525147&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 5분</span><span>· 숙소</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m044" onchange="saveMemo('m044')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m044" onchange="saveMemo('m044')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m044" type="number" placeholder="¥금액" oninput="saveMemo('m044')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m044" type="text" placeholder="간단 메모..." oninput="saveMemo('m044')">
+              </div>
+              <div class="memo-saved" id="saved-m044">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m045" onchange="saveMemo('m045')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m045" onchange="saveMemo('m045')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m045" type="number" placeholder="¥금액" oninput="saveMemo('m045')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m045" type="text" placeholder="간단 메모..." oninput="saveMemo('m045')">
+              </div>
+              <div class="memo-saved" id="saved-m045">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">20:00</span><div class="sched-dot" style="background:#c77a4a"></div>
         <div class="sched-content">
-          <div class="sched-place">🏨 숙소 도착</div>
+          <div class="sched-place-row"><div class="sched-place">🏨 숙소 도착</div><button class="check-btn" id="c044" onclick="toggleCheck('c044')" title="완료 체크">✓</button></div>
           <div class="sched-bottom"><span class="sched-tag tag-move">숙소 도착</span></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m046" onchange="saveMemo('m046')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m046" onchange="saveMemo('m046')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m046" type="number" placeholder="¥금액" oninput="saveMemo('m046')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m046" type="text" placeholder="간단 메모..." oninput="saveMemo('m046')">
+              </div>
+              <div class="memo-saved" id="saved-m046">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">20:30</span><div class="sched-dot" style="background:#c77a4a"></div>
         <div class="sched-content">
-          <div class="sched-place">🧖 프리미엄 스파 &amp; 사우나 (18층)</div>
+          <div class="sched-place-row"><div class="sched-place">🧖 프리미엄 스파 &amp; 사우나 (18층)</div><button class="check-btn" id="c045" onclick="toggleCheck('c045')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 1시간</div>
           <div class="sched-detail">저녁 식사 후 스파. 대욕장·핀란드식 사우나로 쇼핑 피로 완전 해소. 스파 후 라운지 바타임.</div>
           <div class="sched-info">
@@ -1054,13 +2319,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <span class="info-chip">🌙 야경 보며 입욕</span>
           </div>
           <div class="sched-bottom"><span class="sched-tag tag-sight">스파 🧖</span></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m047" onchange="saveMemo('m047')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m047" onchange="saveMemo('m047')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m047" type="number" placeholder="¥금액" oninput="saveMemo('m047')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m047" type="text" placeholder="간단 메모..." oninput="saveMemo('m047')">
+              </div>
+              <div class="memo-saved" id="saved-m047">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">21:30</span><div class="sched-dot" style="background:#c77a4a"></div>
         <div class="sched-content">
-          <div class="sched-place">🥂 프리미엄 라운지 — 바타임 &amp; 굿밤 🌃</div>
+          <div class="sched-place-row"><div class="sched-place">🥂 프리미엄 라운지 — 바타임 &amp; 굿밤 🌃</div><button class="check-btn" id="c046" onclick="toggleCheck('c046')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ ~23:00 · 야경 감상하며 나이트캡</div>
           <div class="sched-detail">스파 후 18층 라운지. 맥주·와인·위스키·사케 무제한. 삿포로 야경 파노라마로 DAY 3 완벽한 마무리. 굿밤! 🌙</div>
           <div class="sched-info">
@@ -1069,6 +2361,33 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <span class="info-chip">🌃 삿포로 야경 파노라마</span>
           </div>
           <div class="sched-bottom"><span class="sched-tag tag-food">라운지 바타임 🥂</span></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m048" onchange="saveMemo('m048')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m048" onchange="saveMemo('m048')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m048" type="number" placeholder="¥금액" oninput="saveMemo('m048')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m048" type="text" placeholder="간단 메모..." oninput="saveMemo('m048')">
+              </div>
+              <div class="memo-saved" id="saved-m048">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
@@ -1088,44 +2407,125 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
       <li class="schedule-item">
         <span class="sched-time">06:30</span><div class="sched-dot" style="background:#4a7fc7"></div>
         <div class="sched-content">
-          <div class="sched-place">🍳 SAPPORO STREAM 호텔 조식뷔페</div>
+          <div class="sched-place-row"><div class="sched-place">🍳 SAPPORO STREAM 호텔 조식뷔페</div><button class="check-btn" id="c047" onclick="toggleCheck('c047')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 1시간</div>
           <div class="sched-detail">오타루 출발 전 든든하게 조식. 09:30 숙소 출발 예정.</div>
           <div class="sched-info"><span class="info-chip green">🍳 호텔 조식</span><span class="info-chip">🕐 06:30~10:00</span></div>
           <div class="sched-bottom"><span class="sched-tag tag-food">조식</span></div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0552826,141.3525147&destination=43.0687,141.3500&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 24분</span><span>· 삿포로역</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m049" onchange="saveMemo('m049')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m049" onchange="saveMemo('m049')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m049" type="number" placeholder="¥금액" oninput="saveMemo('m049')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m049" type="text" placeholder="간단 메모..." oninput="saveMemo('m049')">
+              </div>
+              <div class="memo-saved" id="saved-m049">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">09:50</span><div class="sched-dot" style="background:#4a7fc7"></div>
         <div class="sched-content">
-          <div class="sched-place">🚃 삿포로역 출발 → 오타루역 도착</div>
+          <div class="sched-place-row"><div class="sched-place">🚃 삿포로역 출발 → 오타루역 도착</div><button class="check-btn" id="c048" onclick="toggleCheck('c048')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ JR 약 35분 · 운하까지 도보 10분</div>
           <div class="sched-detail">JR 쾌속 에어포트 또는 니세코 라이너 약 35분. 750엔. 오타루역 하차 후 직진하면 운하.</div>
           <div class="sched-info"><span class="info-chip blue">🚃 JR 약 35분 · 750엔</span><span class="info-chip">💴 현금</span><span class="info-chip">🗺 역 출구에서 직진 → 운하</span></div>
           <div class="sched-bottom"><span class="sched-tag tag-move">이동</span></div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.1907,141.0021&destination=43.199041,141.0021176&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 10분</span><span>· 오타루역→운하</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m050" onchange="saveMemo('m050')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m050" onchange="saveMemo('m050')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m050" type="number" placeholder="¥금액" oninput="saveMemo('m050')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m050" type="text" placeholder="간단 메모..." oninput="saveMemo('m050')">
+              </div>
+              <div class="memo-saved" id="saved-m050">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">11:10</span><div class="sched-dot" style="background:#4a7fc7"></div>
         <div class="sched-content">
-          <div class="sched-place">🌊 오타루 운하 낮 산책</div>
+          <div class="sched-place-row"><div class="sched-place">🌊 오타루 운하 낮 산책</div><button class="check-btn" id="c049" onclick="toggleCheck('c049')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 1시간</div>
           <div class="sched-detail">메이지 시대 석조 창고가 늘어선 오타루의 상징. 가스등·벽돌길.</div>
           <div class="sched-bottom"><span class="sched-tag tag-sight">관광</span>
             <a class="map-btn" href="https://maps.google.com/?q=Otaru+Canal" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.199041,141.0021176&destination=43.1999813,141.0018151&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 2분</span><span>· 크루즈 선착장</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m051" onchange="saveMemo('m051')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m051" onchange="saveMemo('m051')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m051" type="number" placeholder="¥금액" oninput="saveMemo('m051')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m051" type="text" placeholder="간단 메모..." oninput="saveMemo('m051')">
+              </div>
+              <div class="memo-saved" id="saved-m051">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">12:10</span><div class="sched-dot" style="background:#4a7fc7"></div>
         <div class="sched-content">
-          <div class="sched-place">⛵ 오타루 운하 크루즈</div>
+          <div class="sched-place-row"><div class="sched-place">⛵ 오타루 운하 크루즈</div><button class="check-btn" id="c050" onclick="toggleCheck('c050')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 40분</div>
           <div class="sched-detail">성수기 온라인 예약 필수. 1,800엔/인. 한국어 오디오 가이드. 현금만 가능.</div>
           <div class="sched-info"><span class="info-chip red">⚠ 성수기 온라인 예약 권장</span><span class="info-chip">💴 1,800엔</span><span class="info-chip blue">🎧 한국어 오디오</span><span class="info-chip red">💴 현금만 가능</span></div>
@@ -1133,25 +2533,79 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <a class="map-btn" href="https://otaru.cc/en/reservation/standard/" target="_blank">🔗 온라인 예약</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.1999813,141.0018151&destination=43.199036,140.993927&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 11분</span><span>· 삼각시장</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m052" onchange="saveMemo('m052')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m052" onchange="saveMemo('m052')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m052" type="number" placeholder="¥금액" oninput="saveMemo('m052')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m052" type="text" placeholder="간단 메모..." oninput="saveMemo('m052')">
+              </div>
+              <div class="memo-saved" id="saved-m052">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">13:00</span><div class="sched-dot" style="background:#4a7fc7"></div>
         <div class="sched-content">
-          <div class="sched-place">🦞 해산물 점심 — 삼각시장</div>
+          <div class="sched-place-row"><div class="sched-place">🦞 해산물 점심 — 삼각시장</div><button class="check-btn" id="c051" onclick="toggleCheck('c051')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 1시간</div>
           <div class="sched-detail">8월 성게 제철. 해산물 덮밥·이쿠라 덮밥. 1,500~3,000엔.</div>
           <div class="sched-info"><span class="info-chip red">💴 현금 위주 (카드 안되는 곳 많음)</span></div>
           <div class="sched-bottom"><span class="sched-tag tag-food">점심</span></div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.199036,140.993927&destination=43.1960109,141.0031943&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 13분</span><span>· 사카이마치</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m053" onchange="saveMemo('m053')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m053" onchange="saveMemo('m053')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m053" type="number" placeholder="¥금액" oninput="saveMemo('m053')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m053" type="text" placeholder="간단 메모..." oninput="saveMemo('m053')">
+              </div>
+              <div class="memo-saved" id="saved-m053">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">14:30</span><div class="sched-dot" style="background:#4a7fc7"></div>
         <div class="sched-content">
-          <div class="sched-place">🛍 사카이마치 거리 쇼핑 & 🐟 카마에이 어묵공장</div>
+          <div class="sched-place-row"><div class="sched-place">🛍 사카이마치 거리 쇼핑 & 🐟 카마에이 어묵공장</div><button class="check-btn" id="c052" onclick="toggleCheck('c052')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 2시간 30분 (14:30~17:00)</div>
           <div class="sched-detail">오르골당·유리 공예·기념품 가게들. 르타오 본점에서 더블 프로마쥬 치즈케이크 필수. 중간에 카마에이 어묵공장 방문!</div>
           <div style="background:rgba(74,127,199,0.07);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:12px;border:1px solid rgba(74,127,199,0.15);">
@@ -1172,13 +2626,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <a class="map-btn" href="https://maps.google.com/?place_id=ChIJQTIcG07gCl8RMM5h8GKfzuo" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>카마에이 지도</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.1960109,141.0031943&destination=43.199107,141.0025180&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 6분</span><span>· 창고No.1</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m054" onchange="saveMemo('m054')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m054" onchange="saveMemo('m054')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m054" type="number" placeholder="¥금액" oninput="saveMemo('m054')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m054" type="text" placeholder="간단 메모..." oninput="saveMemo('m054')">
+              </div>
+              <div class="memo-saved" id="saved-m054">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">17:00</span><div class="sched-dot" style="background:#4a7fc7"></div>
         <div class="sched-content">
-          <div class="sched-place">🍺 오타루 창고 No.1 저녁</div>
+          <div class="sched-place-row"><div class="sched-place">🍺 오타루 창고 No.1 저녁</div><button class="check-btn" id="c053" onclick="toggleCheck('c053')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 1시간 30분</div>
           <div class="sched-detail">오타루 현지 양조 생맥주. 운하 옆 창고 건물. 치킨·소시지 안주.</div>
           <div class="sched-info"><span class="info-chip both">💳 카드·현금 모두</span></div>
@@ -1187,35 +2668,116 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <a class="map-btn" href="https://autoreserve.com/ko/restaurants/qYYRmbk55tMQzyRXKC13" target="_blank" style="background:#e8193c;color:white;border-color:#e8193c;">📋 AutoReserve 예약</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.199107,141.0025180&destination=43.1907,141.0021&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 15분</span><span>· 오타루역</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m055" onchange="saveMemo('m055')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m055" onchange="saveMemo('m055')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m055" type="number" placeholder="¥금액" oninput="saveMemo('m055')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m055" type="text" placeholder="간단 메모..." oninput="saveMemo('m055')">
+              </div>
+              <div class="memo-saved" id="saved-m055">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">19:00</span><div class="sched-dot" style="background:#4a7fc7"></div>
         <div class="sched-content">
-          <div class="sched-place">🚃 오타루 → 삿포로 복귀</div>
+          <div class="sched-place-row"><div class="sched-place">🚃 오타루 → 삿포로 복귀</div><button class="check-btn" id="c054" onclick="toggleCheck('c054')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 35분</div>
           <div class="sched-info"><span class="info-chip blue">약 35분</span><span class="info-chip">💴 750엔</span><span class="info-chip">💴 현금</span></div>
           <div class="sched-bottom"><span class="sched-tag tag-move">복귀</span></div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.1907,141.0021&destination=43.0687,141.3500&travelmode=transit" target="_blank"><span class="t-icon">🚃</span><span>JR 오타루→삿포로</span><span class="t-time">약 35분</span><span>· 750엔</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m056" onchange="saveMemo('m056')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m056" onchange="saveMemo('m056')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m056" type="number" placeholder="¥금액" oninput="saveMemo('m056')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m056" type="text" placeholder="간단 메모..." oninput="saveMemo('m056')">
+              </div>
+              <div class="memo-saved" id="saved-m056">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">19:35</span><div class="sched-dot" style="background:#4a7fc7"></div>
         <div class="sched-content">
-          <div class="sched-place">🚃 삿포로역 도착</div>
+          <div class="sched-place-row"><div class="sched-place">🚃 삿포로역 도착</div><button class="check-btn" id="c055" onclick="toggleCheck('c055')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 숙소까지 도보 약 24분</div>
           <div class="sched-info"><span class="info-chip">🧳 짐 많으면 택시 약 800엔</span></div>
           <div class="sched-bottom"><span class="sched-tag tag-move">이동</span></div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0687,141.3500&destination=43.0551326,141.352701&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 20분</span><span>· 다이치마트</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m057" onchange="saveMemo('m057')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m057" onchange="saveMemo('m057')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m057" type="number" placeholder="¥금액" oninput="saveMemo('m057')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m057" type="text" placeholder="간단 메모..." oninput="saveMemo('m057')">
+              </div>
+              <div class="memo-saved" id="saved-m057">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">20:00</span><div class="sched-dot" style="background:#4a7fc7"></div>
         <div class="sched-content">
-          <div class="sched-place">🛒 다이치마트 스스키노점 (COCONO SUSUKINO B2F)</div>
+          <div class="sched-place-row"><div class="sched-place">🛒 다이치마트 스스키노점 (COCONO SUSUKINO B2F)</div><button class="check-btn" id="c056" onclick="toggleCheck('c056')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 30분 · 영업 21:00까지</div>
           <div class="sched-detail">코코노스스키노 지하 2층 슈퍼마켓. 도시락·반찬·간식·음료 등 야식 픽업. 숙소에서 도보 1분 거리.</div>
           <div class="sched-info">
@@ -1229,16 +2791,70 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <a class="map-btn" href="https://maps.google.com/?cid=590752984897781996" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="#4285F4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>지도</a>
           </div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0551326,141.352701&destination=43.0552826,141.3525147&travelmode=walking" target="_blank"><span class="t-icon">🚶</span><span>도보</span><span class="t-time">약 1분</span><span>· 숙소</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m058" onchange="saveMemo('m058')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m058" onchange="saveMemo('m058')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m058" type="number" placeholder="¥금액" oninput="saveMemo('m058')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m058" type="text" placeholder="간단 메모..." oninput="saveMemo('m058')">
+              </div>
+              <div class="memo-saved" id="saved-m058">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">21:50</span><div class="sched-dot" style="background:#4a7fc7"></div>
         <div class="sched-content">
-          <div class="sched-place">🏨 SAPPORO STREAM HOTEL 도착</div>
+          <div class="sched-place-row"><div class="sched-place">🏨 SAPPORO STREAM HOTEL 도착</div><button class="check-btn" id="c057" onclick="toggleCheck('c057')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ DAY 4 종료</div>
           <div class="sched-info"><span class="info-chip red">⚠ 내일 귀국 — 짐 미리 준비!</span></div>
           <div class="sched-bottom"><span class="sched-tag tag-move">숙소 도착</span></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m059" onchange="saveMemo('m059')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m059" onchange="saveMemo('m059')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m059" type="number" placeholder="¥금액" oninput="saveMemo('m059')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m059" type="text" placeholder="간단 메모..." oninput="saveMemo('m059')">
+              </div>
+              <div class="memo-saved" id="saved-m059">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
@@ -1257,7 +2873,7 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
       <li class="schedule-item">
         <span class="sched-time">05:00</span><div class="sched-dot" style="background:var(--gold)"></div>
         <div class="sched-content">
-          <div class="sched-place">🧖 프리미엄 스파 &amp; 사우나 — 마지막 새벽 입욕</div>
+          <div class="sched-place-row"><div class="sched-place">🧖 프리미엄 스파 &amp; 사우나 — 마지막 새벽 입욕</div><button class="check-btn" id="c058" onclick="toggleCheck('c058')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 1시간 · 귀국 전 마지막 스파</div>
           <div class="sched-detail">홋카이도 마지막 날 새벽 스파. 여행의 피로를 말끔히 풀고 귀국. 동틀 무렵 삿포로 전망 감상. 새벽 5시 오픈과 동시에 입장.</div>
           <div class="sched-info">
@@ -1265,13 +2881,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <span class="info-chip">🌅 마지막 삿포로 새벽 전망</span>
           </div>
           <div class="sched-bottom"><span class="sched-tag tag-sight">스파 🧖</span></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m060" onchange="saveMemo('m060')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m060" onchange="saveMemo('m060')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m060" type="number" placeholder="¥금액" oninput="saveMemo('m060')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m060" type="text" placeholder="간단 메모..." oninput="saveMemo('m060')">
+              </div>
+              <div class="memo-saved" id="saved-m060">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">06:30</span><div class="sched-dot" style="background:var(--gold)"></div>
         <div class="sched-content">
-          <div class="sched-place">🍳 SAPPORO STREAM 호텔 조식뷔페</div>
+          <div class="sched-place-row"><div class="sched-place">🍳 SAPPORO STREAM 호텔 조식뷔페</div><button class="check-btn" id="c059" onclick="toggleCheck('c059')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 1시간 · 마지막 호텔 조식</div>
           <div class="sched-detail">여행 마지막 날 조식. 든든하게 먹고 체크아웃 준비. 08:00까지 식사 완료 후 짐 챙기기.</div>
           <div class="sched-info">
@@ -1279,13 +2922,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <span class="info-chip red">⚠ 08:00까지 식사 완료 권장 (06:30 오픈)</span>
           </div>
           <div class="sched-bottom"><span class="sched-tag tag-food">조식</span></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m061" onchange="saveMemo('m061')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m061" onchange="saveMemo('m061')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m061" type="number" placeholder="¥금액" oninput="saveMemo('m061')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m061" type="text" placeholder="간단 메모..." oninput="saveMemo('m061')">
+              </div>
+              <div class="memo-saved" id="saved-m061">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">08:30</span><div class="sched-dot" style="background:var(--gold)"></div>
         <div class="sched-content">
-          <div class="sched-place">🏨 SAPPORO STREAM HOTEL 체크아웃</div>
+          <div class="sched-place-row"><div class="sched-place">🏨 SAPPORO STREAM HOTEL 체크아웃</div><button class="check-btn" id="c060" onclick="toggleCheck('c060')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ DAY 5 시작</div>
           <div class="sched-detail">체크아웃 후 택시로 삿포로역 이동 → JR 탑승.</div>
           <div class="sched-info">
@@ -1295,13 +2965,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
           </div>
           <div class="sched-bottom"><span class="sched-tag tag-move">숙소 출발</span></div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0552826,141.3525147&destination=43.0687,141.3500&travelmode=driving" target="_blank"><span class="t-icon">🚕</span><span>택시</span><span class="t-time">약 5분</span><span>· 약 800엔</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m062" onchange="saveMemo('m062')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m062" onchange="saveMemo('m062')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m062" type="number" placeholder="¥금액" oninput="saveMemo('m062')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m062" type="text" placeholder="간단 메모..." oninput="saveMemo('m062')">
+              </div>
+              <div class="memo-saved" id="saved-m062">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">08:45</span><div class="sched-dot" style="background:var(--gold)"></div>
         <div class="sched-content">
-          <div class="sched-place">🚃 삿포로역 → 신치토세 공항</div>
+          <div class="sched-place-row"><div class="sched-place">🚃 삿포로역 → 신치토세 공항</div><button class="check-btn" id="c061" onclick="toggleCheck('c061')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 37분</div>
           <div class="sched-detail">JR 쾌속 에어포트. 09:22 공항 도착.</div>
           <div style="background:rgba(74,127,199,0.08);border-radius:10px;padding:10px 14px;margin:8px 0;font-size:12px;border:1px solid rgba(74,127,199,0.2);">
@@ -1321,13 +3018,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
           </div>
           <div class="sched-bottom"><span class="sched-tag tag-move">이동</span></div>
           <div class="transit-bar"><div class="t-line"></div><a class="t-badge" href="https://www.google.com/maps/dir/?api=1&origin=43.0687,141.3500&destination=New+Chitose+Airport+Hokkaido&travelmode=transit" target="_blank"><span class="t-icon">🚃</span><span>JR 쾌속 에어포트</span><span class="t-time">약 37분</span><span>· 1,150엔</span></a><div class="t-line"></div></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m063" onchange="saveMemo('m063')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m063" onchange="saveMemo('m063')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m063" type="number" placeholder="¥금액" oninput="saveMemo('m063')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m063" type="text" placeholder="간단 메모..." oninput="saveMemo('m063')">
+              </div>
+              <div class="memo-saved" id="saved-m063">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">09:22</span><div class="sched-dot" style="background:var(--gold)"></div>
         <div class="sched-content">
-          <div class="sched-place">🍜 신치토세 공항 점심 &amp; 면세 쇼핑</div>
+          <div class="sched-place-row"><div class="sched-place">🍜 신치토세 공항 점심 &amp; 면세 쇼핑</div><button class="check-btn" id="c062" onclick="toggleCheck('c062')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ 약 3시간 (출발 전까지)</div>
           <div class="sched-detail">공항 3층 홋카이도 라멘 도장에서 마지막 홋카이도 라멘. 면세 구역에서 로이스 나마초콜릿(냉장백)·마루세이 버터샌드 구매.</div>
           <div class="sched-info">
@@ -1336,13 +3060,40 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <span class="info-chip">🍫 로이스 나마초콜릿 냉장 구매</span>
           </div>
           <div class="sched-bottom"><span class="sched-tag tag-food">점심 &amp; 면세 쇼핑</span></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m064" onchange="saveMemo('m064')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m064" onchange="saveMemo('m064')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m064" type="number" placeholder="¥금액" oninput="saveMemo('m064')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m064" type="text" placeholder="간단 메모..." oninput="saveMemo('m064')">
+              </div>
+              <div class="memo-saved" id="saved-m064">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
       <li class="schedule-item">
         <span class="sched-time">12:40</span><div class="sched-dot" style="background:var(--gold)"></div>
         <div class="sched-content">
-          <div class="sched-place">✈ 신치토세 공항 출발</div>
+          <div class="sched-place-row"><div class="sched-place">✈ 신치토세 공항 출발</div><button class="check-btn" id="c063" onclick="toggleCheck('c063')" title="완료 체크">✓</button></div>
           <div class="duration-chip">⏱ DAY 5 종료 · 여행 완료 🎉</div>
           <div class="sched-detail">에어부산 BX 181 · 좌석 39A (창가) · 부산(김해) 15:30 도착.</div>
           <div class="sched-info">
@@ -1351,6 +3102,33 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
             <span class="info-chip">🛬 김해 15:30 도착</span>
           </div>
           <div class="sched-bottom"><span class="sched-tag tag-move">귀국 🎉</span></div>
+          <details class="memo-box">
+            <summary>✏️ 메모 · 지출 기록</summary>
+            <div class="memo-fields">
+              <div class="memo-row">
+                <span class="memo-label">지불</span>
+                <select class="memo-select" id="payer-m065" onchange="saveMemo('m065')">
+                  <option value="">-</option>
+                  <option value="JY">JY</option>
+                  <option value="jy">jy</option>
+                  <option value="공동">공동</option>
+                </select>
+                <span class="memo-label">수단</span>
+                <select class="memo-select" id="method-m065" onchange="saveMemo('m065')">
+                  <option value="">-</option>
+                  <option value="현금">현금</option>
+                  <option value="카드">카드</option>
+                  <option value="PayPay">PayPay</option>
+                </select>
+                <input class="memo-amount" id="amount-m065" type="number" placeholder="¥금액" oninput="saveMemo('m065')">
+              </div>
+              <div class="memo-row">
+                <span class="memo-label">메모</span>
+                <input class="memo-input" id="note-m065" type="text" placeholder="간단 메모..." oninput="saveMemo('m065')">
+              </div>
+              <div class="memo-saved" id="saved-m065">✓ 저장됨</div>
+            </div>
+          </details>
         </div>
       </li>
 
@@ -1619,16 +3397,152 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
   <div class="section-title">예상 예산 BUDGET</div>
   <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:16px;overflow:hidden;backdrop-filter:blur(8px);">
     <table class="budget-table">
-      <thead><tr><th>항목</th><th class="amt">금액 (1인)</th></tr></thead>
+      <thead>
+        <tr>
+          <th>항목</th>
+          <th class="amt">예상 (1인)</th>
+          <th class="amt" style="color:var(--sage);">실제 (1인)</th>
+        </tr>
+      </thead>
       <tbody>
-        <tr><td>✈ 항공권 (왕복)</td><td class="amt">80만원</td></tr>
-        <tr><td>🏨 숙소 4박</td><td class="amt">55만원</td></tr>
-        <tr><td>🚌 비에이·후라노 버스투어</td><td class="amt">약 6~8만원</td></tr>
-        <tr><td>🍜 식비 (5일)</td><td class="amt">약 2.5만엔</td></tr>
-        <tr><td>🚃 교통비 JR·지하철·현금</td><td class="amt">약 0.8만엔</td></tr>
-        <tr><td>🎟 입장료 (TV타워·AOAO 등)</td><td class="amt">약 0.6만엔</td></tr>
-        <tr><td colspan="2" style="padding:4px;"></td></tr>
-        <tr><td><strong>소계 (항공 제외)</strong></td><td class="amt"><strong>약 10만엔~</strong></td></tr>
+        <tr><td colspan="3" style="font-size:10px;font-weight:700;letter-spacing:2px;color:#aaa;padding:10px 16px 4px;">✈ 교통</td></tr>
+        <tr>
+          <td>항공권 (왕복)</td>
+          <td class="amt">80만원</td>
+          <td class="amt"><input class="budget-input" id="b01" type="text" placeholder="-" oninput="saveBudget('b01',this.value)"></td>
+        </tr>
+        <tr>
+          <td>JR·지하철·버스</td>
+          <td class="amt">약 0.8만엔</td>
+          <td class="amt"><input class="budget-input" id="b02" type="text" placeholder="-" oninput="saveBudget('b02',this.value)"></td>
+        </tr>
+        <tr>
+          <td>비에이·후라노 버스투어</td>
+          <td class="amt">약 6~8만원</td>
+          <td class="amt"><input class="budget-input" id="b03" type="text" placeholder="-" oninput="saveBudget('b03',this.value)"></td>
+        </tr>
+        <tr>
+          <td>오타루 운하 크루즈</td>
+          <td class="amt">1,800엔</td>
+          <td class="amt"><input class="budget-input" id="b04" type="text" placeholder="-" oninput="saveBudget('b04',this.value)"></td>
+        </tr>
+
+        <tr><td colspan="3" style="font-size:10px;font-weight:700;letter-spacing:2px;color:#aaa;padding:10px 16px 4px;">🏨 숙박</td></tr>
+        <tr>
+          <td>SAPPORO STREAM HOTEL 4박</td>
+          <td class="amt">약 55만원</td>
+          <td class="amt"><input class="budget-input" id="b05" type="text" placeholder="-" oninput="saveBudget('b05',this.value)"></td>
+        </tr>
+
+        <tr><td colspan="3" style="font-size:10px;font-weight:700;letter-spacing:2px;color:#aaa;padding:10px 16px 4px;">🍜 식비</td></tr>
+        <tr>
+          <td>DAY 1 — 유우히 징기스칸</td>
+          <td class="amt">약 5,000엔</td>
+          <td class="amt"><input class="budget-input" id="b06" type="text" placeholder="-" oninput="saveBudget('b06',this.value)"></td>
+        </tr>
+        <tr>
+          <td>DAY 1 — 오도리 비어가든</td>
+          <td class="amt">약 2,000엔</td>
+          <td class="amt"><input class="budget-input" id="b07" type="text" placeholder="-" oninput="saveBudget('b07',this.value)"></td>
+        </tr>
+        <tr>
+          <td>DAY 2 — 라멘 하루카</td>
+          <td class="amt">약 1,200엔</td>
+          <td class="amt"><input class="budget-input" id="b08" type="text" placeholder="-" oninput="saveBudget('b08',this.value)"></td>
+        </tr>
+        <tr>
+          <td>DAY 3 — 니조시장 돈베이</td>
+          <td class="amt">약 3,000엔</td>
+          <td class="amt"><input class="budget-input" id="b09" type="text" placeholder="-" oninput="saveBudget('b09',this.value)"></td>
+        </tr>
+        <tr>
+          <td>DAY 3 — 스아게 플러스</td>
+          <td class="amt">약 1,800엔</td>
+          <td class="amt"><input class="budget-input" id="b10" type="text" placeholder="-" oninput="saveBudget('b10',this.value)"></td>
+        </tr>
+        <tr>
+          <td>DAY 3 — 룽고카니발 / 나루본즈</td>
+          <td class="amt">약 6,000엔</td>
+          <td class="amt"><input class="budget-input" id="b11" type="text" placeholder="-" oninput="saveBudget('b11',this.value)"></td>
+        </tr>
+        <tr>
+          <td>DAY 4 — 삼각시장 + 창고No.1</td>
+          <td class="amt">약 5,000엔</td>
+          <td class="amt"><input class="budget-input" id="b12" type="text" placeholder="-" oninput="saveBudget('b12',this.value)"></td>
+        </tr>
+        <tr>
+          <td>DAY 4 — 다이치마트 야식</td>
+          <td class="amt">약 1,000엔</td>
+          <td class="amt"><input class="budget-input" id="b13" type="text" placeholder="-" oninput="saveBudget('b13',this.value)"></td>
+        </tr>
+        <tr>
+          <td>DAY 2 흰그림자투어 식사 포함</td>
+          <td class="amt">포함</td>
+          <td class="amt"><input class="budget-input" id="b14" type="text" placeholder="-" oninput="saveBudget('b14',this.value)"></td>
+        </tr>
+
+        <tr><td colspan="3" style="font-size:10px;font-weight:700;letter-spacing:2px;color:#aaa;padding:10px 16px 4px;">🎟 입장료·체험</td></tr>
+        <tr>
+          <td>홋카이도청 구본청사</td>
+          <td class="amt">300엔</td>
+          <td class="amt"><input class="budget-input" id="b15" type="text" placeholder="-" oninput="saveBudget('b15',this.value)"></td>
+        </tr>
+        <tr>
+          <td>홋카이도대학 식물원</td>
+          <td class="amt">420엔</td>
+          <td class="amt"><input class="budget-input" id="b16" type="text" placeholder="-" oninput="saveBudget('b16',this.value)"></td>
+        </tr>
+        <tr>
+          <td>오타루 운하 크루즈 입장</td>
+          <td class="amt">1,800엔</td>
+          <td class="amt"><input class="budget-input" id="b17" type="text" placeholder="-" oninput="saveBudget('b17',this.value)"></td>
+        </tr>
+
+        <tr><td colspan="3" style="font-size:10px;font-weight:700;letter-spacing:2px;color:#aaa;padding:10px 16px 4px;">🛍 쇼핑</td></tr>
+        <tr>
+          <td>볼앤체인·폴타운 (DAY 1)</td>
+          <td class="amt">미정</td>
+          <td class="amt"><input class="budget-input" id="b18" type="text" placeholder="-" oninput="saveBudget('b18',this.value)"></td>
+        </tr>
+        <tr>
+          <td>돈키호테 (DAY 1)</td>
+          <td class="amt">미정</td>
+          <td class="amt"><input class="budget-input" id="b19" type="text" placeholder="-" oninput="saveBudget('b19',this.value)"></td>
+        </tr>
+        <tr>
+          <td>쇼핑 1차전 (스텔라·다이마루·유니클로·몽벨)</td>
+          <td class="amt">미정</td>
+          <td class="amt"><input class="budget-input" id="b20" type="text" placeholder="-" oninput="saveBudget('b20',this.value)"></td>
+        </tr>
+        <tr>
+          <td>쇼핑 2차전 (모유크·베이프·무지)</td>
+          <td class="amt">미정</td>
+          <td class="amt"><input class="budget-input" id="b21" type="text" placeholder="-" oninput="saveBudget('b21',this.value)"></td>
+        </tr>
+        <tr>
+          <td>오타루 기념품 (카마에이·르타오 등)</td>
+          <td class="amt">미정</td>
+          <td class="amt"><input class="budget-input" id="b22" type="text" placeholder="-" oninput="saveBudget('b22',this.value)"></td>
+        </tr>
+
+        <tr><td colspan="3" style="font-size:10px;font-weight:700;letter-spacing:2px;color:#aaa;padding:10px 16px 4px;">🚲 기타</td></tr>
+        <tr>
+          <td>포로클 자전거 (B안)</td>
+          <td class="amt">165~1,760엔</td>
+          <td class="amt"><input class="budget-input" id="b23" type="text" placeholder="-" oninput="saveBudget('b23',this.value)"></td>
+        </tr>
+        <tr>
+          <td>기타 (간식·음료·예비비)</td>
+          <td class="amt">약 0.5만엔</td>
+          <td class="amt"><input class="budget-input" id="b24" type="text" placeholder="-" oninput="saveBudget('b24',this.value)"></td>
+        </tr>
+
+        <tr><td colspan="3" style="padding:4px;"></td></tr>
+        <tr style="background:rgba(107,143,113,0.08);">
+          <td><strong>합계 (항공 제외 · 1인)</strong></td>
+          <td class="amt"><strong>약 10만엔~</strong></td>
+          <td class="amt"><input class="budget-input" id="b99" type="text" placeholder="합산" oninput="saveBudget('b99',this.value)" style="font-weight:700;color:var(--sage);"></td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -2101,6 +4015,67 @@ function switchD3(plan) {
   }
 })();
 
+// 완료 체크 저장/로드
+function toggleCheck(id) {
+  var btn = document.getElementById(id);
+  if(!btn) return;
+  var done = btn.classList.toggle('done');
+  localStorage.setItem('check-'+id, done ? '1' : '0');
+}
+function loadChecks() {
+  document.querySelectorAll('.check-btn').forEach(function(btn) {
+    if(localStorage.getItem('check-'+btn.id) === '1') btn.classList.add('done');
+  });
+}
+document.addEventListener('DOMContentLoaded', loadChecks);
+setTimeout(loadChecks, 300);
+
+// 일기예보 (Open-Meteo 무료 API · 삿포로 좌표)
+(function(){
+  // 날짜별 day-header 매핑 (8/2~8/6)
+  var dayMap = [
+    { sel: '.d1', date: '2025-08-02' },
+    { sel: '.d2', date: '2025-08-03' },
+    { sel: '.d3', date: '2025-08-04' },
+    { sel: '.d4', date: '2025-08-05' },
+    { sel: '.d5', date: '2025-08-06' },
+  ];
+  var weatherIcon = { 0:'☀️', 1:'🌤', 2:'⛅', 3:'☁️', 45:'🌫', 48:'🌫', 51:'🌦', 53:'🌧', 55:'🌧', 61:'🌧', 63:'🌧', 65:'🌧', 71:'🌨', 73:'🌨', 80:'🌦', 81:'🌧', 95:'⛈', 96:'⛈' };
+  var url = 'https://api.open-meteo.com/v1/forecast?latitude=43.06&longitude=141.35&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&start_date=2025-08-02&end_date=2025-08-06';
+  fetch(url).then(function(r){ return r.json(); }).then(function(data){
+    var dates = data.daily.time;
+    var codes = data.daily.weathercode;
+    var maxT  = data.daily.temperature_2m_max;
+    var minT  = data.daily.temperature_2m_min;
+    dayMap.forEach(function(d, i){
+      var el = document.querySelector(d.sel);
+      if(!el) return;
+      var header = el.closest('.day-header');
+      if(!header) return;
+      var info = header.querySelector('.day-info');
+      if(!info) return;
+      var icon = weatherIcon[codes[i]] || '🌡';
+      var badge = document.createElement('span');
+      badge.className = 'weather-badge';
+      badge.textContent = icon + ' ' + Math.round(maxT[i]) + '°/' + Math.round(minT[i]) + '°';
+      info.appendChild(badge);
+    });
+  }).catch(function(){});
+})();
+
+// 예산 저장/로드
+function saveBudget(id, val) {
+  localStorage.setItem('budget-'+id, val);
+}
+function loadBudgets() {
+  document.querySelectorAll('.budget-input').forEach(function(el) {
+    var val = localStorage.getItem('budget-'+el.id);
+    if(val) el.value = val;
+  });
+}
+document.addEventListener('DOMContentLoaded', loadBudgets);
+setTimeout(loadBudgets, 300);
+
 // 파파고
 function openPapago(text) {
   var encoded = encodeURIComponent(text);
@@ -2112,6 +4087,34 @@ function openPapago(text) {
     : 'https://play.google.com/store/apps/details?id=com.naver.labs.translator';
   setTimeout(function() { window.open(webUrl, '_blank'); }, 1500);
 }
+
+// 메모·지출 저장/로드
+function saveMemo(id) {
+  var payer = document.getElementById('payer-'+id).value;
+  var method = document.getElementById('method-'+id).value;
+  var amount = document.getElementById('amount-'+id).value;
+  var note = document.getElementById('note-'+id).value;
+  var data = {payer:payer, method:method, amount:amount, note:note};
+  localStorage.setItem('memo-'+id, JSON.stringify(data));
+  var saved = document.getElementById('saved-'+id);
+  if(saved){ saved.style.opacity='1'; setTimeout(function(){ saved.style.opacity='0'; }, 1500); }
+}
+function loadMemos() {
+  document.querySelectorAll('[id^="payer-"]').forEach(function(el){
+    var id = el.id.replace('payer-','');
+    var raw = localStorage.getItem('memo-'+id);
+    if(!raw) return;
+    try {
+      var data = JSON.parse(raw);
+      if(data.payer) document.getElementById('payer-'+id).value = data.payer;
+      if(data.method) document.getElementById('method-'+id).value = data.method;
+      if(data.amount) document.getElementById('amount-'+id).value = data.amount;
+      if(data.note) document.getElementById('note-'+id).value = data.note;
+    } catch(e){}
+  });
+}
+document.addEventListener('DOMContentLoaded', loadMemos);
+setTimeout(loadMemos, 300);
 </script>
 </body>
 </html>
