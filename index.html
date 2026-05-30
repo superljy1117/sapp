@@ -75,7 +75,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:#f0f2f0;color:var(--ink);m
 .check-btn.done{background:var(--sage);border-color:var(--sage);color:white;}
 .sched-place-row{display:flex;align-items:center;gap:4px;}
 /* 날씨 뱃지 */
-.weather-badge{font-size:11px;padding:2px 8px;border-radius:8px;background:rgba(74,127,199,0.1);color:#4a7fc7;margin-left:8px;white-space:nowrap;}
+.weather-badge{font-size:10px;padding:1px 6px;border-radius:6px;background:rgba(74,127,199,0.12);color:#4a7fc7;margin-left:6px;white-space:nowrap;display:inline-block;vertical-align:middle;}
 .d3-tabs{display:none;padding:12px 20px 0}
 .day-card.open .d3-tabs{display:flex;gap:8px}
 
@@ -204,7 +204,7 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
     <div class="meta-chip">🍺 삿포로 맥주축제 기간</div>
     <div class="meta-chip">👥 성인 2명</div>
   </div>
-  <div id="updated-at" style="position:relative;z-index:3;" style="margin-top:14px;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.35);">LAST UPDATED — 2026.05.30 09:59:17</div>
+  <div id="updated-at" style="position:relative;z-index:3;" style="margin-top:14px;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.35);">LAST UPDATED — 2026.05.30 10:07:46</div>
   <div class="scroll-hint" style="position:relative;z-index:3;"><div class="scroll-line"></div><span>SCROLL</span></div>
 </section>
 
@@ -4032,35 +4032,48 @@ setTimeout(loadChecks, 300);
 
 // 일기예보 (Open-Meteo 무료 API · 삿포로 좌표)
 (function(){
-  // 날짜별 day-header 매핑 (8/2~8/6)
-  var dayMap = [
-    { sel: '.d1', date: '2025-08-02' },
-    { sel: '.d2', date: '2025-08-03' },
-    { sel: '.d3', date: '2025-08-04' },
-    { sel: '.d4', date: '2025-08-05' },
-    { sel: '.d5', date: '2025-08-06' },
-  ];
   var weatherIcon = { 0:'☀️', 1:'🌤', 2:'⛅', 3:'☁️', 45:'🌫', 48:'🌫', 51:'🌦', 53:'🌧', 55:'🌧', 61:'🌧', 63:'🌧', 65:'🌧', 71:'🌨', 73:'🌨', 80:'🌦', 81:'🌧', 95:'⛈', 96:'⛈' };
-  var url = 'https://api.open-meteo.com/v1/forecast?latitude=43.06&longitude=141.35&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&start_date=2025-08-02&end_date=2025-08-06';
+  var tripStart = new Date('2026-08-02');
+  var today = new Date();
+  var daysUntil = Math.floor((tripStart - today) / (1000*60*60*24));
+  var dayDates = document.querySelectorAll('.day-date');
+
+  // 2주(14일) 이상 남았으면 미정 표기
+  if(daysUntil > 14) {
+    for(var i=0; i<Math.min(5, dayDates.length); i++){
+      var badge = document.createElement('span');
+      badge.className = 'weather-badge';
+      badge.style.color = '#aaa';
+      badge.style.background = 'rgba(0,0,0,0.05)';
+      badge.textContent = ' 🌡 미정 (D-' + (daysUntil+i) + ')';
+      dayDates[i].appendChild(badge);
+    }
+    return;
+  }
+
+  // 2주 이내면 API 호출
+  var url = 'https://api.open-meteo.com/v1/forecast?latitude=43.06&longitude=141.35&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&start_date=2026-08-02&end_date=2026-08-06';
   fetch(url).then(function(r){ return r.json(); }).then(function(data){
-    var dates = data.daily.time;
     var codes = data.daily.weathercode;
     var maxT  = data.daily.temperature_2m_max;
     var minT  = data.daily.temperature_2m_min;
-    dayMap.forEach(function(d, i){
-      var el = document.querySelector(d.sel);
-      if(!el) return;
-      var header = el.closest('.day-header');
-      if(!header) return;
-      var info = header.querySelector('.day-info');
-      if(!info) return;
+    for(var i=0; i<Math.min(5, dayDates.length); i++){
       var icon = weatherIcon[codes[i]] || '🌡';
       var badge = document.createElement('span');
       badge.className = 'weather-badge';
-      badge.textContent = icon + ' ' + Math.round(maxT[i]) + '°/' + Math.round(minT[i]) + '°';
-      info.appendChild(badge);
-    });
-  }).catch(function(){});
+      badge.textContent = ' ' + icon + ' ' + Math.round(maxT[i]) + '°/' + Math.round(minT[i]) + '°';
+      dayDates[i].appendChild(badge);
+    }
+  }).catch(function(){
+    for(var i=0; i<Math.min(5, dayDates.length); i++){
+      var badge = document.createElement('span');
+      badge.className = 'weather-badge';
+      badge.style.color = '#aaa';
+      badge.style.background = 'rgba(0,0,0,0.05)';
+      badge.textContent = ' 🌡 미정';
+      dayDates[i].appendChild(badge);
+    }
+  });
 })();
 
 // 예산 저장/로드
