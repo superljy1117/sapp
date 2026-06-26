@@ -203,7 +203,7 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
     <div class="meta-chip">🌸 홋카이도 여름 여행</div>
     <div class="meta-chip">👥 성인 2명</div>
   </div>
-  <div id="updated-at" style="position:relative;z-index:3;margin-top:14px;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.9);">LAST UPDATED — 2026.06.26 23:52:58</div>
+  <div id="updated-at" style="position:relative;z-index:3;margin-top:14px;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.9);">LAST UPDATED — 2026.06.27 00:01:43</div>
   <div class="scroll-hint" style="position:relative;z-index:3;"><div class="scroll-line"></div><span>SCROLL</span></div>
 </section>
 
@@ -4283,6 +4283,15 @@ setTimeout(loadChecks, 300);
       badge.className = 'weather-badge';
       badge.textContent = ' ' + icon + ' ' + Math.round(maxT[i]) + '°/' + Math.round(minT[i]) + '°';
       dayDates[i].appendChild(badge);
+      // 탭 버튼에도 날씨 표시
+      var tabBtn = document.getElementById('day-tab-btn'+(i+1));
+      if(tabBtn){
+        var tabSpan = tabBtn.querySelector('span');
+        if(tabSpan){
+          var currentText = tabSpan.textContent.split('·')[0].trim();
+          tabSpan.textContent = currentText + ' · ' + icon + ' ' + Math.round(maxT[i]) + '°/' + Math.round(minT[i]) + '°';
+        }
+      }
     }
   }).catch(function(){
     for(var i=0; i<Math.min(5, dayDates.length); i++){
@@ -4292,6 +4301,15 @@ setTimeout(loadChecks, 300);
       badge.style.background = 'rgba(0,0,0,0.05)';
       badge.textContent = ' 🌡 미정';
       dayDates[i].appendChild(badge);
+      // 탭 버튼에도 미정 표시
+      var tabBtn = document.getElementById('day-tab-btn'+(i+1));
+      if(tabBtn){
+        var tabSpan = tabBtn.querySelector('span');
+        if(tabSpan){
+          var currentText = tabSpan.textContent.split('·')[0].trim();
+          tabSpan.textContent = currentText + ' · 🌡 미정';
+        }
+      }
     }
   });
 })();
