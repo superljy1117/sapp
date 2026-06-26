@@ -203,7 +203,7 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
     <div class="meta-chip">🌸 홋카이도 여름 여행</div>
     <div class="meta-chip">👥 성인 2명</div>
   </div>
-  <div id="updated-at" style="position:relative;z-index:3;margin-top:14px;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.9);">LAST UPDATED — 2026.06.27 00:01:43</div>
+  <div id="updated-at" style="position:relative;z-index:3;margin-top:14px;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.9);">LAST UPDATED — 2026.06.27 00:09:54</div>
   <div class="scroll-hint" style="position:relative;z-index:3;"><div class="scroll-line"></div><span>SCROLL</span></div>
 </section>
 
@@ -4119,6 +4119,7 @@ function switchDayTab(n) {
     if(!card || !btn) continue;
     if(i === n){
       card.style.display = '';
+      card.classList.add('open');
       btn.style.background = 'var(--sage)';
       btn.style.color = 'white';
       btn.style.borderColor = 'var(--sage)';
