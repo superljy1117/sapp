@@ -203,7 +203,7 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
     <div class="meta-chip">🌸 홋카이도 여름 여행</div>
     <div class="meta-chip">👥 성인 2명</div>
   </div>
-  <div id="updated-at" style="position:relative;z-index:3;margin-top:14px;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.9);">LAST UPDATED — 2026.06.23 13:57:57</div>
+  <div id="updated-at" style="position:relative;z-index:3;margin-top:14px;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.9);">LAST UPDATED — 2026.06.26 23:52:58</div>
   <div class="scroll-hint" style="position:relative;z-index:3;"><div class="scroll-line"></div><span>SCROLL</span></div>
 </section>
 
@@ -257,8 +257,18 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
 <div class="section fade-in">
   <div class="section-title">일정 ITINERARY</div>
 
+
+  <!-- DAY 탭 네비게이션 -->
+  <div id="day-tab-bar" style="display:flex;gap:8px;padding:4px 0 16px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;">
+    <button onclick="switchDayTab(1)" id="day-tab-btn1" style="flex:0 0 auto;padding:8px 18px;border-radius:20px;border:2px solid var(--sage);background:var(--sage);color:white;font-weight:700;font-size:13px;cursor:pointer;transition:all 0.2s;">DAY 1<br><span style="font-size:9px;font-weight:400;opacity:0.85;">8/2 일 · 삿포로 입성</span></button>
+    <button onclick="switchDayTab(2)" id="day-tab-btn2" style="flex:0 0 auto;padding:8px 18px;border-radius:20px;border:2px solid var(--border);background:var(--card-bg);color:#888;font-weight:700;font-size:13px;cursor:pointer;transition:all 0.2s;">DAY 2<br><span style="font-size:9px;font-weight:400;">8/3 월 · 비에이·후라노</span></button>
+    <button onclick="switchDayTab(3)" id="day-tab-btn3" style="flex:0 0 auto;padding:8px 18px;border-radius:20px;border:2px solid var(--border);background:var(--card-bg);color:#888;font-weight:700;font-size:13px;cursor:pointer;transition:all 0.2s;">DAY 3<br><span style="font-size:9px;font-weight:400;">8/4 화 · 시내·쇼핑</span></button>
+    <button onclick="switchDayTab(4)" id="day-tab-btn4" style="flex:0 0 auto;padding:8px 18px;border-radius:20px;border:2px solid var(--border);background:var(--card-bg);color:#888;font-weight:700;font-size:13px;cursor:pointer;transition:all 0.2s;">DAY 4<br><span style="font-size:9px;font-weight:400;">8/5 수 · 오타루</span></button>
+    <button onclick="switchDayTab(5)" id="day-tab-btn5" style="flex:0 0 auto;padding:8px 18px;border-radius:20px;border:2px solid var(--border);background:var(--card-bg);color:#888;font-weight:700;font-size:13px;cursor:pointer;transition:all 0.2s;">DAY 5<br><span style="font-size:9px;font-weight:400;">8/6 목 · 귀국</span></button>
+  </div>
+
   <!-- DAY 1 -->
-  <div class="day-card">
+  <div class="day-card" id="tab-day1">
     <div class="day-header" onclick="toggleDay(this)">
       <span class="day-num d1">DAY 1</span>
       <div class="day-info"><div class="day-date">8월 2일 일요일</div><div class="day-title">삿포로 입성 🍺</div></div>
@@ -979,7 +989,7 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
   </div>
 
   <!-- DAY 2 -->
-  <div class="day-card">
+  <div class="day-card" id="tab-day2" style="display:none;">
     <div class="day-header" onclick="toggleDay(this)">
       <span class="day-num d2">DAY 2</span>
       <div class="day-info"><div class="day-date">8월 3일 월요일</div><div class="day-title">비에이·후라노 일일투어 🌸</div></div>
@@ -1425,7 +1435,7 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
   </div>
 
     <!-- DAY 3 -->
-  <div class="day-card">
+  <div class="day-card" id="tab-day3" style="display:none;">
     <div class="day-header" onclick="toggleDay(this)">
       <span class="day-num d3">DAY 3</span>
       <div class="day-info"><div class="day-date">8월 4일 화요일</div><div class="day-title">삿포로 시내 & 쇼핑 🛍</div></div>
@@ -2125,7 +2135,7 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
           <div style="background:var(--mist);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:12px;">
             <div style="font-weight:700;margin-bottom:5px;">🛒 1차전 목표 매장 (①~④)</div>
             <div style="display:flex;flex-direction:column;gap:4px;color:#555;">
-              <div>① <b>스텔라플레이스</b> — <span style="color:#e8a020;font-weight:600;">⭐ 1층 쿠폰 먼저!</span> → 4층 볼앤체인 (L 2·M 2) + <span style="color:#4a7fc7;font-weight:600;">B1 BEAMS</span> + <span style="color:#e8193c;font-weight:600;">6층 무지</span></div>
+              <div>① <b>스텔라플레이스</b> — <span style="color:#e8a020;font-weight:600;">⭐ 1층 쿠폰 먼저!</span> → 4층 볼앤체인 (L 2·M 2) + <span style="color:#4a7fc7;font-weight:600;">B1 BEAMS</span> + <span style="color:#e8193c;font-weight:600;">6층 무지</span> (쌀겨부스터스킨·세럼·토너패드)</div>
               <div>② <b>다이마루</b> — 롱샴·면세 카운터 + <span style="color:#e8193c;font-weight:600;">🎮 8층 포켓몬센터 삿포로</span></div>
               <div>③ <b>몽벨 아카렌가</b> — 포켓터블 라이트 백팩 1~2개 + 트레킹 선글라스 (폴딩 트레일/트레킹 선글래스 · 모델 #1109126 또는 #1109131 · 렌즈 컬러별 모델 상이) + 지퍼코인월릿 (#JBEJXWZX261) + 미니지퍼월릿 (#JBEJXWZX254)</div>
               <div>④ <b>유니클로 삿포로 미츠코시점 10F</b> — 에어리즘 속옷 (미나미1조 니시3초메 · GU 같은 층)</div>
@@ -2477,7 +2487,7 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
 
 
     <!-- DAY 4 -->
-  <div class="day-card">
+  <div class="day-card" id="tab-day4" style="display:none;">
     <div class="day-header" onclick="toggleDay(this)">
       <span class="day-num d4">DAY 4</span>
       <div class="day-info"><div class="day-date">8월 5일 수요일</div><div class="day-title">오타루 당일치기 ⛵</div></div>
@@ -2911,7 +2921,7 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
   </div>
 
     <!-- DAY 5 -->
-  <div class="day-card">
+  <div class="day-card" id="tab-day5" style="display:none;">
     <div class="day-header" onclick="toggleDay(this)">
       <span class="day-num d5">DAY 5</span>
       <div class="day-info"><div class="day-date">8월 6일 목요일</div><div class="day-title">체크아웃 &amp; 귀국 ✈</div></div>
@@ -4102,6 +4112,28 @@ document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
 
 // DAY 3 A/B 탭 전환
+function switchDayTab(n) {
+  for(var i=1; i<=5; i++){
+    var card = document.getElementById('tab-day'+i);
+    var btn = document.getElementById('day-tab-btn'+i);
+    if(!card || !btn) continue;
+    if(i === n){
+      card.style.display = '';
+      btn.style.background = 'var(--sage)';
+      btn.style.color = 'white';
+      btn.style.borderColor = 'var(--sage)';
+    } else {
+      card.style.display = 'none';
+      btn.style.background = 'var(--card-bg)';
+      btn.style.color = '#888';
+      btn.style.borderColor = 'var(--border)';
+    }
+  }
+  // 탭 버튼 스크롤 중앙으로
+  var btn = document.getElementById('day-tab-btn'+n);
+  if(btn) btn.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+}
+
 function switchD3(plan) {
   const isA = plan === 'a';
   document.getElementById('d3-plan-a').style.display = isA ? '' : 'none';
