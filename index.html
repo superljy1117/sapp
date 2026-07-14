@@ -213,7 +213,7 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
       📡 다누키코지 라이브캠 (4초메)
     </a>
   </div>
-  <div id="updated-at" style="position:relative;z-index:3;margin-top:14px;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.9);">LAST UPDATED — 2026.07.14 18:39:01</div>
+  <div id="updated-at" style="position:relative;z-index:3;margin-top:14px;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.9);">LAST UPDATED — 2026.07.14 18:59:03</div>
   <div class="scroll-hint" style="position:relative;z-index:3;"><div class="scroll-line"></div><span>SCROLL</span></div>
 </section>
 
@@ -3715,13 +3715,20 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
       </tbody>
 
       <!-- 사용자 추가 항목 -->
+      <tbody id="custom-budget-rows-header" style="display:none;">
+        <tr>
+          <td colspan="3" style="padding:8px 8px 4px;">
+            <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--sage);border-top:1px dashed var(--border);padding-top:10px;">➕ 기타 지출 항목</div>
+          </td>
+        </tr>
+      </tbody>
       <tbody id="custom-budget-rows"></tbody>
 
       <tfoot>
         <tr>
           <td colspan="3" style="padding:10px 8px;">
             <button onclick="addCustomBudgetRow()" style="width:100%;padding:8px;background:rgba(107,143,113,0.1);border:1.5px dashed var(--sage);border-radius:10px;color:var(--sage);font-size:12px;font-weight:700;cursor:pointer;letter-spacing:1px;">
-              + 항목 추가
+              + 기타 항목 추가
             </button>
           </td>
         </tr>
@@ -3886,145 +3893,7 @@ footer{text-align:center;padding:40px 20px;font-size:11px;color:#aaa;letter-spac
 
 <div class="divider"></div>
 
-<!-- JAPANESE -->
-<div class="section fade-in">
-  <div class="section-title">필수 일어 회화 JAPANESE</div>
-  <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:20px;backdrop-filter:blur(8px);">
-    <div class="japanese-grid">
 
-      <div class="jp-section-title">👥 기본 인원·예약</div>
-      <div class="jp-card">
-        <div class="jp-label">몇 명이세요? (직원)</div>
-        <div class="jp-text">何名様ですか？<button onclick="openPapago('何名様ですか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
-        <div class="jp-reading">나나메사마데스카?</div>
-      </div>
-      <div class="jp-card">
-        <div class="jp-label">두 명이에요</div>
-        <div class="jp-text">🗣 ふたりです<button onclick="openPapago('ふたりです')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
-        <div class="jp-reading">후타리데스</div>
-      </div>
-      <div class="jp-card">
-        <div class="jp-label">예약하셨나요? (직원)</div>
-        <div class="jp-text">ご予約はございますか？<button onclick="openPapago('ご予約はございますか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
-        <div class="jp-reading">고요야쿠와 고자이마스카?</div>
-      </div>
-      <div class="jp-card">
-        <div class="jp-label">창가 자리 부탁해요</div>
-        <div class="jp-text">🗣 窓側の席をお願いします<button onclick="openPapago('窓側の席をお願いします')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
-        <div class="jp-reading">마도가와노 세키오 오네가이시마스</div>
-      </div>
-
-      <div class="jp-section-title">🍜 식당</div>
-      <div class="jp-card">
-        <div class="jp-label">주문하시겠어요? (직원)</div>
-        <div class="jp-text">ご注文はお決まりですか？<button onclick="openPapago('ご注文はお決まりですか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
-        <div class="jp-reading">고추몬와 오키마리데스카?</div>
-      </div>
-      <div class="jp-card">
-        <div class="jp-label">이거 하나씩 주세요</div>
-        <div class="jp-text">🗣 これと、これをひとつずつください<button onclick="openPapago('これと、これをひとつずつください')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
-        <div class="jp-reading">코레토, 코레오 히토츠즈츠 쿠다사이</div>
-      </div>
-      <div class="jp-card">
-        <div class="jp-label">추가 주문해도 되나요?</div>
-        <div class="jp-text">🗣 すみません、追加注文いいですか？<button onclick="openPapago('すみません、追加注文いいですか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
-        <div class="jp-reading">스미마셍, 추이카추몬 이이데스카?</div>
-      </div>
-      <div class="jp-card">
-        <div class="jp-label">물 주세요</div>
-        <div class="jp-text">🗣 お水をください<button onclick="openPapago('お水をください')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
-        <div class="jp-reading">오미즈오 쿠다사이</div>
-      </div>
-      <div class="jp-card">
-        <div class="jp-label">계산해 주세요</div>
-        <div class="jp-text">🗣 お会計をお願いします<button onclick="openPapago('お会計をお願いします')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
-        <div class="jp-reading">오카이케이오 오네가이시마스</div>
-      </div>
-
-      <div class="jp-section-title">💳 결제·면세</div>
-      <div class="jp-card">
-        <div class="jp-label">결제 방법은요? (직원)</div>
-        <div class="jp-text">お支払い方法はどうされますか？<button onclick="openPapago('お支払い方法はどうされますか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
-        <div class="jp-reading">오시하라이호호와 도우사레마스카?</div>
-      </div>
-      <div class="jp-card">
-        <div class="jp-label">카드로요 / 현금으로요</div>
-        <div class="jp-text">🗣 カードで / 現金で<button onclick="openPapago('カードで。現金で')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
-        <div class="jp-reading">카도데 / 겐킨데</div>
-      </div>
-      <div class="jp-card">
-        <div class="jp-label">면세 부탁해요 (여권이에요)</div>
-        <div class="jp-text">🗣 免税をお願いします。パスポートはこれです<button onclick="openPapago('免税をお願いします。パスポートはこれです')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
-        <div class="jp-reading">멘제이오 오네가이시마스. 파스포토와 코레데스</div>
-      </div>
-      <div class="jp-card">
-        <div class="jp-label">영수증 주세요</div>
-        <div class="jp-text">🗣 レシートをください<button onclick="openPapago('レシートをください')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
-        <div class="jp-reading">레시토오 쿠다사이</div>
-      </div>
-
-      <div class="jp-section-title">🛍 쇼핑</div>
-      <div class="jp-card">
-        <div class="jp-label">찾으시는 게 있나요? (직원)</div>
-        <div class="jp-text">何かお探しですか？<button onclick="openPapago('何かお探しですか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
-        <div class="jp-reading">나니카 오사가시데스카?</div>
-      </div>
-      <div class="jp-card">
-        <div class="jp-label">그냥 보는 거예요</div>
-        <div class="jp-text">🗣 見ているだけです<button onclick="openPapago('見ているだけです')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
-        <div class="jp-reading">미테이루다케데스</div>
-      </div>
-      <div class="jp-card">
-        <div class="jp-label">다른 사이즈/색상 있어요?</div>
-        <div class="jp-text">🗣 別のサイズ／色はありますか？<button onclick="openPapago('別のサイズ、色はありますか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
-        <div class="jp-reading">베츠노 사이즈 / 이로와 아리마스카?</div>
-      </div>
-      <div class="jp-card">
-        <div class="jp-label">라지 사이즈 있어요?</div>
-        <div class="jp-text">🗣 ラージサイズはありますか？<button onclick="openPapago('ラージサイズはありますか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
-        <div class="jp-reading">라지사이즈와 아리마스카?</div>
-      </div>
-      <div class="jp-card">
-        <div class="jp-label">검정 색상 있어요?</div>
-        <div class="jp-text">🗣 黒色はありますか？<button onclick="openPapago('黒色はありますか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
-        <div class="jp-reading">쿠로이로와 아리마스카?</div>
-      </div>
-      <div class="jp-card">
-        <div class="jp-label">선물 포장 되나요?</div>
-        <div class="jp-text">🗣 ギフト包装はできますか？大切な方へのプレゼントなので<button onclick="openPapago('ギフト包装はできますか？大切な方へのプレゼントなので')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
-        <div class="jp-reading">기후토 호소우와 데키마스카? 타이세츠나 카타에노 프레젠토나노데</div>
-      </div>
-      <div class="jp-card">
-        <div class="jp-label">선물 포장 해주세요</div>
-        <div class="jp-text">🗣 プレゼント用に包んでいただけますか？<button onclick="openPapago('プレゼント用に包んでいただけますか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
-        <div class="jp-reading">프레젠토요우니 츠츤데 이타다케마스카?</div>
-      </div>
-      <div class="jp-card">
-        <div class="jp-label">보냉백 주실 수 있어요?</div>
-        <div class="jp-text">🗣 保冷袋をいただけますか？<button onclick="openPapago('保冷袋をいただけますか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
-        <div class="jp-reading">호레이부쿠로오 이타다케마스카?</div>
-      </div>
-
-      <div class="jp-section-title">🔍 기타</div>
-      <div class="jp-card">
-        <div class="jp-label">화장실이 어디예요?</div>
-        <div class="jp-text">🗣 トイレはどこですか？<button onclick="openPapago('トイレはどこですか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
-        <div class="jp-reading">토이레와 도코데스카?</div>
-      </div>
-      <div class="jp-card">
-        <div class="jp-label">한국어 메뉴 있어요?</div>
-        <div class="jp-text">🗣 韓国語のメニューはありますか？<button onclick="openPapago('韓国語のメニューはありますか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
-        <div class="jp-reading">칸코쿠고노 메뉴와 아리마스카?</div>
-      </div>
-      <div class="jp-card">
-        <div class="jp-label">사진 찍어도 돼요?</div>
-        <div class="jp-text">🗣 写真を撮ってもいいですか？<button onclick="openPapago('写真を撮ってもいいですか')" style="margin-left:8px;padding:3px 10px;background:#03c75a;color:white;border:none;border-radius:12px;font-size:11px;cursor:pointer;">🟢 파파고</button></div>
-        <div class="jp-reading">샤신오 톳테모 이이데스카?</div>
-      </div>
-
-    </div>
-  </div>
-</div>
 
 <footer>✈ SAPPORO 4N5D TRAVEL PLAN &nbsp;·&nbsp; 2026.08.02 – 08.06 &nbsp;·&nbsp; Made with Claude</footer>
 
@@ -4280,12 +4149,15 @@ function addCustomBudgetRow(name, est, act) {
   customBudgetCount++;
   var idx = customBudgetCount;
   var tbody = document.getElementById('custom-budget-rows');
+  var header = document.getElementById('custom-budget-rows-header');
   if(!tbody) return;
+  // 헤더 표시
+  if(header) header.style.display = '';
   var tr = document.createElement('tr');
   tr.id = 'custom-row-' + idx;
   tr.innerHTML =
     '<td style="padding:4px 8px;">' +
-      '<input type="text" placeholder="항목명 입력..." value="' + (name||'') + '" ' +
+      '<input type="text" placeholder="항목명 (예: 여행자보험)" value="' + (name||'') + '" ' +
       'style="width:100%;border:none;background:transparent;font-size:12px;color:var(--ink);outline:none;border-bottom:1px dashed var(--border);" ' +
       'oninput="saveCustomBudget()" id="cname-'+idx+'">' +
     '</td>' +
@@ -4298,15 +4170,23 @@ function addCustomBudgetRow(name, est, act) {
       '<input type="text" placeholder="-" value="' + (act||'') + '" ' +
       'style="flex:1;border:none;background:transparent;font-size:12px;text-align:right;color:var(--sage);outline:none;" ' +
       'oninput="saveCustomBudget()" id="cact-'+idx+'">' +
-      '<button onclick="removeCustomBudgetRow('+idx+')" style="background:none;border:none;color:#ccc;cursor:pointer;font-size:14px;padding:0 2px;">×</button>' +
+      '<button onclick="removeCustomBudgetRow('+idx+')" title="삭제" style="background:none;border:none;color:#ccc;cursor:pointer;font-size:16px;padding:0 2px;line-height:1;">×</button>' +
     '</td>';
   tbody.appendChild(tr);
+  // 새 항목 추가 시 항목명 포커스
+  setTimeout(function(){ var el = document.getElementById('cname-'+idx); if(el) el.focus(); }, 50);
   saveCustomBudget();
 }
 
 function removeCustomBudgetRow(idx) {
   var row = document.getElementById('custom-row-' + idx);
   if(row) row.remove();
+  // 항목 없으면 헤더 숨기기
+  var tbody = document.getElementById('custom-budget-rows');
+  var header = document.getElementById('custom-budget-rows-header');
+  if(tbody && header && tbody.querySelectorAll('tr').length === 0) {
+    header.style.display = 'none';
+  }
   saveCustomBudget();
 }
 
@@ -4333,6 +4213,11 @@ function loadCustomBudget() {
     data.forEach(function(d) {
       addCustomBudgetRow(d.name, d.est, d.act);
     });
+    // 항목 있으면 헤더 표시
+    if(data.length > 0) {
+      var header = document.getElementById('custom-budget-rows-header');
+      if(header) header.style.display = '';
+    }
   } catch(e) {}
 }
 
